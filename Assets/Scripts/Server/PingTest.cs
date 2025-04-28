@@ -3,7 +3,6 @@ using Steamworks;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -43,8 +42,7 @@ namespace Server
 
         private void Pong()
         {
-            int i = 0;
-            while (i < IdList.Count)
+            while (true)
             {
                 if (SteamNetworking.IsP2PPacketAvailable())
                 {
@@ -60,14 +58,12 @@ namespace Server
                             case "pong":
                                 receivedTime.Add(packet.Value.SteamId, DateTime.Now.Millisecond);
                                 Debug.Log("Receive Pong");
-                                i++;
+                                IsReadDone = true;
                                 break;
                         }
                     }
                 }
             }
-
-            IsReadDone = true;
         }
 
         public string PingTestResult()

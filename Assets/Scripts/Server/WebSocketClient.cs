@@ -31,6 +31,7 @@ namespace Server
                 await webSocket.ConnectAsync(
                     new Uri(Constant.WEBSOCKET_URL(websocket_token, SteamNetworkManager.Manager.LocalSteamIdString)),
                     cts.Token);
+                Print("Connect");
                 string response = await ReceiveMessageLoop();
                 string jsonPart = response.Substring("PingTest:".Length);
                 List<PingTestDTO> list = JsonSerializer.Deserialize<List<PingTestDTO>>(jsonPart);
@@ -62,13 +63,13 @@ namespace Server
                     var result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), cts.Token);
                     if (result.MessageType == WebSocketMessageType.Close)
                     {
-                        Debug.Log("서버가 연결을 종료했습니다.");
+                        Print("Server Closed Connection");
                         await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, cts.Token);
                     }
                     else
                     {
                         string message = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                        Debug.Log(message);
+                        Print(message);
                         return message;
                     }
                 }
@@ -96,7 +97,7 @@ namespace Server
         {
             if (webSocket.State != WebSocketState.Open)
             {
-                Debug.Log("WebSocket not connected");
+                Print("Not Connected");
                 return;
             }
 
@@ -105,7 +106,45 @@ namespace Server
 
             await webSocket.SendAsync(segment, WebSocketMessageType.Text, true, cts.Token);
         }
+
+        async void OnDestroy()
+        {
+            await StopMatching();
+        }
+
+        async void OnApplicationQuit()
+        {
+            await StopMatching();
+        }
+
+        private async Task StopMatching()
+        {
+            if (webSocket.State == WebSocketState.Open || webSocket.State == WebSocketState.Connecting)
+            {
+                try
+                {
+                    await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Closing", CancellationToken.None);
+                    Print("Closed");
+                }
+                catch (Exception e)
+                {
+                    Print(e.Message);
+                }
+            }
+            
+            webSocket.Dispose();
+            webSocket = null;
+            cts.Cancel();
+            cts.Dispose();
+            cts = null;
+        }
+
+        private void Print(string message)
+        {
+            Debug.Log("[WebSocket] > " + message);
+        }
     }
+
     class WebSocketTokenDTO
     {
         public string webSocketToken { get; set; }
