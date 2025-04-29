@@ -33,7 +33,7 @@ namespace Server
 
                     if (SteamNetworking.SendP2PPacket(steamID, data))
                     {
-                        Debug.Log("Send Ping");
+                        Print("Send Ping");
                         sentTime.Add(steamID, DateTime.Now.Millisecond);
                     }
                 }
@@ -53,11 +53,11 @@ namespace Server
                         {
                             case "ping":
                                 SteamNetworking.SendP2PPacket(packet.Value.SteamId, Encoding.UTF8.GetBytes("pong"));
-                                Debug.Log("Send Pong");
+                                Print("Send Pong");
                                 break;
                             case "pong":
                                 receivedTime.Add(packet.Value.SteamId, DateTime.Now.Millisecond);
-                                Debug.Log("Receive Pong");
+                                Print("Received Pong");
                                 IsReadDone = true;
                                 break;
                         }
@@ -77,6 +77,11 @@ namespace Server
             }
 
             return JsonSerializer.Serialize(result);
+        }
+
+        public void Print(string message)
+        {
+            Debug.Log("[PingTest] > " + message);
         }
     }
 

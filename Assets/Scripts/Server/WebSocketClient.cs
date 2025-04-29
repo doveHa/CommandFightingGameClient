@@ -37,18 +37,19 @@ namespace Server
                 List<PingTestDTO> list = JsonSerializer.Deserialize<List<PingTestDTO>>(jsonPart);
                 pingTest.Start(list);
                 StartCoroutine(WaitPong());
+                string pingTestResult = await ReceiveMessage();
+                Print(pingTestResult);
             }
             catch (Exception e)
             {
-                Debug.Log(e);
+                Print(e.Message);
             }
         }
 
         private IEnumerator WaitPong()
         {
             yield return new WaitUntil(() => pingTest.IsReadDone);
-
-            Debug.Log(pingTest.PingTestResult());
+            Print(pingTest.PingTestResult());
             SendMessage(pingTest.PingTestResult());
         }
 
@@ -75,7 +76,7 @@ namespace Server
                 }
                 catch (Exception e)
                 {
-                    Debug.Log(e.Message);
+                    Print(e.Message);
                     break;
                 }
             }
@@ -107,6 +108,31 @@ namespace Server
             await webSocket.SendAsync(segment, WebSocketMessageType.Text, true, cts.Token);
         }
 
+        public async Task<string> ReceiveMessage()
+        {
+            byte[] buffer = new byte[1024];
+
+            while (webSocket.State == WebSocketState.Open)
+            {
+                WebSocketReceiveResult result =
+                    await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+
+                if (result.MessageType == WebSocketMessageType.Close)
+                {
+                    Print("Server Closed Connection");
+                    await StopMatching();
+                }
+                else
+                {
+                    string message = Encoding.UTF8.GetString(buffer, 0, result.Count);
+                    Print("Server send " + message);
+                    return message;
+                }
+            }
+
+            return null;
+        }
+
         async void OnDestroy()
         {
             await StopMatching();
@@ -126,14 +152,21 @@ namespace Server
                     await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Closing", CancellationToken.None);
                     Print("Closed");
                 }
-                catch (Exception e)
+                catch (WebSocketException wse)
                 {
-                    Print(e.Message);
+                    Print($"WebSocketException during close: {wse.Message}");
+                }
+                catch (Exception ex)
+                {
+                    Print($"Unexpected error during WebSocket close: {ex.Message}");
+                }
+                finally
+                {
+                    webSocket.Dispose();
+                    webSocket = null;
                 }
             }
-            
-            webSocket.Dispose();
-            webSocket = null;
+
             cts.Cancel();
             cts.Dispose();
             cts = null;
