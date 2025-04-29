@@ -50,7 +50,8 @@ namespace Server
         {
             yield return new WaitUntil(() => pingTest.IsReadDone);
             Print(pingTest.PingTestResult());
-            SendMessage(pingTest.PingTestResult());
+            yield return new WaitForTask(SendMessage(pingTest.PingTestResult()));
+            //SendMessage(pingTest.PingTestResult());
         }
 
         private async Task<string> ReceiveMessageLoop()
@@ -106,6 +107,7 @@ namespace Server
             ArraySegment<byte> segment = new ArraySegment<byte>(bytes);
 
             await webSocket.SendAsync(segment, WebSocketMessageType.Text, true, cts.Token);
+            Print("Waiting Response...");
         }
 
         public async Task<string> ReceiveMessage()
@@ -114,9 +116,10 @@ namespace Server
 
             while (webSocket.State == WebSocketState.Open)
             {
+                Print("Waiting For Message...");
                 WebSocketReceiveResult result =
                     await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-
+                Print("Response Received");
                 if (result.MessageType == WebSocketMessageType.Close)
                 {
                     Print("Server Closed Connection");
@@ -181,5 +184,16 @@ namespace Server
     class WebSocketTokenDTO
     {
         public string webSocketToken { get; set; }
+    }
+
+    public class WaitForTask : CustomYieldInstruction
+    {
+        private Task task;
+        public override bool keepWaiting => !task.IsCompleted;
+
+        public WaitForTask(Task task)
+        {
+            this.task = task;
+        }
     }
 }
