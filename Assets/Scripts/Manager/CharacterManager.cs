@@ -32,20 +32,23 @@ namespace Manager
             characterSet.transform.Find(PlayerCharacterName).gameObject.SetActive(true);
         }
 
-        async void Awake()
+        void Awake()
         {
             DontDestroyOnLoad(gameObject);
             if (Manager == null)
             {
                 Manager = this;
             }
+        }
 
+        public async Task Initialize()
+        {
             CharacterGroup = new CharacterGroup();
             await GetCharacter();
             await GetCustomCommand();
             CharacterGroup.InitializeCurrentCommandList();
         }
-
+        
         public async Task GetCharacter()
         {
             try

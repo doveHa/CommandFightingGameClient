@@ -3,6 +3,7 @@ using UnityEngine;
 using Handler;
 using Manager;
 using Server;
+using UnityEngine.Serialization;
 
 namespace ButtonMapping
 {
@@ -11,7 +12,6 @@ namespace ButtonMapping
         [SerializeField] private GameObject userMainGroup, characterInfoGroup;
         [SerializeField] private CharacterSelectHandler characterSelectHandler;
         [SerializeField] private CommandRecodeHandler commandRecodeHandler;
-        [SerializeField] private WebSocketClient webSocketClient;
         
         public void mainToCharacterInfo()
         {
@@ -37,14 +37,6 @@ namespace ButtonMapping
 
             CharacterManager.Manager.CharacterOn();
         }
-
-        public async void MatchingStart()
-        {
-            SteamNetworkManager.Manager.RemoteSteamIdString = Constant.SteamNetworkingType.REMOTESTEAMID;
-            await webSocketClient.StartConnect();
-            //SteamNetworkManager.Manager.StartP2P();
-        }
-
         public void Logout()
         {
             Authentication.Authentication.logout(LoginManager.Manager.GetTokens().refreshToken);

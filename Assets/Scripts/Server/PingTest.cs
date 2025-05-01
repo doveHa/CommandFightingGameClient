@@ -15,8 +15,11 @@ namespace Server
         Dictionary<ulong, float> sentTime = new Dictionary<ulong, float>();
         Dictionary<ulong, float> receivedTime = new Dictionary<ulong, float>();
 
-        public void Start(List<PingTestDTO> list)
+        public void Start(string json)
         {
+            string jsonPart = json.Substring("PingTest:".Length);
+            List<PingTestDTO> list = JsonSerializer.Deserialize<List<PingTestDTO>>(jsonPart);
+
             IdList = list;
             Task.Run(Ping);
             Task.Run(Pong);
@@ -66,6 +69,19 @@ namespace Server
             }
         }
 
+        private string FindKey(string steamId)
+        {
+            foreach (PingTestDTO dto in IdList)
+            {
+                if (dto.Value == steamId)
+                {
+                    return dto.Key;
+                }
+            }
+
+            return null;
+        }
+
         public string PingTestResult()
         {
             Dictionary<string, float> result = new Dictionary<string, float>();
@@ -73,21 +89,22 @@ namespace Server
             {
                 ulong steamId = pair.Key;
                 float ping = receivedTime[steamId] - sentTime[steamId];
-                result.Add(steamId.ToString(), ping);
+                string key = FindKey(steamId.ToString());
+                result.Add(key, ping);
             }
 
-            return JsonSerializer.Serialize(result);
+            return "PingResult:" + JsonSerializer.Serialize(result);
         }
 
         public void Print(string message)
         {
             Debug.Log("[PingTest] > " + message);
         }
-    }
 
-    public class PingTestDTO
-    {
-        public string Key { get; set; }
-        public string Value { get; set; }
+        private class PingTestDTO
+        {
+            public string Key { get; set; }
+            public string Value { get; set; }
+        }
     }
 }

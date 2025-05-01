@@ -31,7 +31,7 @@ namespace Authentication
                 LoginManager.Manager.SetTokens(JsonSerializer.Deserialize<AuthTokensDTO>(response.Content));
                 string pName = await GetPlayerName();
                 await PlayerLogin(pName);
-                LoginManager.Manager.Login();
+                await LoginManager.Manager.Login();
             }
         }
 

@@ -1,4 +1,5 @@
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using Authentication;
 using DTO;
@@ -40,13 +41,14 @@ namespace Manager
             this.tokensDto = tokensDto;
         }
 
-        public void Login()
+        public async Task Login()
         {
             isLoggedIn = true;
 
             switch (tokensDto.role)
             {
                 case "User":
+                    await CharacterManager.Manager.Initialize();
                     SceneLoadManager.Manager.LoadUserMainScene();
                     break;
                 case "Administer":

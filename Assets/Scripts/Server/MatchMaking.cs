@@ -12,14 +12,19 @@ using UnityEngine;
 
 namespace Server
 {
-    public class WebSocketClient : MonoBehaviour
+    public class MatchMaking : MonoBehaviour
     {
         private PingTest pingTest;
         private ClientWebSocket webSocket;
         private CancellationTokenSource cts;
         private string websocket_token;
 
-        public async Task StartConnect()
+        public async void StartMatching()
+        {
+            await StartConnect();
+        }
+
+        private async Task StartConnect()
         {
             try
             {
@@ -27,64 +32,63 @@ namespace Server
                 webSocket = new ClientWebSocket();
                 cts = new CancellationTokenSource();
 
+                //WebSocket 연결
                 await GetWebSocketToken();
                 await webSocket.ConnectAsync(
                     new Uri(Constant.WEBSOCKET_URL(websocket_token, SteamNetworkManager.Manager.LocalSteamIdString)),
                     cts.Token);
                 Print("Connect");
-                string response = await ReceiveMessageLoop();
-                string jsonPart = response.Substring("PingTest:".Length);
-                List<PingTestDTO> list = JsonSerializer.Deserialize<List<PingTestDTO>>(jsonPart);
-                pingTest.Start(list);
+
+                //서버에서 송신한 대기열 수신 및 핑테스트 진행
+                pingTest.Start(await ReceiveMessageAsync());
                 StartCoroutine(WaitPong());
-                string pingTestResult = await ReceiveMessage();
-                Print(pingTestResult);
+                
+                //서버에서 송신한 상대 SteamID 설정 및 P2P 시작
+                SteamNetworkManager.Manager.RemoteSteamIdString = SplitMatchID(await ReceiveMessageAsync());
+                SteamNetworkManager.Manager.StartP2P();
             }
             catch (Exception e)
             {
                 Print(e.Message);
             }
         }
-
+        
         private IEnumerator WaitPong()
         {
             yield return new WaitUntil(() => pingTest.IsReadDone);
             Print(pingTest.PingTestResult());
             yield return new WaitForTask(SendMessage(pingTest.PingTestResult()));
-            //SendMessage(pingTest.PingTestResult());
+        }
+        
+        private string SplitMatchID(string response)
+        {
+            string split = response.Split(",")[0];
+            return split.Substring("Match:".Length);
         }
 
-        private async Task<string> ReceiveMessageLoop()
+       private async Task<string> ReceiveMessageAsync()
         {
             byte[] buffer = new byte[1024];
 
-            while (webSocket.State == WebSocketState.Open)
+            try
             {
-                try
+                WebSocketReceiveResult result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), cts.Token);
+                if (result.MessageType == WebSocketMessageType.Close)
                 {
-                    var result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), cts.Token);
-                    if (result.MessageType == WebSocketMessageType.Close)
-                    {
-                        Print("Server Closed Connection");
-                        await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, cts.Token);
-                    }
-                    else
-                    {
-                        string message = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                        Print(message);
-                        return message;
-                    }
+                    Print("Server Closed Connection");
+                    await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, cts.Token);
+                    return null;
                 }
-                catch (Exception e)
-                {
-                    Print(e.Message);
-                    break;
-                }
+
+                return Encoding.UTF8.GetString(buffer, 0, result.Count);
             }
-
-            return null;
+            catch (Exception e)
+            {
+                Print(e.Message);
+                return null;
+            }
         }
-
+        
         private async Task GetWebSocketToken()
         {
             RestResponse response = await RestAPIRequest.Post<string>(Constant.RestAPI.Auth.WEBSOCKET_TOKEN, null,
@@ -110,31 +114,6 @@ namespace Server
             Print("Waiting Response...");
         }
 
-        public async Task<string> ReceiveMessage()
-        {
-            byte[] buffer = new byte[1024];
-
-            while (webSocket.State == WebSocketState.Open)
-            {
-                Print("Waiting For Message...");
-                WebSocketReceiveResult result =
-                    await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-                Print("Response Received");
-                if (result.MessageType == WebSocketMessageType.Close)
-                {
-                    Print("Server Closed Connection");
-                    await StopMatching();
-                }
-                else
-                {
-                    string message = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                    Print("Server send " + message);
-                    return message;
-                }
-            }
-
-            return null;
-        }
 
         async void OnDestroy()
         {

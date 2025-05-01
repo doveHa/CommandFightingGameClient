@@ -9,6 +9,8 @@ public static class Constant
     {
         //URL 인코딩하기
         return "ws://dksysd-home-server.duckdns.org:8080/api/matchmaking?websocket_token=" + websocketToken + "&steam_id=" + steamId;
+        //return "ws://localhost:5110/api/matchmaking?websocket_token=" + websocketToken + "&steam_id=" + steamId;
+
     }
 
     public const string SERVER_IP = "192.168.219.104";
