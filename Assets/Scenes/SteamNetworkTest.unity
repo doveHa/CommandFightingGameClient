@@ -203,8 +203,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 412006341}
-        m_TargetAssemblyTypeName: SteamNetworkManager, Assembly-CSharp
-        m_MethodName: SendMsg
+        m_TargetAssemblyTypeName: Manager.SteamNetworkManager, Assembly-CSharp
+        m_MethodName: SendTestMessage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

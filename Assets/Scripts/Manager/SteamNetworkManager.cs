@@ -34,6 +34,7 @@ namespace Manager
                     }
 
                     PlayerSteamId = SteamClient.SteamId;
+                    Print(PlayerSteamId.ToString());
 
                     LocalSteamIdString = PlayerSteamId.ToString();
 
@@ -72,6 +73,29 @@ namespace Manager
             }
         }
 
+        public void SendTestMessage()
+        {
+            byte[] data = Encoding.UTF8.GetBytes("TestMessage");
+            //ulong targetSteamId = 76561198853166461;
+            ulong targetSteamId = 76561199834491206;
+            bool result = SteamNetworking.SendP2PPacket(targetSteamId, data);
+            Print(result.ToString());
+        }
+
+        void Update()
+        {
+            while (SteamNetworking.IsP2PPacketAvailable())
+            {
+                var packet = SteamNetworking.ReadP2PPacket();
+
+                if (packet.HasValue)
+                {
+                    string receivedMessage = Encoding.UTF8.GetString(packet.Value.Data);
+                    CharacterManager.Manager.OpponentCharacterName = receivedMessage;
+                    Print($"{packet.Value.SteamId} 로부터 메시지 수신: {receivedMessage}");
+                }
+            }
+        }
 
         public void SendMsg(int type, string msg)
         {
@@ -98,6 +122,5 @@ namespace Manager
         {
             Debug.Log("[SteamNetworkManager] > " + message);
         }
-
     }
 }

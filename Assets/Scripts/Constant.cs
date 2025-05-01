@@ -63,7 +63,7 @@ public static class Constant
     public static class SteamNetworkingType
     {
         //Hadove02 계정 SteamID
-        public const string REMOTESTEAMID = "76561198853166461";
+        //public const string REMOTESTEAMID = "76561198853166461";
 
         //doveHa02 계정 SteamID
         //public const string REMOTESTEAMID = "76561199834491206";
