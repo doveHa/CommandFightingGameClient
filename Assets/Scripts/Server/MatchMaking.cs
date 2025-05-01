@@ -45,6 +45,7 @@ namespace Server
                 
                 //서버에서 송신한 상대 SteamID 설정 및 P2P 시작
                 SteamNetworkManager.Manager.RemoteSteamIdString = SplitMatchID(await ReceiveMessageAsync());
+                Print(SteamNetworkManager.Manager.RemoteSteamIdString);
                 SteamNetworkManager.Manager.StartP2P();
             }
             catch (Exception e)

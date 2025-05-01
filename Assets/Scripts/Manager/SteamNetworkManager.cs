@@ -57,15 +57,16 @@ namespace Manager
 
         IEnumerator OpponentCharacter()
         {
+            Print("Waiting for Packet");
             yield return new WaitUntil(() => SteamNetworking.IsP2PPacketAvailable());
-            Debug.Log("Received P2P packet");
+            Print("Received P2P Packet");
             var packet = SteamNetworking.ReadP2PPacket();
 
             if (packet.HasValue)
             {
                 string receivedMessage = Encoding.UTF8.GetString(packet.Value.Data);
                 CharacterManager.Manager.OpponentCharacterName = receivedMessage;
-                Debug.Log($"[Steam] {packet.Value.SteamId} 로부터 메시지 수신: {receivedMessage}");
+                Print($"{packet.Value.SteamId} 로부터 메시지 수신: {receivedMessage}");
 
                 SceneLoadManager.Manager.LoadGameScene();
             }
@@ -83,13 +84,19 @@ namespace Manager
             byte[] data = Encoding.UTF8.GetBytes(msg);
             ulong targetSteamId = ulong.Parse(RemoteSteamIdString);
             bool result = SteamNetworking.SendP2PPacket(targetSteamId, data);
+            Print(result.ToString());
         }
 
 
         private void OnDestroy()
         {
             SteamClient.Shutdown();
-            Debug.Log("[Steam] Steam 클라이언트 종료됨");
+            Print("Steam Closed");
+        }
+
+        private void Print(string message)
+        {
+            Debug.Log("[SteamNetworkManager] > " + message);
         }
 
     }
