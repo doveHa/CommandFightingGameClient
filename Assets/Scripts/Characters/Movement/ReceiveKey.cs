@@ -9,7 +9,6 @@ public class ReceiveKey : MonoBehaviour
 {
     void Update()
     {
-        Debug.Log(SteamNetworking.IsP2PPacketAvailable());
         if (SteamNetworking.IsP2PPacketAvailable())
         {
             var packet = SteamNetworking.ReadP2PPacket();
@@ -24,5 +23,4 @@ public class ReceiveKey : MonoBehaviour
             }
         }
     }
-
 }

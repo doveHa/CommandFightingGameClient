@@ -8,9 +8,9 @@ public static class Constant
     public static string WEBSOCKET_URL(string websocketToken, string steamId)
     {
         //URL 인코딩하기
-        return "ws://dksysd-home-server.duckdns.org:8080/api/matchmaking?websocket_token=" + websocketToken + "&steam_id=" + steamId;
+        return "ws://dksysd-home-server.duckdns.org:8080/api/matchmaking?websocket_token=" + websocketToken +
+               "&steam_id=" + steamId;
         //return "ws://localhost:5110/api/matchmaking?websocket_token=" + websocketToken + "&steam_id=" + steamId;
-
     }
 
     public const string SERVER_IP = "192.168.219.104";
@@ -62,15 +62,12 @@ public static class Constant
 
     public static class SteamNetworkingType
     {
-        //Hadove02 계정 SteamID
-        //public const string REMOTESTEAMID = "76561198853166461";
+        public const int PINGTEST = 0;
 
-        //doveHa02 계정 SteamID
-        //public const string REMOTESTEAMID = "76561199834491206";
-        public const int CONNECTION = 0;
+        public const int CONNECTION = 1;
 
         //Data는 frame + " " + input의 형태로 전송
-        public const int MOVEMENT = 1;
+        public const int MOVEMENT = 2;
     }
 
     public const int SELECTED_CHARACTER = 0;

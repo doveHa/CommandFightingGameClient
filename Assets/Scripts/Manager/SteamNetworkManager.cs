@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Text;
+using Server;
 using UnityEngine;
 using Steamworks;
 
@@ -50,6 +51,7 @@ namespace Manager
             }
         }
 
+/*
         void Update()
         {
             if (SteamNetworking.IsP2PPacketAvailable())
@@ -72,10 +74,10 @@ namespace Manager
                 }
             }
         }
-
+*/
         public void StartP2P()
         {
-            //StartCoroutine(OpponentCharacter());
+            StartCoroutine(OpponentCharacter());
             SendMsg(Constant.SteamNetworkingType.CONNECTION, CharacterManager.Manager.PlayerCharacterName);
         }
 
@@ -96,29 +98,6 @@ namespace Manager
             }
         }
 
-        public void SendTestMessage()
-        {
-            byte[] data = Encoding.UTF8.GetBytes("TestMessage");
-            //ulong targetSteamId = 76561198853166461;
-            ulong targetSteamId = 76561199834491206;
-            bool result = SteamNetworking.SendP2PPacket(targetSteamId, data);
-            StartCoroutine(TestCoroutine());
-        }
-
-        IEnumerator TestCoroutine()
-        {
-            Print("Waiting for Packet");
-            yield return new WaitUntil(() => SteamNetworking.IsP2PPacketAvailable());
-            Print("Received P2P Packet");
-            var packet = SteamNetworking.ReadP2PPacket();
-
-            if (packet.HasValue)
-            {
-                string receivedMessage = Encoding.UTF8.GetString(packet.Value.Data);
-                Print($"{packet.Value.SteamId} 로부터 메시지 수신: {receivedMessage}");
-            }
-        }
-
         public void SendMsg(int type, string msg)
         {
             if (!SteamClient.IsValid)
@@ -129,7 +108,6 @@ namespace Manager
 
             byte[] data = Encoding.UTF8.GetBytes(msg);
             ulong targetSteamId = ulong.Parse(RemoteSteamIdString);
-            Print(targetSteamId.ToString() + "<>" + data);
             SteamNetworking.SendP2PPacket(targetSteamId, data);
         }
 

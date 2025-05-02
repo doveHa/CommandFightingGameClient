@@ -45,7 +45,7 @@ namespace Server
 
         private void Pong()
         {
-            while (true)
+            while (!IsReadDone)
             {
                 if (SteamNetworking.IsP2PPacketAvailable())
                 {
