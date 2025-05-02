@@ -1,25 +1,26 @@
 ﻿using System;
+using System.Collections;
 using Steamworks;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Manager;
 using UnityEngine;
 
 namespace Server
 {
-    public class PingTest
+    public class PingTest : MonoBehaviour
     {
-        public bool IsReadDone { get; private set; }
+        public bool IsReadDone { get; set; }
         private List<PingTestDTO> IdList;
-        Dictionary<ulong, float> sentTime = new Dictionary<ulong, float>();
-        Dictionary<ulong, float> receivedTime = new Dictionary<ulong, float>();
+        public Dictionary<ulong, float> sentTime = new Dictionary<ulong, float>();
+        public Dictionary<ulong, float> receivedTime = new Dictionary<ulong, float>();
 
         public void Start(string json)
         {
             string jsonPart = json.Substring("PingTest:".Length);
             List<PingTestDTO> list = JsonSerializer.Deserialize<List<PingTestDTO>>(jsonPart);
-
             IdList = list;
             Task.Run(Ping);
             Task.Run(Pong);
@@ -57,6 +58,7 @@ namespace Server
                             case "ping":
                                 SteamNetworking.SendP2PPacket(packet.Value.SteamId, Encoding.UTF8.GetBytes("pong"));
                                 Print("Send Pong");
+                                StartCoroutine(WaitResponse());
                                 break;
                             case "pong":
                                 receivedTime.Add(packet.Value.SteamId, DateTime.Now.Millisecond);
@@ -69,6 +71,18 @@ namespace Server
             }
         }
 
+        private IEnumerator WaitResponse()
+        {
+            yield return new WaitUntil(() => SteamNetworking.IsP2PPacketAvailable());
+            
+            var packet = SteamNetworking.ReadP2PPacket();
+            string receivedMessage = Encoding.UTF8.GetString(packet.Value.Data);
+            CharacterManager.Manager.OpponentCharacterName = receivedMessage;
+            Print($"{packet.Value.SteamId} 로부터 메시지 수신: {receivedMessage}");
+            
+            SceneLoadManager.Manager.LoadGameScene();
+        }
+        
         private string FindKey(string steamId)
         {
             foreach (PingTestDTO dto in IdList)

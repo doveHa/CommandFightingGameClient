@@ -50,35 +50,11 @@ namespace Manager
                 }
             }
         }
-
-/*
-        void Update()
-        {
-            if (SteamNetworking.IsP2PPacketAvailable())
-            {
-                var packet = SteamNetworking.ReadP2PPacket();
-
-                if (packet.HasValue)
-                {
-                    string receivedMessage = Encoding.UTF8.GetString(packet.Value.Data);
-                    Print($"{packet.Value.SteamId} 로부터 메시지 수신: {receivedMessage}");
-
-                    string[] splittedMessage = receivedMessage.Split('>');
-                    switch (int.Parse(splittedMessage[0]))
-                    {
-                        case Constant.SteamNetworkingType.CONNECTION:
-                            CharacterManager.Manager.OpponentCharacterName = splittedMessage[1];
-                            SceneLoadManager.Manager.LoadGameScene();
-                            break;
-                    }
-                }
-            }
-        }
-*/
+        
         public void StartP2P()
         {
             StartCoroutine(OpponentCharacter());
-            SendMsg(Constant.SteamNetworkingType.CONNECTION, CharacterManager.Manager.PlayerCharacterName);
+            SendMsg(ulong.Parse(RemoteSteamIdString),Constant.SteamNetworkingType.CONNECTION, CharacterManager.Manager.PlayerCharacterName);
         }
 
         IEnumerator OpponentCharacter()
@@ -93,12 +69,12 @@ namespace Manager
                 string receivedMessage = Encoding.UTF8.GetString(packet.Value.Data);
                 CharacterManager.Manager.OpponentCharacterName = receivedMessage;
                 Print($"{packet.Value.SteamId} 로부터 메시지 수신: {receivedMessage}");
-
-                SceneLoadManager.Manager.LoadGameScene();
+                SendMsg(packet.Value.SteamId, Constant.SteamNetworkingType.CONNECTION, CharacterManager.Manager.PlayerCharacterName);
+                //SceneLoadManager.Manager.LoadGameScene();
             }
         }
 
-        public void SendMsg(int type, string msg)
+        public void SendMsg(ulong remoteSteamId, int type, string msg)
         {
             if (!SteamClient.IsValid)
             {

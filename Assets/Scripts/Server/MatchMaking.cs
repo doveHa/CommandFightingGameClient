@@ -27,7 +27,6 @@ namespace Server
         {
             try
             {
-                pingTest = new PingTest();
                 webSocket = new ClientWebSocket();
                 cts = new CancellationTokenSource();
 
@@ -39,6 +38,7 @@ namespace Server
                 Print("Connect");
 
                 //서버에서 송신한 대기열 수신 및 핑테스트 진행
+                pingTest = new PingTest();
                 pingTest.Start(await ReceiveMessageAsync());
                 StartCoroutine(WaitPong());
                 
