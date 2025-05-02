@@ -2050,7 +2050,6 @@ GameObject:
   - component: {fileID: 520178292}
   - component: {fileID: 520178296}
   - component: {fileID: 520178297}
-  - component: {fileID: 520178298}
   m_Layer: 0
   m_Name: Handler
   m_TagString: Untagged
@@ -2131,18 +2130,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterSelectHandler: {fileID: 520178296}
---- !u!114 &520178298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 520178289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b6fb4c9b9194e65932d3f8b8fad6ad4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &530696504
 GameObject:
   m_ObjectHideFlags: 0
