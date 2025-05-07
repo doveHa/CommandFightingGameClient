@@ -10,82 +10,81 @@ using UnityEngine;
 
 namespace Server
 {
-    public class PingTest : MonoBehaviour
+    public static class PingTest
     {
-        public bool IsReadDone { get; set; }
-        private List<PingTestDTO> IdList;
-        public Dictionary<ulong, float> sentTime = new Dictionary<ulong, float>();
-        public Dictionary<ulong, float> receivedTime = new Dictionary<ulong, float>();
+        public static bool IsReadDone { get; set; }
+        private static List<PingTestDTO> _idList;
+        public static Dictionary<ulong, float> SentTime;
+        public static Dictionary<ulong, float> ReceivedTime;
+        private static int _sendId, _receiveId;
 
-        public void StartTest(string json)
+        public static void StartTest(string json)
         {
+            SentTime = new Dictionary<ulong, float>();
+            ReceivedTime = new Dictionary<ulong, float>();
             string jsonPart = json.Substring("PingTest:".Length);
             List<PingTestDTO> list = JsonSerializer.Deserialize<List<PingTestDTO>>(jsonPart);
-            IdList = list;
-            Task.Run(Ping);
-            Task.Run(Pong);
+            _idList = list;
+            SendPing();
+            _sendId = list.Count;
+            _receiveId = 0;
         }
 
-        private void Ping()
+        public static void ReceivePingPong(ulong steamId, string receiveData)
+        {
+            switch (receiveData)
+            {
+                case "ping":
+                    SteamNetworkManager.Manager.SendMsg(Constant.SteamNetworkingType.PINGTEST, "pong");
+                    Print("Send Ping");
+                    break;
+                case "pong":
+                    ReceivedTime.Add(steamId, DateTime.Now.Millisecond);
+                    Print("Received Pong");
+                    _receiveId++;
+                    if (_receiveId == _sendId)
+                    {
+                        IsReadDone = true;
+                    }
+                    
+                    break;
+            }
+        }
+
+        private static void SendPing()
         {
             IsReadDone = false;
-            foreach (PingTestDTO id in IdList)
+            foreach (PingTestDTO id in _idList)
             {
                 if (ulong.TryParse(id.Value, out ulong steamID))
                 {
-                    byte[] data = Encoding.UTF8.GetBytes("ping");
+                    SteamNetworkManager.Manager.SendMsg(Constant.SteamNetworkingType.PINGTEST, "ping");
+                    SentTime.Add(steamID, DateTime.Now.Millisecond);
 
-                    if (SteamNetworking.SendP2PPacket(steamID, data))
-                    {
-                        Print("Send Ping");
-                        sentTime.Add(steamID, DateTime.Now.Millisecond);
-                    }
+                    Print("Send Ping");
                 }
             }
         }
 
-        private void Pong()
+
+        public static string PingTestResult()
         {
-            while (!IsReadDone)
+            Dictionary<string, float> result = new Dictionary<string, float>();
+            foreach (var pair in ReceivedTime)
             {
-                if (SteamNetworking.IsP2PPacketAvailable())
-                {
-                    var packet = SteamNetworking.ReadP2PPacket();
-                    if (packet.HasValue)
-                    {
-                        switch (Encoding.UTF8.GetString(packet.Value.Data))
-                        {
-                            case "ping":
-                                SteamNetworking.SendP2PPacket(packet.Value.SteamId, Encoding.UTF8.GetBytes("pong"));
-                                Print("Send Pong");
-                                StartCoroutine(WaitResponse());
-                                break;
-                            case "pong":
-                                receivedTime.Add(packet.Value.SteamId, DateTime.Now.Millisecond);
-                                Print("Received Pong");
-                                IsReadDone = true;
-                                break;
-                        }
-                    }
-                }
+                ulong steamId = pair.Key;
+                float ping = SentTime[steamId] - ReceivedTime[steamId];
+                string key = FindKey(steamId.ToString());
+                result.Add(key, ping);
             }
+
+            return "PingResult:" + JsonSerializer.Serialize(result);
         }
 
-        private IEnumerator WaitResponse()
+
+        private static string FindKey(string steamId)
         {
-            yield return new WaitUntil(() => SteamNetworking.IsP2PPacketAvailable());
-            
-            var packet = SteamNetworking.ReadP2PPacket();
-            string receivedMessage = Encoding.UTF8.GetString(packet.Value.Data);
-            CharacterManager.Manager.OpponentCharacterName = receivedMessage;
-            Print($"{packet.Value.SteamId} 로부터 메시지 수신: {receivedMessage}");
-            
-            SceneLoadManager.Manager.LoadGameScene();
-        }
-        
-        private string FindKey(string steamId)
-        {
-            foreach (PingTestDTO dto in IdList)
+            foreach (PingTestDTO dto in _idList)
             {
                 if (dto.Value == steamId)
                 {
@@ -96,21 +95,7 @@ namespace Server
             return null;
         }
 
-        public string PingTestResult()
-        {
-            Dictionary<string, float> result = new Dictionary<string, float>();
-            foreach (var pair in receivedTime)
-            {
-                ulong steamId = pair.Key;
-                float ping = receivedTime[steamId] - sentTime[steamId];
-                string key = FindKey(steamId.ToString());
-                result.Add(key, ping);
-            }
-
-            return "PingResult:" + JsonSerializer.Serialize(result);
-        }
-
-        public void Print(string message)
+        public static void Print(string message)
         {
             Debug.Log("[PingTest] > " + message);
         }

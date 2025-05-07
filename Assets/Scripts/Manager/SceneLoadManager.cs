@@ -31,8 +31,9 @@ namespace Manager
             SceneManager.LoadScene(Constant.Scene.ADMINISTRATOR_SCENE);
         }
 
-        public void LoadGameScene()
+        public void LoadGameScene(string opponentName)
         {
+            CharacterManager.Manager.OpponentCharacterName = opponentName;
             SceneManager.LoadScene(Constant.Scene.GAME_SCENE);
         }
     }

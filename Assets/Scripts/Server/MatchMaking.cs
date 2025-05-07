@@ -13,7 +13,6 @@ namespace Server
 {
     public class MatchMaking : MonoBehaviour
     {
-        private PingTest pingTest;
         private ClientWebSocket webSocket;
         private CancellationTokenSource cts;
         private string websocket_token;
@@ -38,35 +37,36 @@ namespace Server
                 Print("Connect");
 
                 //서버에서 송신한 대기열 수신 및 핑테스트 진행
-                pingTest = new PingTest();
-                pingTest.StartTest(await ReceiveMessageAsync());
+                PingTest.StartTest(await ReceiveMessageAsync());
                 StartCoroutine(WaitPong());
                 
-                //서버에서 송신한 상대 SteamID 설정 및 P2P 시작
+                //서버에서 송신한 상대 SteamID 설정
                 SteamNetworkManager.Manager.RemoteSteamIdString = SplitMatchID(await ReceiveMessageAsync());
-                Print(SteamNetworkManager.Manager.RemoteSteamIdString);
-                SteamNetworkManager.Manager.StartP2P();
+
+                //상대에게 자신의 캐릭터 정보 전송 후 게임 시작 
+                SteamNetworkManager.Manager.SendMsg(Constant.SteamNetworkingType.CONNECTION,
+                    CharacterManager.Manager.PlayerCharacterName);
             }
             catch (Exception e)
             {
                 Print(e.Message);
             }
         }
-        
+
         private IEnumerator WaitPong()
         {
-            yield return new WaitUntil(() => pingTest.IsReadDone);
-            Print(pingTest.PingTestResult());
-            yield return new WaitForTask(SendMessage(pingTest.PingTestResult()));
+            yield return new WaitUntil(() => PingTest.IsReadDone);
+            Print(PingTest.PingTestResult());
+            yield return new WaitForTask(SendMessage(PingTest.PingTestResult()));
         }
-        
+
         private string SplitMatchID(string response)
         {
             string split = response.Split(",")[0];
             return split.Substring("Match:".Length);
         }
 
-       private async Task<string> ReceiveMessageAsync()
+        private async Task<string> ReceiveMessageAsync()
         {
             byte[] buffer = new byte[1024];
 
@@ -88,7 +88,7 @@ namespace Server
                 return null;
             }
         }
-        
+
         private async Task GetWebSocketToken()
         {
             RestResponse response = await RestAPIRequest.Post<string>(Constant.RestAPI.Auth.WEBSOCKET_TOKEN, null,

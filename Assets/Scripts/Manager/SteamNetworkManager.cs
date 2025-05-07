@@ -1,6 +1,6 @@
 using System;
-using System.Collections;
 using System.Text;
+using RollbackNetCode;
 using Server;
 using UnityEngine;
 using Steamworks;
@@ -50,32 +50,37 @@ namespace Manager
                 }
             }
         }
-        
-        public void StartP2P()
-        {
-            StartCoroutine(OpponentCharacter());
-            SendMsg(ulong.Parse(RemoteSteamIdString),Constant.SteamNetworkingType.CONNECTION, CharacterManager.Manager.PlayerCharacterName);
-        }
 
-        IEnumerator OpponentCharacter()
+        void FixedUpdate()
         {
-            Print("Waiting for Packet");
-            yield return new WaitUntil(() => SteamNetworking.IsP2PPacketAvailable());
-            Print("Received P2P Packet");
-            var packet = SteamNetworking.ReadP2PPacket();
-
-            if (packet.HasValue)
+            if (SteamNetworking.IsP2PPacketAvailable())
             {
-                string receivedMessage = Encoding.UTF8.GetString(packet.Value.Data);
-                CharacterManager.Manager.OpponentCharacterName = receivedMessage;
-                Print($"{packet.Value.SteamId} 로부터 메시지 수신: {receivedMessage}");
-                SendMsg(packet.Value.SteamId, Constant.SteamNetworkingType.CONNECTION, CharacterManager.Manager.PlayerCharacterName);
-                
-                SceneLoadManager.Manager.LoadGameScene();
+                var packet = SteamNetworking.ReadP2PPacket();
+
+                if (packet.HasValue)
+                {
+                    string receiveData = Encoding.UTF8.GetString(packet.Value.Data);
+                    string[] splitData = receiveData.Split(Constant.SteamNetworkingType.DELIMITER);
+                    switch (int.Parse(splitData[0]))
+                    {
+                        case Constant.SteamNetworkingType.PINGTEST:
+                            PingTest.ReceivePingPong(packet.Value.SteamId,splitData[1]);
+                            break;
+                        case Constant.SteamNetworkingType.CONNECTION:
+                            //상대 캐릭터 정보 설정 후 SceneLoad
+                            SceneLoadManager.Manager.LoadGameScene(splitData[1]);
+                            break;
+                        case Constant.SteamNetworkingType.MOVEMENT:
+                            RollbackManager.Manager.RemoteMovement(splitData[1]);
+                            break;
+                    }
+                }
             }
         }
+        
+       
 
-        public void SendMsg(ulong remoteSteamId, int type, string msg)
+        public void SendMsg(int type, string msg)
         {
             if (!SteamClient.IsValid)
             {
@@ -83,8 +88,9 @@ namespace Manager
                 return;
             }
 
-            byte[] data = Encoding.UTF8.GetBytes(msg);
+            byte[] data = Encoding.UTF8.GetBytes(type + Constant.SteamNetworkingType.DELIMITER + msg);
             ulong targetSteamId = ulong.Parse(RemoteSteamIdString);
+
             SteamNetworking.SendP2PPacket(targetSteamId, data);
         }
 

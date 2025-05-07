@@ -62,6 +62,7 @@ public static class Constant
 
     public static class SteamNetworkingType
     {
+        public const char DELIMITER = '>';
         public const int PINGTEST = 0;
 
         public const int CONNECTION = 1;

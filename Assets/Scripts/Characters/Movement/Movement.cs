@@ -9,8 +9,6 @@ namespace Movement
 {
     public class Movement : MonoBehaviour
     {
-        
-
         public static void MoveCharacter(GameObject gameObject, int moveDirection)
         {
             Rigidbody2D body = gameObject.transform.GetComponent<Rigidbody2D>();

@@ -28,6 +28,15 @@ namespace RollbackNetCode
         }
 
 
+        public void RemoteMovement(string movement)
+        {
+            string[] input = movement.Split(' ');
+            int frame = int.Parse(input[0]);
+            int locate = -1 * int.Parse(input[1]);
+
+            inputDictionary.RemoteInput[frame] = locate;
+        }
+
         public void AdvanceFrame(int localInput)
         {
             inputDictionary.LocalInput[CurrentFrame] = localInput;
