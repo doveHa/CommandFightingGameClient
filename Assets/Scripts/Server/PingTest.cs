@@ -35,7 +35,7 @@ namespace Server
             switch (receiveData)
             {
                 case "ping":
-                    SteamNetworkManager.Manager.SendMsg(Constant.SteamNetworkingType.PINGTEST, "pong");
+                    SteamNetworkManager.Manager.SendMsg(steamId, Constant.SteamNetworkingType.PINGTEST, "pong");
                     Print("Send Ping");
                     break;
                 case "pong":
@@ -46,7 +46,7 @@ namespace Server
                     {
                         IsReadDone = true;
                     }
-                    
+
                     break;
             }
         }
@@ -58,7 +58,7 @@ namespace Server
             {
                 if (ulong.TryParse(id.Value, out ulong steamID))
                 {
-                    SteamNetworkManager.Manager.SendMsg(Constant.SteamNetworkingType.PINGTEST, "ping");
+                    SteamNetworkManager.Manager.SendMsg(steamID, Constant.SteamNetworkingType.PINGTEST, "ping");
                     SentTime.Add(steamID, DateTime.Now.Millisecond);
 
                     Print("Send Ping");

@@ -80,7 +80,7 @@ namespace Manager
         
        
 
-        public void SendMsg(int type, string msg)
+        public void SendMsg(ulong steamId,int type, string msg)
         {
             if (!SteamClient.IsValid)
             {
@@ -89,9 +89,7 @@ namespace Manager
             }
 
             byte[] data = Encoding.UTF8.GetBytes(type + Constant.SteamNetworkingType.DELIMITER + msg);
-            ulong targetSteamId = ulong.Parse(RemoteSteamIdString);
-
-            SteamNetworking.SendP2PPacket(targetSteamId, data);
+            SteamNetworking.SendP2PPacket(steamId, data);
         }
 
 
