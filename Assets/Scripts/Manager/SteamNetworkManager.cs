@@ -88,7 +88,7 @@ namespace Manager
                 return;
             }
 
-            byte[] data = Encoding.UTF8.GetBytes(type + Constant.SteamNetworkingType.DELIMITER + msg);
+            byte[] data = Encoding.UTF8.GetBytes(type.ToString() + Constant.SteamNetworkingType.DELIMITER + msg);
             SteamNetworking.SendP2PPacket(steamId, data);
         }
 
