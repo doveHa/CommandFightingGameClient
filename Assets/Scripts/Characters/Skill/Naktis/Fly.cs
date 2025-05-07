@@ -7,7 +7,12 @@ public class Fly : MonoBehaviour
 {
     private Coroutine flyCoroutine;
 
-    public void Run(ISkill skill)
+    public void SetCoff()
+    {
+        
+    }
+    
+    public void Run()
     {
         if (!flyCoroutine.IsUnityNull())
         {

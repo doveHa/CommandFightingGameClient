@@ -39,7 +39,7 @@ namespace Server
 
                 //서버에서 송신한 대기열 수신 및 핑테스트 진행
                 pingTest = new PingTest();
-                pingTest.Start(await ReceiveMessageAsync());
+                pingTest.StartTest(await ReceiveMessageAsync());
                 StartCoroutine(WaitPong());
                 
                 //서버에서 송신한 상대 SteamID 설정 및 P2P 시작

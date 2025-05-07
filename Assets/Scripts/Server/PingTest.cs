@@ -17,7 +17,7 @@ namespace Server
         public Dictionary<ulong, float> sentTime = new Dictionary<ulong, float>();
         public Dictionary<ulong, float> receivedTime = new Dictionary<ulong, float>();
 
-        public void Start(string json)
+        public void StartTest(string json)
         {
             string jsonPart = json.Substring("PingTest:".Length);
             List<PingTestDTO> list = JsonSerializer.Deserialize<List<PingTestDTO>>(jsonPart);

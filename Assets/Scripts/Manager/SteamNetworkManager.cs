@@ -70,7 +70,8 @@ namespace Manager
                 CharacterManager.Manager.OpponentCharacterName = receivedMessage;
                 Print($"{packet.Value.SteamId} 로부터 메시지 수신: {receivedMessage}");
                 SendMsg(packet.Value.SteamId, Constant.SteamNetworkingType.CONNECTION, CharacterManager.Manager.PlayerCharacterName);
-                //SceneLoadManager.Manager.LoadGameScene();
+                
+                SceneLoadManager.Manager.LoadGameScene();
             }
         }
 

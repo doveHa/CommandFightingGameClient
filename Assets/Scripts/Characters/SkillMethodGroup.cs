@@ -45,12 +45,13 @@ namespace Characters
         public static void NaktisS1(ISkill skill)
         {
             Player player = GameManager.Manager.Player.GetComponent<Player>();
-            player.GetComponentInChildren<Fly>().Run(skill);
+            player.GetComponentInChildren<Fly>().Run();
         }
 
         //어퍼윙
         public static void NaktisS2(ISkill skill)
         {
+            
             Debug.Log("NaktisS2");
         }
 
