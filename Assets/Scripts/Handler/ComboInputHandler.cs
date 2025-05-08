@@ -68,10 +68,10 @@ namespace Handler
             Debug.Log(skill.Name + "등록 완료, 커맨드 > " + sum);
         }
 
-        private void Awake()
+        private void Start()
         {
             InputActionManager.Manager.Inputs.Command.CommandInput.performed += OnInputPerformed;
-            AddCharacterCombo();
+            //AddCharacterCombo();
         }
         
         private void OnInputPerformed(InputAction.CallbackContext context)

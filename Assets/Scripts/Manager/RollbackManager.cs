@@ -33,7 +33,8 @@ namespace RollbackNetCode
             string[] input = movement.Split(' ');
             int frame = int.Parse(input[0]);
             int locate = -1 * int.Parse(input[1]);
-
+                
+            print(locate);
             inputDictionary.RemoteInput[frame] = locate;
         }
 
