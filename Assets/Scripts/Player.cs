@@ -69,4 +69,9 @@ public class Player : MonoBehaviour
             sprite.flipX = direction;
         }
     }
+
+    public void UseSkill(string skillName)
+    {
+        
+    }
 }

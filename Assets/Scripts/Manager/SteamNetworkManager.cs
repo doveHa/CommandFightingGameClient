@@ -4,6 +4,7 @@ using RollbackNetCode;
 using Server;
 using UnityEngine;
 using Steamworks;
+using Steamworks.Data;
 
 namespace Manager
 {
@@ -14,7 +15,9 @@ namespace Manager
         private static uint gameAppId = 480;
         public SteamId PlayerSteamId { get; private set; }
         public string LocalSteamIdString { get; set; }
-        public string RemoteSteamIdString { get; set; }
+        
+        public ulong RemoteSteamId { get; set; }
+        //public string RemoteSteamIdString { get; set; }
 
 
         void Awake()
@@ -60,36 +63,39 @@ namespace Manager
                 if (packet.HasValue)
                 {
                     string receiveData = Encoding.UTF8.GetString(packet.Value.Data);
+                    //SteamNetworkingType>Data
                     string[] splitData = receiveData.Split(Constant.SteamNetworkingType.DELIMITER);
                     switch (int.Parse(splitData[0]))
                     {
+                        //splitData[1] = ping | pong
                         case Constant.SteamNetworkingType.PINGTEST:
                             PingTest.ReceivePingPong(packet.Value.SteamId,splitData[1]);
                             break;
+                        //splitData[1] = CharacterName
                         case Constant.SteamNetworkingType.CONNECTION:
                             //상대 캐릭터 정보 설정 후 SceneLoad
                             SceneLoadManager.Manager.LoadGameScene(splitData[1]);
                             break;
-                        case Constant.SteamNetworkingType.MOVEMENT:
-                            RollbackManager.Manager.RemoteMovement(splitData[1]);
+                        //splitData[1] = KeyInputType>CurrentFrame>Data
+                        case Constant.SteamNetworkingType.KEYINPUT:
+                            RollbackManager.Manager.ProcessingMessage(receiveData.Substring("2>".Length));
                             break;
                     }
                 }
+                
             }
         }
-        
-       
 
-        public void SendMsg(ulong steamId,int type, string msg)
+        public bool SendMsg(ulong steamId,int type, string msg)
         {
             if (!SteamClient.IsValid)
             {
                 Debug.LogError("[Steam] Steam 클라이언트가 유효하지 않습니다!");
-                return;
+                return false;
             }
 
             byte[] data = Encoding.UTF8.GetBytes(type.ToString() + Constant.SteamNetworkingType.DELIMITER + msg);
-            SteamNetworking.SendP2PPacket(steamId, data);
+            return SteamNetworking.SendP2PPacket(steamId, data);
         }
 
 

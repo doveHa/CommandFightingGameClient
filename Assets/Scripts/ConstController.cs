@@ -11,6 +11,7 @@ public class ConstController : MonoBehaviour
 
     public float GravityScale = 1f;
 
+    public int WaitTime = 1;
     void Awake()
     {
         Manager = this;

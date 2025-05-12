@@ -21,6 +21,8 @@ namespace Handler
 
         public static string CurrentShowCharacter { get; private set; }
         public static string CurrentShowSkill { get; private set; }
+        public static string[] skillNames { get; private set; }
+        
         private Color defaultColor, selectCharacterColor;
         
         private Image[] skillIcons;
@@ -32,6 +34,7 @@ namespace Handler
             ColorUtility.TryParseHtmlString("#4690F0", out selectCharacterColor);
             skillIcons = new Image[changeCommandSkills.Length];
             commands = new TextMeshProUGUI[changeCommandSkills.Length];
+            skillNames = new string[4];
         }
 
         //캐릭터 선택
@@ -107,7 +110,9 @@ namespace Handler
             for (int i = 0; i < skills.Count; i++)
             {
                 skillIcons[i].sprite = Resources.Load<Sprite>("Images/Icon/SkillIcon/" + skills[i].Name);
+                skillNames[i] = skills[i].Name;
                 commands[i].text = CommandListToString(skills[i].Command);
+                
             }
         }
         

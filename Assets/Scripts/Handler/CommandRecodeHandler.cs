@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Characters;
 using DTO;
 using Manager;
 using Server;
@@ -46,7 +47,7 @@ namespace Handler
             else
             {
                 buttonText.text = "변경";
-                StopRecode();
+                StopRecode(skill.name);
             }
         }
 
@@ -61,13 +62,14 @@ namespace Handler
             InputActionManager.Manager.Inputs.Command.CommandInput.started += CommandRecoding;
         }
 
-        public void StopRecode()
+        public void StopRecode(string gameObjectName)
         {
             InputActionManager.Manager.Inputs.Command.CommandInput.started -= CommandRecoding;
-            string key = CharacterSelectHandler.CurrentShowCharacter + "+" + CharacterSelectHandler.CurrentShowSkill;
+            string currentSkillName = GetSkillName(gameObjectName);
+            string key = CharacterSelectHandler.CurrentShowCharacter + "+" + currentSkillName;
             ChangeCommandList[key] = recode.ToList();
             CharacterManager.Manager.CharacterGroup.ChangeCommand(CharacterSelectHandler.CurrentShowCharacter,
-                CharacterSelectHandler.CurrentShowSkill, recode.ToList());
+                currentSkillName, recode.ToList());
             characterSelectHandler.ReLoadCommand();
             recode.Clear();
             isRecode = false;
@@ -124,6 +126,12 @@ namespace Handler
             }
 
             return copy;
+        }
+
+        private string GetSkillName(string skill)
+        {
+            Debug.Log(CharacterSelectHandler.skillNames[int.Parse(skill.Substring("SKill".Length)) - 1]);
+            return CharacterSelectHandler.skillNames[int.Parse(skill.Substring("SKill".Length)) - 1];
         }
     }
 }

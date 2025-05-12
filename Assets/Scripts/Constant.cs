@@ -66,9 +66,14 @@ public static class Constant
         public const int PINGTEST = 0;
 
         public const int CONNECTION = 1;
+        public const int KEYINPUT = 2;
 
-        //Data는 frame + " " + input의 형태로 전송
-        public const int MOVEMENT = 2;
+        public static class KeyInput
+        {
+            public const int MOVEMENT = 0;
+            public const int JUMP = 1;
+            public const int SKILL = 2;
+        }
     }
 
     public const int SELECTED_CHARACTER = 0;

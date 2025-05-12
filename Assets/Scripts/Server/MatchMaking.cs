@@ -43,10 +43,10 @@ namespace Server
                 StartCoroutine(WaitPong());
 
                 //서버에서 송신한 상대 SteamID 설정
-                SteamNetworkManager.Manager.RemoteSteamIdString = SplitMatchID(await ReceiveMessageAsync());
+                SteamNetworkManager.Manager.RemoteSteamId = ulong.Parse(SplitMatchID(await ReceiveMessageAsync()));
 
                 //상대에게 자신의 캐릭터 정보 전송 후 게임 시작 
-                SteamNetworkManager.Manager.SendMsg(ulong.Parse(SteamNetworkManager.Manager.RemoteSteamIdString),
+                SteamNetworkManager.Manager.SendMsg(SteamNetworkManager.Manager.RemoteSteamId,
                     Constant.SteamNetworkingType.CONNECTION,
                     CharacterManager.Manager.PlayerCharacterName);
             }

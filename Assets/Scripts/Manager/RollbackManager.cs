@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Movement;
 
@@ -14,6 +15,23 @@ namespace RollbackNetCode
         [SerializeField] private Player player;
         [SerializeField] private Player opponent;
 
+        public class FrameInput
+        {
+            public int MoveInput = 0;
+            public bool JumpInput = false;
+            public string SkillInput = string.Empty;
+
+            public FrameInput Clone()
+            {
+                return new FrameInput
+                {
+                    MoveInput = this.MoveInput,
+                    JumpInput = this.JumpInput,
+                    SkillInput = this.SkillInput
+                };
+            }
+        }
+
         public int CurrentFrame { get; private set; }
 
         void Awake()
@@ -27,20 +45,55 @@ namespace RollbackNetCode
             stateHistory = new Dictionary<int, PlayerState>();
         }
 
-
-        public void RemoteMovement(string movement)
+        public void ProcessingMessage(string message)
         {
-            string[] input = movement.Split(' ');
-            int frame = int.Parse(input[0]);
-            int locate = -1 * int.Parse(input[1]);
-                
-            print(locate);
-            inputDictionary.RemoteInput[frame] = locate;
+            string[] splitMessage = message.Split(Constant.SteamNetworkingType.DELIMITER);
+            int type = int.Parse(splitMessage[0]);
+            int frame = int.Parse(splitMessage[1]);
+
+            bool changed = false;
+
+            FrameInput input = inputDictionary.GetRemote(frame);
+            switch (type)
+            {
+                //splitMessage[2] = -1, 0, 1 
+                case Constant.SteamNetworkingType.KeyInput.MOVEMENT:
+                    input.MoveInput = int.Parse(splitMessage[2]);
+                    changed = true;
+                    break;
+                //splitMessage[2] = String.Empty
+                case Constant.SteamNetworkingType.KeyInput.JUMP:
+                    Debug.Log(frame + "Receive JUMP");
+                    input.JumpInput = true;
+                    changed = true;
+                    break;
+                //splitMessage[2] = SKillName
+                case Constant.SteamNetworkingType.KeyInput.SKILL:
+                    input.SkillInput = splitMessage[2];
+                    changed = true;
+                    break;
+            }
+/*
+            if (changed && frame < CurrentFrame)
+            {
+                ForceRollbackFrom(frame);
+            }
+ */       }
+        private void ForceRollbackFrom(int frame)
+        {
+            RollbackTo(frame);
+            for (int f = frame; f < CurrentFrame; f++)
+            {
+                Simulate(f);
+            }
         }
 
-        public void AdvanceFrame(int localInput)
+        public void AdvanceFrame(int localInput, bool localJump, string localSkill)
         {
-            inputDictionary.LocalInput[CurrentFrame] = localInput;
+            FrameInput input = inputDictionary.GetLocal(CurrentFrame);
+            input.MoveInput = localInput;
+            input.JumpInput = localJump;
+            input.SkillInput = localSkill;
 
             int rollbackStart = FindRollbackStart();
 
@@ -69,6 +122,7 @@ namespace RollbackNetCode
             return CurrentFrame;
         }
 
+
         private void RollbackTo(int rollbackStart)
         {
             Debug.Log($"[RollbackManager] Rolling back to frame {rollbackStart}");
@@ -85,37 +139,66 @@ namespace RollbackNetCode
 
         private void Simulate(int frame)
         {
-            int localLocate = inputDictionary.GetLocal(frame);
-            int remoteLocate = inputDictionary.GetRemote(frame);
-            Movement.Movement.MoveCharacter(player.transform.GetChild(0).GetChild(0).gameObject, localLocate);
-            Movement.Movement.MoveCharacter(opponent.transform.GetChild(0).GetChild(0).gameObject, remoteLocate);
+            FrameInput local = inputDictionary.GetLocal(frame);
+            FrameInput remote = inputDictionary.GetRemote(frame);
+
+            CharacterMovementController.MoveCharacter(player.gameObject,local.MoveInput);
+            /*CharacterMovementController.MoveCharacter(player.transform.GetChild(0).GetChild(0).gameObject,
+                local.MoveInput);
+            */
+            CharacterMovementController.MoveCharacter(opponent.transform.GetChild(0).GetChild(0).gameObject,
+                remote.MoveInput);
+
+            if (local.JumpInput)
+            {
+                Debug.Log(CurrentFrame + "JUMP!" + remote.JumpInput);
+                CharacterMovementController.JumpCharacter(player.gameObject);
+            }
+
+            if (remote.JumpInput)
+            {
+                Debug.Log("REMOTE JUMP!");
+
+                CharacterMovementController.JumpCharacter(opponent.gameObject);
+            }
+
+            if (!string.IsNullOrEmpty(local.SkillInput))
+            {
+                player.UseSkill(local.SkillInput);
+            }
+
+            if (!string.IsNullOrEmpty(remote.SkillInput))
+            {
+                opponent.UseSkill(remote.SkillInput);
+            }
 
             stateHistory[frame] = new PlayerState(player.Position, opponent.Position);
         }
 
         public class InputDictionary
         {
-            public Dictionary<int, int> LocalInput = new Dictionary<int, int>();
-            public Dictionary<int, int> RemoteInput = new Dictionary<int, int>();
+            public Dictionary<int, FrameInput> LocalInput = new Dictionary<int, FrameInput>();
+            public Dictionary<int, FrameInput> RemoteInput = new Dictionary<int, FrameInput>();
 
-            public int GetLocal(int frame)
+            public FrameInput GetLocal(int frame)
             {
-                return GetLocate(LocalInput, frame);
+                return GetFrameInput(LocalInput, frame);
             }
 
-            public int GetRemote(int frame)
+            public FrameInput GetRemote(int frame)
             {
-                return GetLocate(RemoteInput, frame);
+                return GetFrameInput(RemoteInput, frame);
             }
 
-            private int GetLocate(Dictionary<int, int> dictionary, int frame)
+            private FrameInput GetFrameInput(Dictionary<int, FrameInput> dictionary, int frame)
             {
-                if (dictionary.TryGetValue(frame, out int locate))
+                if (!dictionary.TryGetValue(frame, out FrameInput input))
                 {
-                    return locate;
+                    input = new FrameInput();
+                    dictionary[frame] = input;
                 }
 
-                return 0;
+                return input;
             }
         }
 
