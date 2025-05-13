@@ -209,7 +209,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      12_Skill4_Fly_Up_0: -4205390584510202889
+      12_Skill4_Fly_Up_1: 1470530540582031449
+      12_Skill4_Fly_Up_2: 843029532329119282
+      12_Skill4_Fly_Up_3: -5787978276130438068
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

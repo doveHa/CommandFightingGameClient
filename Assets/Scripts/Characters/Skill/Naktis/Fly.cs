@@ -55,7 +55,7 @@ public class Fly : MonoBehaviour
             yield return null;
         }
 
-        GetComponentInChildren<Rigidbody2D>().gravityScale = ConstController.Manager.GravityScale;
+        GetComponentInParent<Rigidbody2D>().gravityScale = ConstController.Manager.GravityScale;
         naktisAnimationHandler.EndFlyAnimation();
         flyCoroutine = null;
     }

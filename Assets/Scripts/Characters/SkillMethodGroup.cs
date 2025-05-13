@@ -16,10 +16,10 @@ namespace Characters
             {
                 "Naktis", new Dictionary<string, Action<ISkill>>
                 {
-                    { "Naktis s1", NaktisS1 },
-                    { "Naktis s2", NaktisS2 },
-                    { "Naktis s3", NaktisS3 },
-                    { "Naktis s4", NaktisS4 }
+                    { "비행", NaktisS1 },
+                    { "바람강타", NaktisS2 },
+                    { "할퀴기", NaktisS3 },
+                    { "어퍼윙", NaktisS4 }
                 }
             },
             {

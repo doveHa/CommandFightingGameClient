@@ -3,12 +3,11 @@ using UnityEngine;
 
 namespace Manager
 {
-    public class AnimationManager : MonoBehaviour
+    public class HitBoxManager : MonoBehaviour
     {
-        public static AnimationManager Manager;
-
-        [SerializeField] private Animator animator;
-
+        public static HitBoxManager Manager;
+        
+        public 
         void Awake() 
         {
             if(Manager == null)
@@ -16,5 +15,6 @@ namespace Manager
                 Manager = this;
             }
         }
+        
     }
 }

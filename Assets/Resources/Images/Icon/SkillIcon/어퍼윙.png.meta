@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e5917318fbcce754c86babca36b34501
+guid: 656811dc66aa1334c8c7dce2ff387c07
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3951182260152142974
-    second: Naktis s3_0
+      213: 6320799735820380349
+    second: "\uC5B4\uD37C\uC719_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,24 +96,11 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Naktis s3_0
+      name: "\uC5B4\uD37C\uC719_0"
       rect:
         serializedVersion: 2
         x: 0
@@ -128,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2837ecc2ba49a29c0800000000000000
-      internalID: -3951182260152142974
+      spriteID: db8e4f5eeddf7b750800000000000000
+      internalID: 6320799735820380349
       vertices: []
       indices: 
       edges: []
@@ -147,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Naktis s3_0: -3951182260152142974
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

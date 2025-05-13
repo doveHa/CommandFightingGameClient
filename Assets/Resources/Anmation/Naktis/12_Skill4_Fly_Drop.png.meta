@@ -209,7 +209,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      12_Skill4_Fly_Drop_0: 4216300870829265864
+      12_Skill4_Fly_Drop_1: -7268934432260887506
+      12_Skill4_Fly_Drop_2: -7559466278287379045
+      12_Skill4_Fly_Drop_3: 2946357952548811738
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -26,11 +26,16 @@ namespace Characters.AnimationHandler
 
             HasegiMotion = false;
         }
-
+/*
         protected override void Update()
         {
             base.Update();
-
+            if (NaktisFrameDataSet.Statements.TryGetValue(currentClip, out List<FrameData> frameData))
+            {
+                FrameData frame = frameData[frameIndex];
+                
+                
+            }
             foreach (CharacterAllStatement statement in NaktisFrameDataSet.DataSet)
             {
                 if (statement.Statement.Equals(currentClip))
@@ -54,7 +59,7 @@ namespace Characters.AnimationHandler
             }
         }
 
-        public void StartHasegiAnimation()
+  */     public void StartHasegiAnimation()
         {
             if (!animationFlag["Hasegi"] && !motionFlag)
             {
