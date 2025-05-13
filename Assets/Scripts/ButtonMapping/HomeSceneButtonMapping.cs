@@ -40,6 +40,7 @@ namespace ButtonMapping
             if (CheckPasswordSame())
             {
                 Authentication.Authentication.regist(registerId.text, registerPw.text);
+                
                 RegisterToLogin();
             }
             else

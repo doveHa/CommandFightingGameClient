@@ -15,7 +15,7 @@ namespace Characters.AnimationHandler
         public bool SecondScratch { get; set; }
 
 
-        protected override void Start()
+        protected override void Start() 
         {
             base.Start();
             dictionary = new NaktisFrameRangesDictionary();
@@ -26,16 +26,15 @@ namespace Characters.AnimationHandler
 
             HasegiMotion = false;
         }
-/*
+
         protected override void Update()
         {
             base.Update();
             if (NaktisFrameDataSet.Statements.TryGetValue(currentClip, out List<FrameData> frameData))
             {
                 FrameData frame = frameData[frameIndex];
-                
-                
             }
+
             foreach (CharacterAllStatement statement in NaktisFrameDataSet.DataSet)
             {
                 if (statement.Statement.Equals(currentClip))
@@ -59,7 +58,7 @@ namespace Characters.AnimationHandler
             }
         }
 
-  */     public void StartHasegiAnimation()
+        public void StartHasegiAnimation()
         {
             if (!animationFlag["Hasegi"] && !motionFlag)
             {
@@ -79,7 +78,6 @@ namespace Characters.AnimationHandler
             animationFlag["Hasegi"] = false;
             motionFlag = false;
             HasegiMotion = false;
-            Debug.Log(motionFlag);
         }
 
         public void StartScratchAnimation()
@@ -107,8 +105,7 @@ namespace Characters.AnimationHandler
             animationFlag["Scratch"] = false;
             motionFlag = false;
             FirstScratch = false;
-            SecondScratch = false;
-            Debug.Log(motionFlag);
+            SecondScratch = false; 
         }
 
         public void StartUpperWingAnimation()
@@ -144,6 +141,7 @@ namespace Characters.AnimationHandler
                     animationFlag[parameter.name] = false;
                 }
             }
+            motionFlag = false;
         }
     }
 }

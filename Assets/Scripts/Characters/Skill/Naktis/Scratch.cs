@@ -15,7 +15,7 @@ public class Scratch : MonoBehaviour
     {
         naktisAnimationHandler = transform.parent.GetComponent<NaktisAnimationHandler>();
         naktisAnimationHandler.StartScratchAnimation();
-        StartCoroutine(WaitScratchTiming());
+        //StartCoroutine(WaitScratchTiming());
     }
 
     private IEnumerator WaitScratchTiming()
@@ -31,11 +31,11 @@ public class Scratch : MonoBehaviour
 
     private void FirstScratch()
     {
-        
+        Debug.Log(1);
     }
 
     private void SecondScratch()
     {
-        
+        Debug.Log(2);
     }
 }
