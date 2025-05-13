@@ -24,8 +24,8 @@ namespace Server
             SteamNetworkManager.Manager.SendMsg(SteamNetworkManager.Manager.RemoteSteamId,
                 Constant.SteamNetworkingType.CONNECTION,
                 CharacterManager.Manager.PlayerCharacterName);
-            
-            //await StartConnect();
+
+            await StartConnect();
         }
 
         private async Task StartConnect()
