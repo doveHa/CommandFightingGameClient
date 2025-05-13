@@ -8,84 +8,109 @@ namespace Characters.AnimationHandler
 {
     public class NaktisAnimationHandler : CharacterAnimatorHandler
     {
-        private Fly fly;
-        private NaktisFrameRangesDictionary naktisFrameRangesDictionary;
-
-        private string currentClip;
-        private int frameIndex;
-
         private Dictionary<string, bool> animationFlag;
+
+        public bool HasegiMotion { get; set; }
+        public bool FirstScratch { get; set; }
+        public bool SecondScratch { get; set; }
+
 
         protected override void Start()
         {
             base.Start();
-            fly = GetComponent<Fly>();
-
-            naktisFrameRangesDictionary = new NaktisFrameRangesDictionary();
+            dictionary = new NaktisFrameRangesDictionary();
             animationFlag = new Dictionary<string, bool>();
             animationFlag.Add("Hasegi", false);
             animationFlag.Add("Scratch", false);
             animationFlag.Add("UpperWing", false);
+
+            HasegiMotion = false;
         }
 
         protected override void Update()
         {
             base.Update();
-            CalFrameNumber();
 
-            if (Input.GetKeyDown(KeyCode.Z))
+            foreach (CharacterAllStatement statement in NaktisFrameDataSet.DataSet)
             {
-                StartHasegiAnimation();
-            }
-
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                StartScratchAnimation();
-            }
-
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                StartUpperWingAnimation();
-            }
-
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                fly.Run();
+                if (statement.Statement.Equals(currentClip))
+                {
+                    foreach (FrameData frame in statement.FrameData)
+                    {
+                        if (transform.parent.name.Equals("Player"))
+                        {
+                            GameManager.Manager.PlayerCenter =
+                                (Vector2)GameManager.Manager.Player.transform.GetChild(0).position +
+                                new Vector2(frame.Center[0], frame.Center[1]);
+                        }
+                        else
+                        {
+                            GameManager.Manager.OpponentCenter =
+                                (Vector2)GameManager.Manager.Opponent.transform.GetChild(0).position +
+                                new Vector2(frame.Center[0], frame.Center[1]);
+                        }
+                    }
+                }
             }
         }
 
         public void StartHasegiAnimation()
         {
-            if (!animationFlag["Hasegi"])
+            if (!animationFlag["Hasegi"] && !motionFlag)
             {
+                motionFlag = true;
                 animationFlag["Hasegi"] = true;
                 Animator.SetTrigger("Hasegi");
             }
         }
 
+        public void HasegiMotionTrue()
+        {
+            HasegiMotion = true;
+        }
+
         public void FlagHasegiFalse()
         {
             animationFlag["Hasegi"] = false;
+            motionFlag = false;
+            HasegiMotion = false;
+            Debug.Log(motionFlag);
         }
 
         public void StartScratchAnimation()
         {
-            if (!animationFlag["Scratch"])
+            if (!animationFlag["Scratch"] && !motionFlag)
             {
+                motionFlag = true;
                 animationFlag["Scratch"] = true;
                 Animator.SetTrigger("Scratch");
             }
         }
 
+        public void FirstScratchOn()
+        {
+            FirstScratch = true;
+        }
+
+        public void SecondScratchOn()
+        {
+            SecondScratch = true;
+        }
+
         public void FlagScratchFalse()
         {
             animationFlag["Scratch"] = false;
+            motionFlag = false;
+            FirstScratch = false;
+            SecondScratch = false;
+            Debug.Log(motionFlag);
         }
 
         public void StartUpperWingAnimation()
         {
-            if (!animationFlag["UpperWing"])
+            if (!animationFlag["UpperWing"] && !motionFlag)
             {
+                motionFlag = true;
                 animationFlag["UpperWing"] = true;
                 Animator.SetTrigger("UpperWing");
             }
@@ -94,61 +119,24 @@ namespace Characters.AnimationHandler
         public void FlagUpperWingFalse()
         {
             animationFlag["UpperWing"] = false;
+            motionFlag = false;
+            Debug.Log(motionFlag);
         }
 
-        private void CalFrameNumber()
+        public void StartFlyAnimation()
         {
-            AnimatorStateInfo stateInfo = Animator.GetCurrentAnimatorStateInfo(0);
-            float normalizedTime = stateInfo.normalizedTime % 1f;
-
-            AnimatorClipInfo[] clipInfo = Animator.GetCurrentAnimatorClipInfo(0);
-            AnimationClip clip = clipInfo[0].clip;
-
-            int totalFrames = Mathf.RoundToInt(clip.length * clip.frameRate);
-            int currentFrame = Mathf.FloorToInt(normalizedTime * totalFrames);
-
-            currentClip = clip.name;
-            List<FrameRange> frameRanges =
-                naktisFrameRangesDictionary.FrameRanges[currentClip];
-            for (int i = 0; i < 4; i++)
-            {
-                if (currentFrame >= frameRanges[i].start && currentFrame <= frameRanges[i].end)
-                {
-                    frameIndex = i;
-                    break;
-                }
-            }
+            Animator.SetBool("IsFlying", true);
         }
 
-        private void OnDrawGizmos()
+        public void EndFlyAnimation()
         {
-            foreach (CharacterAllStatement statement in NaktisFrameDataSet.DataSet)
+            Animator.SetBool("IsFlying", false);
+            foreach (AnimatorControllerParameter parameter in Animator.parameters)
             {
-                if (statement.Statement.Equals(currentClip))
+                if (parameter.type == AnimatorControllerParameterType.Trigger)
                 {
-                    Debug.Log(currentClip);
-                    foreach (var box in statement.FrameData[frameIndex].HurtBoxes)
-                    {
-                        Vector2 playerCenter = Vector2.zero;
-                        Vector2 center = Vector2.zero;
-                        Vector2 size = Vector2.zero;
-                        if (box.PartName.Equals("HitBox"))
-                        {
-                            Gizmos.color = Color.red;
-                            playerCenter = PlayerTransform.position;
-                            center = playerCenter + NaktisFrameDataSet.FloatArrayToVector2(box.OffSet);
-                            size = NaktisFrameDataSet.FloatArrayToVector2(box.Size);
-                        }
-                        else
-                        {
-                            playerCenter = PlayerTransform.position;
-                            center = playerCenter + NaktisFrameDataSet.FloatArrayToVector2(box.OffSet);
-                            size = NaktisFrameDataSet.FloatArrayToVector2(box.Size);
-                            Gizmos.color = Color.green;
-                        }
-
-                        Gizmos.DrawWireCube(center, size);
-                    }
+                    Animator.ResetTrigger(parameter.name);
+                    animationFlag[parameter.name] = false;
                 }
             }
         }

@@ -71,7 +71,7 @@ namespace Handler
         private void Start()
         {
             InputActionManager.Manager.Inputs.Command.CommandInput.performed += OnInputPerformed;
-            //AddCharacterCombo();
+            AddCharacterCombo();
         }
         
         private void OnInputPerformed(InputAction.CallbackContext context)

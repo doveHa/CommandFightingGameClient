@@ -117,7 +117,7 @@ TextureImporter:
         width: 198
         height: 242
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -134,12 +134,12 @@ TextureImporter:
       name: 07_Atk_punch_1
       rect:
         serializedVersion: 2
-        x: 457
-        y: 447
-        width: 266
-        height: 228
+        x: 417
+        y: 445
+        width: 305
+        height: 245
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -156,12 +156,12 @@ TextureImporter:
       name: 07_Atk_punch_2
       rect:
         serializedVersion: 2
-        x: 79
+        x: 25
         y: 61
-        width: 282
-        height: 230
+        width: 340
+        height: 245
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -183,7 +183,7 @@ TextureImporter:
         width: 198
         height: 244
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -200,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 809a023b69305704fb5822545851fdc2
     internalID: 0
     vertices: []
     indices: 
@@ -209,7 +209,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      07_Atk_punch_0: 7716438891177783553
+      07_Atk_punch_1: 4207904681746366100
+      07_Atk_punch_2: 4359537359689468351
+      07_Atk_punch_3: 2132894792446178429
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

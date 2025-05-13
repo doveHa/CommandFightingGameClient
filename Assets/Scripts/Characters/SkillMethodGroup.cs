@@ -44,27 +44,25 @@ namespace Characters
 
         public static void NaktisS1(ISkill skill)
         {
-            Player player = GameManager.Manager.Player.GetComponent<Player>();
-            player.GetComponentInChildren<Fly>().Run();
+            GameManager.Manager.Player.GetComponentInChildren<Player>().GetComponentInChildren<Fly>().Run();
         }
 
-        //어퍼윙
+        //바람 강타
         public static void NaktisS2(ISkill skill)
         {
-            
-            Debug.Log("NaktisS2");
+            GameManager.Manager.Player.GetComponentInChildren<Player>().GetComponentInChildren<Hasegi>().Run();
         }
 
         //할퀴기
         public static void NaktisS3(ISkill skill)
         {
-            Debug.Log("NaktisS3");
+            GameManager.Manager.Player.GetComponentInChildren<Player>().GetComponentInChildren<Scratch>().Run();
         }
 
-        //바람 강타
+        //어퍼윙
         public static void NaktisS4(ISkill skill)
         {
-            Debug.Log("NaktisS4");
+            GameManager.Manager.Player.GetComponentInChildren<Player>().GetComponentInChildren<UpperWing>().Run();
         }
 
         public static void KagetsuS1(ISkill skill)

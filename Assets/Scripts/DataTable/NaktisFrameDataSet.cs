@@ -11,7 +11,8 @@ namespace DataTable
 
         public static void Start()
         {
-            DataSet = JsonSerializer.Deserialize<List<CharacterAllStatement>>(File.ReadAllText("Assets/Data/HitBox/Naktis.json"));
+            DataSet = JsonSerializer.Deserialize<List<CharacterAllStatement>>(
+                File.ReadAllText("Assets/Data/HitBox/Naktis.json"));
             Debug.Log(File.ReadAllText("Assets/Data/HitBox/Naktis.json"));
         }
 
@@ -31,8 +32,10 @@ namespace DataTable
     public class FrameData
     {
         public int FrameNumber { get; set; }
+        public float[] Center { get; set; }
         public List<HurtBox> HurtBoxes { get; set; }
     }
+
 
     public class CharacterAllStatement
     {

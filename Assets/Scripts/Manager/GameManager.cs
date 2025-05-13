@@ -5,7 +5,10 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public GameObject Player { get; private set; }
+    public Vector2 PlayerCenter { get; set; }
     public GameObject Opponent { get; private set; }
+    public Vector2 OpponentCenter { get; set; }
+
     public bool IsPlayerLeft { get; private set; }
     public static GameManager Manager { get; private set; }
 
@@ -36,14 +39,18 @@ public class GameManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Player = GameObject.Find("Player");
-        Instantiate(Resources.Load<GameObject>("Prefabs/Character/" + CharacterManager.Manager.PlayerCharacterName),
+        Instantiate(
+            Resources.Load<GameObject>("Prefabs/Character/" + CharacterManager.Manager.PlayerCharacterName + "/" +
+                                       CharacterManager.Manager.PlayerCharacterName),
             Player.transform);
-        AddSkillComponent(Player,CharacterManager.Manager.PlayerCharacterName);
-        
+        AddSkillComponent(Player, CharacterManager.Manager.PlayerCharacterName);
+
         Opponent = GameObject.Find("Opponent");
-        Instantiate(Resources.Load<GameObject>("Prefabs/Character/" + CharacterManager.Manager.OpponentCharacterName),
+        Instantiate(
+            Resources.Load<GameObject>("Prefabs/Character/" + CharacterManager.Manager.OpponentCharacterName + "/" +
+                                       CharacterManager.Manager.OpponentCharacterName),
             Opponent.transform);
-        AddSkillComponent(Opponent,CharacterManager.Manager.OpponentCharacterName);
+        AddSkillComponent(Opponent, CharacterManager.Manager.OpponentCharacterName);
     }
 
     void OnDisable()
@@ -56,22 +63,22 @@ public class GameManager : MonoBehaviour
         switch (characterName)
         {
             case "Naktis":
-                player.AddComponent<Fly>().SetCoff();
-                player.AddComponent<Hasegi>().SetCoff();
-                player.AddComponent<Scratch>().SetCoff();
-                player.AddComponent<UpperWing>().SetCoff();
+                player.transform.GetChild(0).GetChild(1).gameObject.AddComponent<Fly>().SetCoff();
+                player.transform.GetChild(0).GetChild(1).gameObject.AddComponent<Hasegi>().SetCoff();
+                player.transform.GetChild(0).GetChild(1).gameObject.AddComponent<Scratch>().SetCoff();
+                player.transform.GetChild(0).GetChild(1).gameObject.AddComponent<UpperWing>().SetCoff();
                 break;
             case "Kagetsu":
-                player.AddComponent<IttoRyotan>().SetCoff();
-                player.AddComponent<NageKunai>().SetCoff();
-                player.AddComponent<Nageru>().SetCoff();
-                player.AddComponent<Sangiri>().SetCoff();
+                player.transform.GetChild(0).GetChild(1).gameObject.AddComponent<IttoRyotan>().SetCoff();
+                player.transform.GetChild(0).GetChild(1).gameObject.AddComponent<NageKunai>().SetCoff();
+                player.transform.GetChild(0).GetChild(1).gameObject.AddComponent<Nageru>().SetCoff();
+                player.transform.GetChild(0).GetChild(1).gameObject.AddComponent<Sangiri>().SetCoff();
                 break;
             case "Vargon":
-                player.AddComponent<Curl>().SetCoff();
-                player.AddComponent<Grab>().SetCoff();
-                player.AddComponent<Rush>().SetCoff();
-                player.AddComponent<Slam>().SetCoff();
+                player.transform.GetChild(0).GetChild(1).gameObject.AddComponent<Curl>().SetCoff();
+                player.transform.GetChild(0).GetChild(1).gameObject.AddComponent<Grab>().SetCoff();
+                player.transform.GetChild(0).GetChild(1).gameObject.AddComponent<Rush>().SetCoff();
+                player.transform.GetChild(0).GetChild(1).gameObject.AddComponent<Slam>().SetCoff();
                 break;
         }
     }

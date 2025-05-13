@@ -12,8 +12,8 @@ namespace RollbackNetCode
         public InputDictionary inputDictionary;
         private Dictionary<int, PlayerState> stateHistory;
 
-        [SerializeField] private Player player;
-        [SerializeField] private Player opponent;
+        private Player player;
+        private Player opponent;
 
         public class FrameInput
         {
@@ -43,6 +43,12 @@ namespace RollbackNetCode
 
             inputDictionary = new InputDictionary();
             stateHistory = new Dictionary<int, PlayerState>();
+        }
+
+        void Start()
+        {
+            player = GameManager.Manager.Player.GetComponentInChildren<Player>();
+            opponent = GameManager.Manager.Opponent.GetComponentInChildren<Player>();
         }
 
         public void ProcessingMessage(string message)
@@ -78,7 +84,9 @@ namespace RollbackNetCode
             {
                 ForceRollbackFrom(frame);
             }
- */       }
+ */
+        }
+
         private void ForceRollbackFrom(int frame)
         {
             RollbackTo(frame);
@@ -142,12 +150,11 @@ namespace RollbackNetCode
             FrameInput local = inputDictionary.GetLocal(frame);
             FrameInput remote = inputDictionary.GetRemote(frame);
 
-            CharacterMovementController.MoveCharacter(player.gameObject,local.MoveInput);
+            CharacterMovementController.MoveCharacter(player.gameObject, local.MoveInput);
             /*CharacterMovementController.MoveCharacter(player.transform.GetChild(0).GetChild(0).gameObject,
                 local.MoveInput);
             */
-            CharacterMovementController.MoveCharacter(opponent.transform.GetChild(0).GetChild(0).gameObject,
-                remote.MoveInput);
+            CharacterMovementController.MoveCharacter(opponent.gameObject, remote.MoveInput);
 
             if (local.JumpInput)
             {

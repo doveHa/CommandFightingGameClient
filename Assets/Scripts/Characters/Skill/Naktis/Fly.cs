@@ -1,11 +1,12 @@
 using System.Collections;
 using Characters;
+using Characters.AnimationHandler;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class Fly : MonoBehaviour
 {
-    [SerializeField] private Animator animator;
+    private NaktisAnimationHandler naktisAnimationHandler;
     private Coroutine flyCoroutine;
 
     public void SetCoff()
@@ -15,11 +16,13 @@ public class Fly : MonoBehaviour
     
     public void Run()
     {
+        naktisAnimationHandler = transform.parent.GetComponent<NaktisAnimationHandler>();
+        
         if (!flyCoroutine.IsUnityNull())
         {
             Debug.Log("Stop fly");
-            ChangeAnimationIdleLayer();
-            GetComponentInChildren<Rigidbody2D>().gravityScale = ConstController.Manager.GravityScale;
+            naktisAnimationHandler.EndFlyAnimation();
+            GetComponentInParent<Rigidbody2D>().gravityScale = ConstController.Manager.GravityScale;
             StopCoroutine(flyCoroutine);
 
             flyCoroutine = null;
@@ -37,8 +40,8 @@ public class Fly : MonoBehaviour
     private IEnumerator NaktisFly()
     {
         //ConstController.Manager.GravityScale = GetComponentInChildren<Rigidbody2D>().gravityScale;
-        ChangeAnimationFlyLayer();
-        Rigidbody2D body = GetComponent<Rigidbody2D>();
+        naktisAnimationHandler.StartFlyAnimation();
+        Rigidbody2D body = GetComponentInParent<Rigidbody2D>();
         body.gravityScale = 0;
         body.linearVelocityY = 0;
         body.AddForce(Vector2.up * ConstController.Manager.JumpForce, ForceMode2D.Impulse);
@@ -53,22 +56,8 @@ public class Fly : MonoBehaviour
         }
 
         GetComponentInChildren<Rigidbody2D>().gravityScale = ConstController.Manager.GravityScale;
-        ChangeAnimationIdleLayer();
+        naktisAnimationHandler.EndFlyAnimation();
         flyCoroutine = null;
-    }
-
-    private void ChangeAnimationFlyLayer()
-    {
-        animator.SetLayerWeight(0, 0);
-        animator.SetBool("IsFlying",true);
-        animator.SetLayerWeight(1, 1);
-    }
-
-    private void ChangeAnimationIdleLayer()
-    {
-        animator.SetBool("IsFlying",false);
-        //animator.SetLayerWeight(1, 0);
-        animator.SetLayerWeight(0, 1);
     }
     
 }

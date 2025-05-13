@@ -4,7 +4,6 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Vector2 Position;
-    [SerializeField] private GameObject opponent;
     [SerializeField] private int skill1CoolTime, skill2CoolTime;
     private SpriteRenderer spriteRenderer;
     private SpriteRenderer[] _sprites;
@@ -21,14 +20,13 @@ public class Player : MonoBehaviour
         skill2Cool = gameObject.AddComponent<SkillCoolHandler>();
         skill2Cool.Time = skill2CoolTime;
 
-        _isLeft = IsLeft();
         spriteRenderer = GetComponent<SpriteRenderer>();
         _sprites = GetComponentsInChildren<SpriteRenderer>();
     }
 
     void Update()
     {
-        bool newDirection = IsLeft();
+        bool newDirection = GameManager.Manager.IsPlayerLeft;
 
         if (_isLeft != newDirection)
         {
@@ -37,10 +35,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    public bool IsLeft()
-    {
-        return gameObject.transform.position.x < opponent.transform.position.x;
-    }
 
     public void SetGuard(bool isGuard)
     {

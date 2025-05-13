@@ -113,11 +113,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 59
-        y: 639
-        width: 280
-        height: 208
+        y: 637
+        width: 366
+        height: 244
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -134,12 +134,12 @@ TextureImporter:
       name: 11_Skill3_1
       rect:
         serializedVersion: 2
-        x: 659
+        x: 636
         y: 639
-        width: 198
-        height: 214
+        width: 250
+        height: 244
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -156,12 +156,12 @@ TextureImporter:
       name: 11_Skill3_2
       rect:
         serializedVersion: 2
-        x: 187
-        y: 127
-        width: 256
-        height: 280
+        x: 44
+        y: 90
+        width: 400
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -178,12 +178,12 @@ TextureImporter:
       name: 11_Skill3_3
       rect:
         serializedVersion: 2
-        x: 683
-        y: 127
-        width: 298
-        height: 230
+        x: 552
+        y: 126
+        width: 433
+        height: 244
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -200,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 8c490d4c897b27e4fbb374f7d09bbbcb
     internalID: 0
     vertices: []
     indices: 
@@ -209,7 +209,12 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      11_Skill3_0: -5871635277437990334
+      11_Skill3_1: -6989978431794374950
+      11_Skill3_2: 3320091120173774469
+      11_Skill3_3: 95073187546026743
+      11_Skill3_4: 191776062
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

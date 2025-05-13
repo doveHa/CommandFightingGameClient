@@ -38,10 +38,10 @@ public class SendKey : MonoBehaviour
     private void PerformKeyInput(InputAction.CallbackContext ctx)
     {
         animator.SetBool("IsMove", true);
-        
+
         moveDirection = ctx.ReadValue<Vector2>();
-        if ((moveDirection.x > 0 && !player.IsLeft())
-            || (moveDirection.x < 0 && player.IsLeft()))
+        if ((moveDirection.x > 0 && !GameManager.Manager.IsPlayerLeft)
+            || (moveDirection.x < 0 && GameManager.Manager.IsPlayerLeft))
         {
             player.SetGuard(true);
         }

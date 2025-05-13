@@ -54,7 +54,7 @@ public static class Constant
 
     public static class Scene
     {
-        public const string GAME_SCENE = "Scenes/GameScene";
+        public const string GAME_SCENE = "Scenes/GameScene1";
         public const string HOME_SCENE = "Scenes/HomeScene";
         public const string USER_MAIN_SCENE = "Scenes/UserMainScene";
         public const string ADMINISTRATOR_SCENE = "Scenes/Administer";

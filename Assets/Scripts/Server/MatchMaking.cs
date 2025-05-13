@@ -19,7 +19,13 @@ namespace Server
 
         public async void StartMatching()
         {
-            await StartConnect();
+            SteamNetworkManager.Manager.RemoteSteamId = SteamNetworkManager.Manager.PlayerSteamId;
+            
+            SteamNetworkManager.Manager.SendMsg(SteamNetworkManager.Manager.RemoteSteamId,
+                Constant.SteamNetworkingType.CONNECTION,
+                CharacterManager.Manager.PlayerCharacterName);
+            
+            //await StartConnect();
         }
 
         private async Task StartConnect()
@@ -120,12 +126,12 @@ namespace Server
 
         async void OnDestroy()
         {
-            await StopMatching();
+            //await StopMatching();
         }
 
         async void OnApplicationQuit()
         {
-            await StopMatching();
+            //await StopMatching();
         }
 
         private async Task StopMatching()

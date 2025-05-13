@@ -11,8 +11,8 @@ namespace Data.FrameRanges
         {
             Start();
             FrameRanges = new Dictionary<string, List<FrameRange>>();
-            AddRange(new int[]{30,60,90,120},"Idle");
-            AddRange(new int[]{0,0,0,0},"Walk");
+            AddRange(new int[]{30,60,90,120, 121},"Idle");
+            AddRange(new int[]{10,20,30,40, 41},"Walk");
             AddRange(new int[]{0,0,0,0},"Jumping_Attack");
             AddRange(new int[]{0,0,0,0},"Jumping_Down");
             AddRange(new int[]{0,0,0,0},"Jumping_Up");
