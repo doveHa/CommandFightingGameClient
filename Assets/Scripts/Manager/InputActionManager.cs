@@ -11,6 +11,7 @@ namespace Handler
         {
             if (Manager == null)
             {
+                DontDestroyOnLoad(this);
                 Manager = this;
             }
 

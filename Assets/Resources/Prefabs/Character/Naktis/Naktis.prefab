@@ -40,6 +40,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6934917658032876333}
+  - component: {fileID: 7138766214010565029}
+  - component: {fileID: 8086766787404335021}
+  - component: {fileID: 6639711209606482386}
+  - component: {fileID: 2628985842413365116}
   m_Layer: 0
   m_Name: Skills
   m_TagString: Untagged
@@ -63,6 +67,54 @@ Transform:
   - {fileID: 6552233252603016535}
   m_Father: {fileID: 2006101865272511628}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7138766214010565029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7790257116742212350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ec294187cf7c904c8a2297565779f92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8086766787404335021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7790257116742212350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67e6405d6f8141ea9356d859324406b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6639711209606482386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7790257116742212350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c03125b7d4545c984da3d42e5abaad9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2628985842413365116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7790257116742212350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b1bf4e42346428c80405fc60b64c80e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8625228902607096901
 GameObject:
   m_ObjectHideFlags: 0
@@ -112,7 +164,7 @@ GameObject:
   - component: {fileID: 8624173512030556186}
   m_Layer: 0
   m_Name: Naktis
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -324,4 +376,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7203f2b37cf4ca88d2e3d228f35f7fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HasegiMotion: 0

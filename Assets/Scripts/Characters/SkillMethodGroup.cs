@@ -44,25 +44,32 @@ namespace Characters
 
         public static void NaktisS1(ISkill skill)
         {
-            GameManager.Manager.Player.GetComponentInChildren<Player>().GetComponentInChildren<Fly>().Run();
+            GameObject.FindWithTag("Player").GetComponentInChildren<Fly>().Run();
+            //GameManager.Manager.Player.GetComponentInChildren<Player>().GetComponentInChildren<Fly>().Run();
         }
 
         //바람 강타
         public static void NaktisS2(ISkill skill)
         {
-            GameManager.Manager.Player.GetComponentInChildren<Player>().GetComponentInChildren<Hasegi>().Run();
+            GameObject.FindWithTag("Player").GetComponentInChildren<Hasegi>().Run();
+
+            //GameManager.Manager.Player.GetComponentInChildren<Player>().GetComponentInChildren<Hasegi>().Run();
         }
 
         //할퀴기
         public static void NaktisS3(ISkill skill)
         {
-            GameManager.Manager.Player.GetComponentInChildren<Player>().GetComponentInChildren<Scratch>().Run();
+            GameObject.FindWithTag("Player").GetComponentInChildren<Scratch>().Run();
+
+            //GameManager.Manager.Player.GetComponentInChildren<Player>().GetComponentInChildren<Scratch>().Run();
         }
 
         //어퍼윙
         public static void NaktisS4(ISkill skill)
         {
-            GameManager.Manager.Player.GetComponentInChildren<Player>().GetComponentInChildren<UpperWing>().Run();
+            GameObject.FindWithTag("Player").GetComponentInChildren<UpperWing>().Run();
+
+            //GameManager.Manager.Player.GetComponentInChildren<Player>().GetComponentInChildren<UpperWing>().Run();
         }
 
         public static void KagetsuS1(ISkill skill)

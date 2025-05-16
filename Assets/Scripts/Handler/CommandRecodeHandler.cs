@@ -19,6 +19,7 @@ namespace Handler
         [SerializeField] private CharacterSelectHandler characterSelectHandler;
         public Dictionary<string, List<string>> ChangeCommandList { get; set; }
         public Dictionary<string, List<string>> UpdateCommandLIst { get; set; }
+        private ComboInputHandler comboInputHandler;
         private TextMeshProUGUI currentChangeCommand;
         private List<string> recode;
         private bool isRecode, isChanged;
@@ -31,6 +32,7 @@ namespace Handler
             ChangeCommandList = DeepCopy(CharacterManager.Manager.CharacterGroup.CurrentCommandList);
             recode = new List<string>();
             isChanged = false;
+            comboInputHandler = GameObject.Find("Manager").GetComponent<ComboInputHandler>();
         }
 
         public void OnClickRecode(GameObject skill)
@@ -65,12 +67,15 @@ namespace Handler
         public void StopRecode(string gameObjectName)
         {
             InputActionManager.Manager.Inputs.Command.CommandInput.started -= CommandRecoding;
+            string currentCharacterName = CharacterSelectHandler.CurrentShowCharacter;
             string currentSkillName = GetSkillName(gameObjectName);
-            string key = CharacterSelectHandler.CurrentShowCharacter + "+" + currentSkillName;
+            string key = currentCharacterName + "+" + currentSkillName;
             ChangeCommandList[key] = recode.ToList();
-            CharacterManager.Manager.CharacterGroup.ChangeCommand(CharacterSelectHandler.CurrentShowCharacter,
-                currentSkillName, recode.ToList());
+            CharacterManager.Manager.CharacterGroup.ChangeCommand(currentCharacterName, currentSkillName,
+                recode.ToList());
             characterSelectHandler.ReLoadCommand();
+            comboInputHandler.AddCombo(CharacterManager.Manager.CharacterGroup.Characters[currentCharacterName]
+                .SkillGroup.Skills[currentSkillName]);
             recode.Clear();
             isRecode = false;
         }

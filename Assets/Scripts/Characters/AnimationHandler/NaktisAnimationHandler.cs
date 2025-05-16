@@ -15,7 +15,7 @@ namespace Characters.AnimationHandler
         public bool SecondScratch { get; set; }
 
 
-        protected override void Start() 
+        protected override void Start()
         {
             base.Start();
             dictionary = new NaktisFrameRangesDictionary();
@@ -30,32 +30,6 @@ namespace Characters.AnimationHandler
         protected override void Update()
         {
             base.Update();
-            if (NaktisFrameDataSet.Statements.TryGetValue(currentClip, out List<FrameData> frameData))
-            {
-                FrameData frame = frameData[frameIndex];
-            }
-
-            foreach (CharacterAllStatement statement in NaktisFrameDataSet.DataSet)
-            {
-                if (statement.Statement.Equals(currentClip))
-                {
-                    foreach (FrameData frame in statement.FrameData)
-                    {
-                        if (transform.parent.name.Equals("Player"))
-                        {
-                            GameManager.Manager.PlayerCenter =
-                                (Vector2)GameManager.Manager.Player.transform.GetChild(0).position +
-                                new Vector2(frame.Center[0], frame.Center[1]);
-                        }
-                        else
-                        {
-                            GameManager.Manager.OpponentCenter =
-                                (Vector2)GameManager.Manager.Opponent.transform.GetChild(0).position +
-                                new Vector2(frame.Center[0], frame.Center[1]);
-                        }
-                    }
-                }
-            }
         }
 
         public void StartHasegiAnimation()
@@ -105,7 +79,7 @@ namespace Characters.AnimationHandler
             animationFlag["Scratch"] = false;
             motionFlag = false;
             FirstScratch = false;
-            SecondScratch = false; 
+            SecondScratch = false;
         }
 
         public void StartUpperWingAnimation()
@@ -141,6 +115,7 @@ namespace Characters.AnimationHandler
                     animationFlag[parameter.name] = false;
                 }
             }
+
             motionFlag = false;
         }
     }

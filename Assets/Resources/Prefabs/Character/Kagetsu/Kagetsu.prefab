@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 8624173512030556186}
   m_Layer: 0
   m_Name: Kagetsu
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

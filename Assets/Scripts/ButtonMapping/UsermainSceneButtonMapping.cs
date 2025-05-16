@@ -1,9 +1,6 @@
-using System;
 using UnityEngine;
 using Handler;
 using Manager;
-using Server;
-using UnityEngine.Serialization;
 
 namespace ButtonMapping
 {

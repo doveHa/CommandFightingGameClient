@@ -1,3 +1,4 @@
+using DataTable;
 using Manager;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -43,14 +44,14 @@ public class GameManager : MonoBehaviour
             Resources.Load<GameObject>("Prefabs/Character/" + CharacterManager.Manager.PlayerCharacterName + "/" +
                                        CharacterManager.Manager.PlayerCharacterName),
             Player.transform);
-        AddSkillComponent(Player, CharacterManager.Manager.PlayerCharacterName);
+        //AddSkillComponent(Player, CharacterManager.Manager.PlayerCharacterName);
 
         Opponent = GameObject.Find("Opponent");
         Instantiate(
             Resources.Load<GameObject>("Prefabs/Character/" + CharacterManager.Manager.OpponentCharacterName + "/" +
                                        CharacterManager.Manager.OpponentCharacterName),
             Opponent.transform);
-        AddSkillComponent(Opponent, CharacterManager.Manager.OpponentCharacterName);
+        //AddSkillComponent(Opponent, CharacterManager.Manager.OpponentCharacterName);
     }
 
     void OnDisable()

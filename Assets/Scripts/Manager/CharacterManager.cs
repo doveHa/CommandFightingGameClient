@@ -19,10 +19,13 @@ namespace Manager
 
         public static CharacterManager Manager { get; private set; }
 
+        [SerializeField] private ComboInputHandler comboInputHandler;
         public CharacterGroup CharacterGroup;
         
         public void CharacterOn()
         {
+            comboInputHandler.AddCharacterCombo();
+            
             GameObject characterSet = GameObject.Find("Character");
             for (int i = 0; i < characterSet.transform.childCount; i++)
             {
