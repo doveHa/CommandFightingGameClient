@@ -1,19 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Manager;
 using UnityEngine;
 using Movement;
 
-namespace RollbackNetCode
+namespace Manager
 {
     public class RollbackManager : MonoBehaviour
     {
         public static RollbackManager Manager { get; private set; }
 
-        public InputDictionary inputDictionary;
+        private InputDictionary inputDictionary;
         private Dictionary<int, PlayerState> stateHistory;
 
         private Player player;
+        private Animator playerAnimator;
         private Player opponent;
+        private Animator opponentAnimator;
 
         public class FrameInput
         {
@@ -48,7 +50,9 @@ namespace RollbackNetCode
         void Start()
         {
             player = GameManager.Manager.Player.GetComponentInChildren<Player>();
+            playerAnimator = GameManager.Manager.Player.GetComponentInChildren<Animator>();
             opponent = GameManager.Manager.Opponent.GetComponentInChildren<Player>();
+            opponentAnimator = GameManager.Manager.Opponent.GetComponentInChildren<Animator>();
         }
 
         public void ProcessingMessage(string message)
@@ -62,15 +66,10 @@ namespace RollbackNetCode
             FrameInput input = inputDictionary.GetRemote(frame);
             switch (type)
             {
-                //splitMessage[2] = -1, 0, 1 
+                //splitMessage[2] = isJump > -1, 0, 1 
                 case Constant.SteamNetworkingType.KeyInput.MOVEMENT:
-                    input.MoveInput = int.Parse(splitMessage[2]);
-                    changed = true;
-                    break;
-                //splitMessage[2] = String.Empty
-                case Constant.SteamNetworkingType.KeyInput.JUMP:
-                    Debug.Log(frame + "Receive JUMP");
-                    input.JumpInput = true;
+                    input.JumpInput = bool.Parse(splitMessage[2]);
+                    input.MoveInput = int.Parse(splitMessage[3]);
                     changed = true;
                     break;
                 //splitMessage[2] = SKillName
@@ -78,21 +77,6 @@ namespace RollbackNetCode
                     input.SkillInput = splitMessage[2];
                     changed = true;
                     break;
-            }
-/*
-            if (changed && frame < CurrentFrame)
-            {
-                ForceRollbackFrom(frame);
-            }
- */
-        }
-
-        private void ForceRollbackFrom(int frame)
-        {
-            RollbackTo(frame);
-            for (int f = frame; f < CurrentFrame; f++)
-            {
-                Simulate(f);
             }
         }
 
@@ -107,7 +91,8 @@ namespace RollbackNetCode
 
             if (rollbackStart < CurrentFrame)
             {
-                RollbackTo(rollbackStart);
+                Debug.Log("RollBack");
+                //RollbackTo(rollbackStart);
             }
             else
             {
@@ -130,7 +115,7 @@ namespace RollbackNetCode
             return CurrentFrame;
         }
 
-
+/*
         private void RollbackTo(int rollbackStart)
         {
             Debug.Log($"[RollbackManager] Rolling back to frame {rollbackStart}");
@@ -144,6 +129,7 @@ namespace RollbackNetCode
                 Simulate(frame);
             }
         }
+*/
 
         private void Simulate(int frame)
         {
@@ -151,11 +137,17 @@ namespace RollbackNetCode
             FrameInput remote = inputDictionary.GetRemote(frame);
 
             CharacterMovementController.MoveCharacter(player.gameObject, local.MoveInput);
-            /*CharacterMovementController.MoveCharacter(player.transform.GetChild(0).GetChild(0).gameObject,
-                local.MoveInput);
-            */
-            CharacterMovementController.MoveCharacter(opponent.gameObject, remote.MoveInput);
 
+            CharacterMovementController.MoveCharacter(opponent.gameObject, remote.MoveInput);
+            if (remote.MoveInput == 0)
+            {
+                opponentAnimator.SetBool("IsMove",false);
+            }
+            else
+            {
+                opponentAnimator.SetBool("IsMove",true);
+            }
+            
             if (local.JumpInput)
             {
                 Debug.Log(CurrentFrame + "JUMP!" + remote.JumpInput);
@@ -165,7 +157,6 @@ namespace RollbackNetCode
             if (remote.JumpInput)
             {
                 Debug.Log("REMOTE JUMP!");
-
                 CharacterMovementController.JumpCharacter(opponent.gameObject);
             }
 

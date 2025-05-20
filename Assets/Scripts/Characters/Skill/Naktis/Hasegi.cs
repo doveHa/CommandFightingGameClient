@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using Characters.AnimationHandler;
-using TMPro.EditorUtilities;
+using Manager;
 using UnityEngine;
 
 public class Hasegi : MonoBehaviour

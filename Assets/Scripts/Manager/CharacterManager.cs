@@ -24,7 +24,7 @@ namespace Manager
         
         public void CharacterOn()
         {
-            comboInputHandler.AddCharacterCombo();
+            comboInputHandler.AddCharacterCombo(PlayerCharacterName);
             
             GameObject characterSet = GameObject.Find("Character");
             for (int i = 0; i < characterSet.transform.childCount; i++)

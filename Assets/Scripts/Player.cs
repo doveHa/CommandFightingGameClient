@@ -1,49 +1,54 @@
 ﻿using Handler;
+using Manager;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     public Vector2 Position;
-    [SerializeField] private int skill1CoolTime, skill2CoolTime;
     private SpriteRenderer spriteRenderer;
-    private SpriteRenderer[] _sprites;
-    private SkillCoolHandler skill1Cool, skill2Cool;
-    private bool _isLeft, _isGuard;
+
+    private bool isLeft, isPlayerLeft;
+    private bool isGuard;
     public bool IsJumping { get; set; }
 
     private int health = 100;
 
     void Start()
     {
-        skill1Cool = gameObject.AddComponent<SkillCoolHandler>();
-        skill1Cool.Time = skill1CoolTime;
-        skill2Cool = gameObject.AddComponent<SkillCoolHandler>();
-        skill2Cool.Time = skill2CoolTime;
-
         spriteRenderer = GetComponent<SpriteRenderer>();
-        _sprites = GetComponentsInChildren<SpriteRenderer>();
+
+        isLeft = true;
+        isPlayerLeft = true;
+
+        if (gameObject.CompareTag("Opponent"))
+        {
+            Flip();
+        }
     }
 
     void Update()
     {
-        bool newDirection = GameManager.Manager.IsPlayerLeft;
-
-        if (_isLeft != newDirection)
+        if (isPlayerLeft != GameManager.Manager.IsPlayerLeft)
         {
-            _isLeft = newDirection;
-            FlipSprite(!_isLeft);
+            Flip();
+            isPlayerLeft = !isPlayerLeft;
         }
     }
 
+    private void Flip()
+    {
+        spriteRenderer.flipX = isLeft;
+        isLeft = !isLeft;
+    }
 
     public void SetGuard(bool isGuard)
     {
-        _isGuard = isGuard;
+        this.isGuard = isGuard;
     }
 
     public void Hit(int atk)
     {
-        if (_isGuard)
+        if (isGuard)
         {
             Debug.Log("guard");
         }
@@ -54,18 +59,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void FlipSprite(bool direction)
-    {
-        spriteRenderer.flipX = direction;
-
-        foreach (SpriteRenderer sprite in _sprites)
-        {
-            sprite.flipX = direction;
-        }
-    }
-
     public void UseSkill(string skillName)
     {
-        
     }
 }

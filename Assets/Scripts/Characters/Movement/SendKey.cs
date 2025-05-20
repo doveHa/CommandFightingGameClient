@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using Handler;
+﻿using Handler;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Manager;
-using RollbackNetCode;
 
 public class SendKey : MonoBehaviour
 {
@@ -13,7 +11,7 @@ public class SendKey : MonoBehaviour
 
     //private bool isMove;
     [SerializeField] private Animator animator;
-    private bool jumpKeyInput = false;
+    private bool jumpKeyInput;
 
     private static string _skillName = string.Empty;
     //private bool[] skillsInput = new bool[4];
@@ -79,34 +77,30 @@ public class SendKey : MonoBehaviour
     {
         jumpKeyInput = true;
 
+        Debug.Log("JUMP &" + PlayerMovement());
+        /*
         SteamNetworkManager.Manager.SendMsg(
             SteamNetworkManager.Manager.RemoteSteamId,
             Constant.SteamNetworkingType.KEYINPUT,
-            SendKeyInputFormatting(Constant.SteamNetworkingType.KeyInput.JUMP,
-                string.Empty)
-        );
+            SendMovementInputFormatting(Constant.SteamNetworkingType.KeyInput.MOVEMENT)
+        );*/
     }
 
     void FixedUpdate()
     {
-        int input = 0;
-        if (moveDirection.x > 0)
-        {
-            input = 1;
-        }
-        else if (moveDirection.x < 0)
-        {
-            input = -1;
-        }
+        int playerMovement = PlayerMovement();
 
-        RollbackManager.Manager.AdvanceFrame(input, jumpKeyInput, _skillName);
+        RollbackManager.Manager.AdvanceFrame(playerMovement, jumpKeyInput, _skillName);
 
-        if (input != 0)
+        if (jumpKeyInput == false && playerMovement == 0)
+        {
+        }
+        else
         {
             SteamNetworkManager.Manager.SendMsg(
                 SteamNetworkManager.Manager.RemoteSteamId,
                 Constant.SteamNetworkingType.KEYINPUT,
-                SendKeyInputFormatting(Constant.SteamNetworkingType.KeyInput.MOVEMENT, input.ToString())
+                SendMovementInputFormatting(Constant.SteamNetworkingType.KeyInput.MOVEMENT)
             );
         }
 
@@ -114,12 +108,29 @@ public class SendKey : MonoBehaviour
         _skillName = null;
     }
 
-    private string SendKeyInputFormatting(int type, string msg)
+    private int PlayerMovement()
     {
-        return type.ToString()
+        if (moveDirection.x > 0)
+        {
+            return 1;
+        }
+
+        if (moveDirection.x < 0)
+        {
+            return -1;
+        }
+
+        return 0;
+    }
+
+    private string SendMovementInputFormatting(int type)
+    {
+        return Constant.SteamNetworkingType.KeyInput.MOVEMENT.ToString()
                + Constant.SteamNetworkingType.DELIMITER
                + RollbackManager.Manager.CurrentFrame
                + Constant.SteamNetworkingType.DELIMITER
-               + msg;
+               + jumpKeyInput
+               + Constant.SteamNetworkingType.DELIMITER
+               + (-1 * PlayerMovement());
     }
 }

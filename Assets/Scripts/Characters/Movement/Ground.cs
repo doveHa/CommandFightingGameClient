@@ -1,5 +1,4 @@
-﻿using RollbackNetCode;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Movement
 {

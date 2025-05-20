@@ -31,12 +31,12 @@ namespace Handler
 
         private void Start()
         {
+            AddCharacterCombo("Naktis");
             InputActionManager.Manager.Inputs.Command.CommandInput.performed += OnInputPerformed;
         }
 
-        public void AddCharacterCombo()
+        public void AddCharacterCombo(string characterName)
         {
-            string characterName = CharacterManager.Manager.PlayerCharacterName;
             CharacterManager.Manager.CharacterGroup.Characters.TryGetValue(characterName, out ICharacter character);
 
             foreach (KeyValuePair<string, ISkill> skill in character.SkillGroup.Skills)
