@@ -9,13 +9,12 @@ namespace DataTable
     {
         public static List<CharacterAllStatement> DataSet { get; set; }
         public static Dictionary<string, List<FrameData>> Statements { get; private set; }
-
+        
 
         public static void Start()
         {
             DataSet = JsonSerializer.Deserialize<List<CharacterAllStatement>>(
                 File.ReadAllText("Assets/Data/HitBox/Naktis.json"));
-            Debug.Log(File.ReadAllText("Assets/Data/HitBox/Naktis.json"));
             Statements = new Dictionary<string, List<FrameData>>();
             foreach (CharacterAllStatement statement in DataSet)
             {
@@ -31,6 +30,7 @@ namespace DataTable
 
     public class HurtBox
     {
+        //hit box
         public string PartName { get; set; }
         public float[] OffSet { get; set; }
         public float[] Size { get; set; }

@@ -46,14 +46,12 @@ namespace Manager
                 Resources.Load<GameObject>("Prefabs/Character/" + CharacterManager.Manager.PlayerCharacterName + "/" +
                                            CharacterManager.Manager.PlayerCharacterName),
                 Player.transform).tag = "Player";
-            //AddSkillComponent(Player, CharacterManager.Manager.PlayerCharacterName);
 
             Opponent = GameObject.Find("Opponent");
             Instantiate(
                 Resources.Load<GameObject>("Prefabs/Character/" + CharacterManager.Manager.OpponentCharacterName + "/" +
                                            CharacterManager.Manager.OpponentCharacterName),
                 Opponent.transform).tag = "Opponent";
-            //AddSkillComponent(Opponent, CharacterManager.Manager.OpponentCharacterName);
         }
 
         void OnDisable()

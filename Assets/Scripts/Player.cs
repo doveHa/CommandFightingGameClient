@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
 
     private bool isLeft, isPlayerLeft;
     private bool isGuard;
+    private CharacterAnimatorHandler animator;
     public bool IsJumping { get; set; }
 
     private int health = 100;
@@ -16,7 +17,8 @@ public class Player : MonoBehaviour
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-
+        animator = GetComponent<CharacterAnimatorHandler>();
+        
         isLeft = true;
         isPlayerLeft = true;
 
@@ -58,6 +60,7 @@ public class Player : MonoBehaviour
             Debug.Log(health);
         }
     }
+
 
     public void UseSkill(string skillName)
     {
