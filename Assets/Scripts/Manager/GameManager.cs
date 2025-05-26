@@ -5,9 +5,9 @@ namespace Manager
 {
     public class GameManager : MonoBehaviour
     {
-        public GameObject Player { get; private set; }
+        //public GameObject Player { get; private set; }
         public Vector2 PlayerCenter { get; set; }
-        public GameObject Opponent { get; private set; }
+        //public GameObject Opponent { get; private set; }
         public Vector2 OpponentCenter { get; set; }
 
         private bool wasPlayerLeft;
@@ -25,7 +25,8 @@ namespace Manager
         void Start()
         {
             wasPlayerLeft = true;
-            Opponent.GetComponentInChildren<Player>().Flip();
+            VarManager.Manager.Opponent.Flip();
+            //Opponent.GetComponentInChildren<Player>().Flip();
         }
 
         // Update is called once per frame
@@ -35,15 +36,19 @@ namespace Manager
 
             if (wasPlayerLeft != IsPlayerLeft)
             {
-                Player.GetComponentInChildren<Player>().Flip();
-                Opponent.GetComponentInChildren<Player>().Flip();
+                VarManager.Manager.Player.Flip();
+                VarManager.Manager.Opponent.Flip();
+                //Player.GetComponentInChildren<Player>().Flip();
+                //Opponent.GetComponentInChildren<Player>().Flip();
                 wasPlayerLeft = IsPlayerLeft;
             }
         }
 
         private bool CalculatePlayerIsLeft()
         {
-            return Player.transform.GetChild(0).position.x < Opponent.transform.GetChild(0).position.x;
+            float playerX = VarManager.Manager.PlayerGameObject.transform.position.x;
+            float opponentX = VarManager.Manager.OpponentGameObject.transform.position.x;
+            return playerX < opponentX;
         }
 
         void OnEnable()
@@ -53,17 +58,20 @@ namespace Manager
 
         void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            Player = GameObject.Find("Player");
+            VarManager.Manager.PlayerGameObject = GameObject.Find("Player");
             Instantiate(
-                Resources.Load<GameObject>("Prefabs/Character/" + CharacterManager.Manager.PlayerCharacterName + "/" +
-                                           CharacterManager.Manager.PlayerCharacterName),
-                Player.transform).tag = "Player";
-
-            Opponent = GameObject.Find("Opponent");
+                Resources.Load<GameObject>("Prefabs/Character/" + VarManager.Manager.PlayerCharacterName + "/" +
+                                           VarManager.Manager.PlayerCharacterName),
+                VarManager.Manager.PlayerGameObject.transform).tag = "Player";
+            VarManager.Manager.SetPlayerComponent();
+            VarManager.Manager.Player.SetDataSet(VarManager.Manager.PlayerCharacterName);
+            VarManager.Manager.OpponentGameObject = GameObject.Find("Opponent");
             Instantiate(
-                Resources.Load<GameObject>("Prefabs/Character/" + CharacterManager.Manager.OpponentCharacterName + "/" +
-                                           CharacterManager.Manager.OpponentCharacterName),
-                Opponent.transform).tag = "Opponent";
+                Resources.Load<GameObject>("Prefabs/Character/" + VarManager.Manager.OpponentCharacterName + "/" +
+                                           VarManager.Manager.OpponentCharacterName),
+                VarManager.Manager.OpponentGameObject.transform).tag = "Opponent";
+            VarManager.Manager.SetOpponentComponent();
+            VarManager.Manager.Opponent.SetDataSet(VarManager.Manager.OpponentCharacterName);
         }
 
         void OnDisable()

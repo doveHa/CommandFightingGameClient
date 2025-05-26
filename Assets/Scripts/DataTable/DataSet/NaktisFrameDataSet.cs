@@ -7,17 +7,15 @@ namespace DataTable.DataSet
 {
     public class NaktisFrameDataSet : DataSet
     {
-        public static void GetFrameData()
+        public NaktisFrameDataSet()
         {
             RawDataSet = JsonSerializer.Deserialize<List<CharacterAllStatement>>(
                 File.ReadAllText("Assets/Data/HitBox/Naktis.json"));
-            Statements = new Dictionary<string, List<FrameData>>();
+            Statements = new Dictionary<string, FrameNumberDictionary>();
             foreach (CharacterAllStatement statement in RawDataSet)
             {
-                Statements.Add(statement.Statement, statement.FrameData);
+                Statements.Add(statement.Statement, new FrameNumberDictionary(statement.FrameData));
             }
         }
-
     }
-
 }

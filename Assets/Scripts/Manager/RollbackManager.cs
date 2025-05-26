@@ -12,10 +12,6 @@ namespace Manager
         private InputDictionary inputDictionary;
         private Dictionary<int, PlayerState> stateHistory;
 
-        private Player player;
-        private Animator playerAnimator;
-        private Player opponent;
-        private Animator opponentAnimator;
 
         public class FrameInput
         {
@@ -49,10 +45,6 @@ namespace Manager
 
         void Start()
         {
-            player = GameManager.Manager.Player.GetComponentInChildren<Player>();
-            playerAnimator = GameManager.Manager.Player.GetComponentInChildren<Animator>();
-            opponent = GameManager.Manager.Opponent.GetComponentInChildren<Player>();
-            opponentAnimator = GameManager.Manager.Opponent.GetComponentInChildren<Animator>();
         }
 
         public void ProcessingMessage(string message)
@@ -136,41 +128,41 @@ namespace Manager
             FrameInput local = inputDictionary.GetLocal(frame);
             FrameInput remote = inputDictionary.GetRemote(frame);
 
-            CharacterMovementController.MoveCharacter(player.gameObject, local.MoveInput);
+            CharacterMovementController.MoveCharacter(VarManager.Manager.PlayerGameObject.transform.GetChild(0).gameObject, local.MoveInput);
 
-            CharacterMovementController.MoveCharacter(opponent.gameObject, remote.MoveInput);
+            CharacterMovementController.MoveCharacter(VarManager.Manager.OpponentGameObject.transform.GetChild(0).gameObject, remote.MoveInput);
             if (remote.MoveInput == 0)
             {
-                opponentAnimator.SetBool("IsMove",false);
+                VarManager.Manager.Opponent.Animator.EndWalkAnimation();
             }
             else
             {
-                opponentAnimator.SetBool("IsMove",true);
+                VarManager.Manager.Opponent.Animator.StartWalkAnimation();
             }
             
             if (local.JumpInput)
             {
                 Debug.Log(CurrentFrame + "JUMP!" + remote.JumpInput);
-                CharacterMovementController.JumpCharacter(player.gameObject);
+                CharacterMovementController.JumpCharacter(VarManager.Manager.PlayerGameObject);
             }
 
             if (remote.JumpInput)
             {
                 Debug.Log("REMOTE JUMP!");
-                CharacterMovementController.JumpCharacter(opponent.gameObject);
+                CharacterMovementController.JumpCharacter(VarManager.Manager.OpponentGameObject);
             }
 
             if (!string.IsNullOrEmpty(local.SkillInput))
             {
-                player.UseSkill(local.SkillInput);
+                //player.UseSkill(local.SkillInput);
             }
 
             if (!string.IsNullOrEmpty(remote.SkillInput))
             {
-                opponent.UseSkill(remote.SkillInput);
+                //opponent.UseSkill(remote.SkillInput);
             }
 
-            stateHistory[frame] = new PlayerState(player.Position, opponent.Position);
+            stateHistory[frame] = new PlayerState(VarManager.Manager.Player.Position, VarManager.Manager.Opponent.Position);
         }
 
         public class InputDictionary

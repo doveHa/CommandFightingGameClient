@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Data;
 using DataTable.FrameRanges;
 using DataTable.DataSet;
+using Manager;
+using DataSet = DataTable.DataSet.DataSet;
 
 namespace Handler
 {
@@ -9,34 +12,35 @@ namespace Handler
     {
         protected Animator Animator;
         protected Transform PlayerTransform;
-        
+
         private Dictionary<string, bool> animationFlag;
         protected bool motionFlag = false;
 
         protected FrameRangesDictionary dictionary;
-        protected string currentClip;
-        protected int frameIndex;
-        
+        public string State { get; set; }
+        public int FrameIndex { get; set; }
+
         public GameObject Center { get; private set; }
 
-        protected virtual void Start()
+        protected virtual void Awake()
         {
             Center = transform.Find("Center").gameObject;
-            
+
             Animator = GetComponent<Animator>();
             PlayerTransform = transform;
 
             animationFlag = new Dictionary<string, bool>();
             animationFlag.Add("Punch", false);
+            //InputActionManager.Manager.Inputs.Atk.Atk.started += (ctx => { StartPunchAnimation();});
         }
 
-        protected virtual void Update()
+        protected virtual void FixedUpdate()
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 StartPunchAnimation();
             }
-            
+
             CalFrameNumber();
         }
 
@@ -66,7 +70,7 @@ namespace Handler
         {
             Animator.SetBool("IsMove", false);
         }
-        
+
         private void CalFrameNumber()
         {
             AnimatorStateInfo stateInfo = Animator.GetCurrentAnimatorStateInfo(0);
@@ -78,26 +82,36 @@ namespace Handler
             int totalFrames = Mathf.RoundToInt(clip.length * clip.frameRate);
             int currentFrame = Mathf.FloorToInt(normalizedTime * totalFrames);
 
-            currentClip = clip.name;
+            State = clip.name;
             List<FrameRange> frameRanges =
-                dictionary.FrameRanges[currentClip];
+                dictionary.FrameRanges[State];
             for (int i = 0; i < 4; i++)
             {
                 if (currentFrame >= frameRanges[i].start && currentFrame <= frameRanges[i].end)
                 {
-                    frameIndex = i;
+                    FrameIndex = i;
                     break;
                 }
+            }
+
+            if (gameObject.CompareTag("Player"))
+            {
+                HitBoxManager.Manager.SetPlayerState(State, FrameIndex);
+            }
+            
+            if (gameObject.CompareTag("Opponent"))
+            {
+                HitBoxManager.Manager.SetOpponentState(State, FrameIndex);
             }
         }
 
         private void OnDrawGizmos()
         {
-            foreach (DataSet.CharacterAllStatement statement in NaktisFrameDataSet.RawDataSet)
+            foreach (CharacterAllStatement statement in VarManager.Manager.Player.DataSet.RawDataSet)
             {
-                if (statement.Statement.Equals(currentClip))
+                if (statement.Statement.Equals(State))
                 {
-                    foreach (var box in statement.FrameData[frameIndex].HurtBoxes)
+                    foreach (var box in statement.FrameData[FrameIndex].HurtBoxes)
                     {
                         Vector2 playerCenter = Vector2.zero;
                         Vector2 center = Vector2.zero;

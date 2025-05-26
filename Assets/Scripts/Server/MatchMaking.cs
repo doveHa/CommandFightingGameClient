@@ -24,7 +24,7 @@ namespace Server
             
             SteamNetworkManager.Manager.SendMsg(SteamNetworkManager.Manager.RemoteSteamId,
                 Constant.SteamNetworkingType.CONNECTION,
-                CharacterManager.Manager.PlayerCharacterName);
+                VarManager.Manager.PlayerCharacterName);
 
             //await StartConnect();
         }
@@ -55,7 +55,7 @@ namespace Server
                 //상대에게 자신의 캐릭터 정보 전송 후 게임 시작 
                 SteamNetworkManager.Manager.SendMsg(SteamNetworkManager.Manager.RemoteSteamId,
                     Constant.SteamNetworkingType.CONNECTION,
-                    CharacterManager.Manager.PlayerCharacterName);
+                    VarManager.Manager.PlayerCharacterName);
             }
             catch (Exception e)
             {

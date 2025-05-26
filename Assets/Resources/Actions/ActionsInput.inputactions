@@ -22,15 +22,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "48defe3e-0767-404d-9055-98f214f9374c",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -180,6 +171,34 @@
                     "processors": "",
                     "groups": "",
                     "action": "Command Input",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Atk",
+            "id": "af5fb5f3-1371-4bfa-802d-fbfb77354550",
+            "actions": [
+                {
+                    "name": "Atk",
+                    "type": "Button",
+                    "id": "3cd600d7-bf5d-442b-8c4c-b468ae920718",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "6f8ebce1-0e8e-448a-9266-1290e2d0cf94",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Atk",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

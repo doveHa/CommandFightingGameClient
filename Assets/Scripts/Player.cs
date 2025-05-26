@@ -7,8 +7,8 @@ public class Player : MonoBehaviour
 {
     public Vector2 Position;
     private SpriteRenderer spriteRenderer;
-    private CharacterAnimatorHandler animator;
-    public DataSet DataSet;
+    public CharacterAnimatorHandler Animator { get; set; }
+    public DataSet DataSet { get; set; }
 
     private bool isLeft;
     private bool isGuard;
@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     {
         isLeft = true;
         spriteRenderer = GetComponent<SpriteRenderer>();
-        animator = GetComponent<CharacterAnimatorHandler>();
+        Animator = GetComponent<CharacterAnimatorHandler>();
     }
 
 
@@ -48,6 +48,21 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void SetDataSet(string charaterName)
+    {
+        switch (charaterName)
+        {
+            case "Naktis":
+                DataSet = new NaktisFrameDataSet();
+                break;
+            case "Kaegetsu":
+                DataSet = new KagetsuFrameDataSet();
+                break;
+            case "Vargon":
+                DataSet = new VargonFrameDataSet();
+                break;
+        }
+    }
 
     public void UseSkill(string skillName)
     {

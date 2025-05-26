@@ -27,7 +27,7 @@ namespace ButtonMapping
         {
             if (CharacterSelectHandler.CurrentShowCharacter != null)
             {
-                CharacterManager.Manager.PlayerCharacterName = CharacterSelectHandler.CurrentShowCharacter;
+                VarManager.Manager.PlayerCharacterName = CharacterSelectHandler.CurrentShowCharacter;
             }
 
             characterInfoToMain();

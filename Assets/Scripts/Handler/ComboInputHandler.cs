@@ -90,9 +90,11 @@ namespace Handler
                 {
                     if (nextNode.IsEndOfCombo)
                     {
+                        InputActionManager.Manager.Inputs.Atk.Atk.Disable();
                         nextNode.Skill.Action.Invoke(nextNode.Skill);
-                        HitBoxManager.Manager.SetPlayerState(nextNode.Skill.Name);
                         comboExecuted = true;
+                        InputActionManager.Manager.Inputs.Atk.Atk.Enable();
+
                         break;
                     }
 

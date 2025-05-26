@@ -19,16 +19,58 @@ namespace Manager
         public string PlayerCurrentState { get; set; }
         public string OpponentCurrentState { get; set; }
 
-        private List<DataSet.FrameData> playerCurrentFrameData;
-        private List<DataSet.FrameData> opponentCurrentFrameData;
+        private FrameNumberDictionary playerCurrentFrameData;
+        private FrameNumberDictionary opponentCurrentFrameData;
 
-        public void SetPlayerState(string state)
+        private int playerFrameIndex, opponentFrameIndex;
+
+        public void SetPlayerState(string state, int frameIndex)
         {
             PlayerCurrentState = state;
+            playerCurrentFrameData = VarManager.Manager.Player.DataSet.Statements[state];
+            playerFrameIndex = frameIndex;
         }
-        public void HitJudgement()
+
+        public void SetOpponentState(string state, int frameIndex)
         {
-            
+            OpponentCurrentState = state;
+            opponentCurrentFrameData = VarManager.Manager.Opponent.DataSet.Statements[state];
+            opponentFrameIndex = frameIndex;
+        }
+
+        void FixedUpdate()
+        {
+            var playerFrame = playerCurrentFrameData.Dictionary[playerFrameIndex + 1];
+            var opponentFrame = opponentCurrentFrameData.Dictionary[opponentFrameIndex + 1];
+
+            foreach (var playerBox in playerFrame.HurtBoxes)
+            {
+                if (playerBox.PartName.Equals("HitBox"))
+                {
+                    Vector2 playerCenter =
+                        (Vector2)VarManager.Manager.PlayerGameObject.transform.GetChild(0).GetChild(0).position +
+                        DataSet.FloatArrayToVector2(playerBox.OffSet);
+                    Vector2 playerSize = DataSet.FloatArrayToVector2(playerBox.Size);
+                    Rect playerHitRect = new Rect(playerCenter - playerSize / 2f, playerSize);
+
+                    foreach (var opponentBox in opponentFrame.HurtBoxes)
+                    {
+                        Vector2 opponentCenter =
+                            (Vector2)VarManager.Manager.OpponentGameObject.transform.GetChild(0).GetChild(0)
+                                .position +
+                            DataSet.FloatArrayToVector2(opponentBox.OffSet);
+                        Vector2 opponentSize = DataSet.FloatArrayToVector2(opponentBox.Size);
+                        Rect opponentHurtRect = new Rect(opponentCenter - opponentSize / 2f, opponentSize);
+
+                        if (playerHitRect.Overlaps(opponentHurtRect))
+                        {
+                            Debug.Log("Hit Detected!");
+                            // TODO: 여기에 데미지 처리, 피격 반응 등 추가
+                            return;
+                        }
+                    }
+                }
+            }
         }
     }
 }

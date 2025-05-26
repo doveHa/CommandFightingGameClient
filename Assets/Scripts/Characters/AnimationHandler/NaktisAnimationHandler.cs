@@ -14,9 +14,9 @@ namespace Characters.AnimationHandler
         public bool SecondScratch { get; set; }
 
 
-        protected override void Start()
+        protected override void Awake()
         {
-            base.Start();
+            base.Awake();
             dictionary = new NaktisFrameRangesDictionary();
             animationFlag = new Dictionary<string, bool>();
             animationFlag.Add("Hasegi", false);
@@ -26,9 +26,9 @@ namespace Characters.AnimationHandler
             HasegiMotion = false;
         }
 
-        protected override void Update()
+        protected override void FixedUpdate()
         {
-            base.Update();
+            base.FixedUpdate();
         }
 
         public void StartHasegiAnimation()

@@ -14,8 +14,8 @@ namespace Manager
     public class CharacterManager : MonoBehaviour
     {
         //선택한 캐릭터의 이름만 vs 선택한 캐릭터의 객체 정보
-        public string OpponentCharacterName { get; set; }
-        public string PlayerCharacterName { get; set; }
+        //public string OpponentCharacterName { get; set; }
+        //public string PlayerCharacterName { get; set; }
 
         public static CharacterManager Manager { get; private set; }
 
@@ -24,7 +24,7 @@ namespace Manager
         
         public void CharacterOn()
         {
-            comboInputHandler.AddCharacterCombo(PlayerCharacterName);
+            comboInputHandler.AddCharacterCombo(VarManager.Manager.PlayerCharacterName);
             
             GameObject characterSet = GameObject.Find("Character");
             for (int i = 0; i < characterSet.transform.childCount; i++)
@@ -32,7 +32,7 @@ namespace Manager
                 characterSet.transform.GetChild(i).gameObject.SetActive(false);
             }
 
-            characterSet.transform.Find(PlayerCharacterName).gameObject.SetActive(true);
+            characterSet.transform.Find(VarManager.Manager.PlayerCharacterName).gameObject.SetActive(true);
         }
 
         void Awake()

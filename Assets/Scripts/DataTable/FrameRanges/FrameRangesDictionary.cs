@@ -8,21 +8,20 @@ namespace DataTable.FrameRanges
 
         public FrameRangesDictionary()
         {
-            Start();
             FrameRanges = new Dictionary<string, List<FrameRange>>();
-            AddRange(new int[]{30,60,90,120, 121},"Idle");
-            AddRange(new int[]{10,20,30,40, 41},"Walk");
-            AddRange(new int[]{0,0,0,0},"Jumping_Attack");
-            AddRange(new int[]{0,0,0,0},"Jumping_Down");
-            AddRange(new int[]{0,0,0,0},"Jumping_Up");
-            AddRange(new int[]{0,0,0,0},"Guard");
-            AddRange(new int[]{0,0,0,0},"Hit");
-            AddRange(new int[]{0,0,0,0},"Airborne");
-            AddRange(new int[]{8,16,24,32},"Atk_Punch");
-            AddRange(new int[]{0,0,0,0},"Atk_Kick");
+            AddRange("Idle", new int[]{30,60,90,120, 121});
+            AddRange("Walk", new int[]{10,20,30,40, 41});
+            AddRange("Jumping_Attack", new int[]{0,0,0,0});
+            AddRange("Jumping_Down", new int[]{0,0,0,0});
+            AddRange("Jumping_Up", new int[]{0,0,0,0});
+            AddRange("Guard", new int[]{0,0,0,0});
+            AddRange("Hit", new int[]{0,0,0,0});
+            AddRange("Airborne", new int[]{0,0,0,0});
+            AddRange("Atk_Punch", new int[]{8,16,24,32});
+            AddRange("Atk_Kick", new int[]{0,0,0,0});
         }
         
-        protected void AddRange(int[] ranges, string state)
+        protected void AddRange(string state, int[] ranges)
         {
             List<FrameRange> frameRanges = new List<FrameRange>();
             int pastRange = -1;
@@ -34,8 +33,6 @@ namespace DataTable.FrameRanges
 
             FrameRanges.Add(state, frameRanges);
         }
-
-        protected abstract void Start();
     }
 
     public struct FrameRange

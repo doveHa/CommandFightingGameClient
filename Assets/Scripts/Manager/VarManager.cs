@@ -22,6 +22,22 @@ namespace Manager
                 Manager = this;
             }
         }
+
+        public void SetPlayerComponent()
+        {
+            Player = PlayerGameObject.GetComponentInChildren<Player>();
+        }
+
+        public void SetOpponentComponent()
+        {
+            Opponent = OpponentGameObject.GetComponentInChildren<Player>();
+        }
         
     }
 }
+
+
+//private Player player;
+//private Animator playerAnimator;
+//private Player opponent;
+//private Animator opponentAnimator;

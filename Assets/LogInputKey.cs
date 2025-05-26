@@ -9,8 +9,8 @@ public class LogInputKey : MonoBehaviour
     void Start()
     {
         textMesh = GetComponent<TextMeshProUGUI>();
-        Destroy(Opponent.GetComponentInChildren<NaktisAnimationHandler>());
-        Destroy(Opponent.GetComponentInChildren<SendKey>());
+        //Destroy(Opponent.GetComponentInChildren<NaktisAnimationHandler>());
+        //Destroy(Opponent.GetComponentInChildren<SendKey>());
     }
 
     void Update()
