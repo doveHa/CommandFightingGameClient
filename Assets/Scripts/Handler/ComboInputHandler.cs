@@ -31,7 +31,6 @@ namespace Handler
 
         private void Start()
         {
-            AddCharacterCombo("Naktis");
             InputActionManager.Manager.Inputs.Command.CommandInput.performed += OnInputPerformed;
         }
 
@@ -42,6 +41,7 @@ namespace Handler
             foreach (KeyValuePair<string, ISkill> skill in character.SkillGroup.Skills)
             {
                 AddCombo(skill.Value);
+                Debug.Log(skill.Key);
             }
         }
 
@@ -91,6 +91,7 @@ namespace Handler
                     if (nextNode.IsEndOfCombo)
                     {
                         nextNode.Skill.Action.Invoke(nextNode.Skill);
+                        HitBoxManager.Manager.SetPlayerState(nextNode.Skill.Name);
                         comboExecuted = true;
                         break;
                     }
@@ -148,7 +149,9 @@ namespace Handler
 
         public class UnReachableComboException : Exception
         {
-            public UnReachableComboException() : base("Unreachable combo") { }
+            public UnReachableComboException() : base("Unreachable combo")
+            {
+            }
         }
     }
 }

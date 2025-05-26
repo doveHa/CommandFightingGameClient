@@ -1,5 +1,3 @@
-using DataTable;
-using Manager;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,6 +10,7 @@ namespace Manager
         public GameObject Opponent { get; private set; }
         public Vector2 OpponentCenter { get; set; }
 
+        private bool wasPlayerLeft;
         public bool IsPlayerLeft { get; private set; }
         public static GameManager Manager { get; private set; }
 
@@ -23,10 +22,23 @@ namespace Manager
             }
         }
 
+        void Start()
+        {
+            wasPlayerLeft = true;
+            Opponent.GetComponentInChildren<Player>().Flip();
+        }
+
         // Update is called once per frame
         void Update()
         {
             IsPlayerLeft = CalculatePlayerIsLeft();
+
+            if (wasPlayerLeft != IsPlayerLeft)
+            {
+                Player.GetComponentInChildren<Player>().Flip();
+                Opponent.GetComponentInChildren<Player>().Flip();
+                wasPlayerLeft = IsPlayerLeft;
+            }
         }
 
         private bool CalculatePlayerIsLeft()
@@ -57,31 +69,6 @@ namespace Manager
         void OnDisable()
         {
             SceneManager.sceneLoaded -= OnSceneLoaded;
-        }
-
-        private void AddSkillComponent(GameObject player, string characterName)
-        {
-            switch (characterName)
-            {
-                case "Naktis":
-                    player.transform.GetChild(0).GetChild(1).gameObject.AddComponent<Fly>().SetCoff();
-                    player.transform.GetChild(0).GetChild(1).gameObject.AddComponent<Hasegi>().SetCoff();
-                    player.transform.GetChild(0).GetChild(1).gameObject.AddComponent<Scratch>().SetCoff();
-                    player.transform.GetChild(0).GetChild(1).gameObject.AddComponent<UpperWing>().SetCoff();
-                    break;
-                case "Kagetsu":
-                    player.transform.GetChild(0).GetChild(1).gameObject.AddComponent<IttoRyotan>().SetCoff();
-                    player.transform.GetChild(0).GetChild(1).gameObject.AddComponent<NageKunai>().SetCoff();
-                    player.transform.GetChild(0).GetChild(1).gameObject.AddComponent<Nageru>().SetCoff();
-                    player.transform.GetChild(0).GetChild(1).gameObject.AddComponent<Sangiri>().SetCoff();
-                    break;
-                case "Vargon":
-                    player.transform.GetChild(0).GetChild(1).gameObject.AddComponent<Curl>().SetCoff();
-                    player.transform.GetChild(0).GetChild(1).gameObject.AddComponent<Grab>().SetCoff();
-                    player.transform.GetChild(0).GetChild(1).gameObject.AddComponent<Rush>().SetCoff();
-                    player.transform.GetChild(0).GetChild(1).gameObject.AddComponent<Slam>().SetCoff();
-                    break;
-            }
         }
     }
 }

@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Characters.AnimationHandler;
-using Data.FrameRanges;
-using DataTable;
 using Manager;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class TestGameSceneManager : MonoBehaviour
 {

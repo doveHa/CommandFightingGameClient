@@ -109,5 +109,10 @@ namespace Characters
         {
             Debug.Log("VargonS4");
         }
+
+        private static void SetStatement()
+        {
+            
+        }
     }
 }

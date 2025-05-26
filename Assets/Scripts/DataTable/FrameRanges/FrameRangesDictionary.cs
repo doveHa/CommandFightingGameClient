@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Unity.VisualScripting;
 
-namespace Data.FrameRanges
+namespace DataTable.FrameRanges
 {
     public abstract class FrameRangesDictionary
     {

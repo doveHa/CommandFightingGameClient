@@ -1,4 +1,5 @@
-﻿using Handler;
+﻿using DataTable.DataSet;
+using Handler;
 using Manager;
 using UnityEngine;
 
@@ -6,38 +7,24 @@ public class Player : MonoBehaviour
 {
     public Vector2 Position;
     private SpriteRenderer spriteRenderer;
-
-    private bool isLeft, isPlayerLeft;
-    private bool isGuard;
     private CharacterAnimatorHandler animator;
+    public DataSet DataSet;
+
+    private bool isLeft;
+    private bool isGuard;
     public bool IsJumping { get; set; }
 
     private int health = 100;
 
-    void Start()
+    void Awake()
     {
+        isLeft = true;
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<CharacterAnimatorHandler>();
-        
-        isLeft = true;
-        isPlayerLeft = true;
-
-        if (gameObject.CompareTag("Opponent"))
-        {
-            Flip();
-        }
     }
 
-    void Update()
-    {
-        if (isPlayerLeft != GameManager.Manager.IsPlayerLeft)
-        {
-            Flip();
-            isPlayerLeft = !isPlayerLeft;
-        }
-    }
 
-    private void Flip()
+    public void Flip()
     {
         spriteRenderer.flipX = isLeft;
         isLeft = !isLeft;

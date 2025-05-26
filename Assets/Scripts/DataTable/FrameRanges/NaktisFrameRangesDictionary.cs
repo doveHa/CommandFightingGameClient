@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
-using DataTable;
+﻿using DataTable.DataSet;
 
-namespace Data.FrameRanges
+namespace DataTable.FrameRanges
 {
     public class NaktisFrameRangesDictionary : FrameRangesDictionary
     {
         protected override void Start()
         {
-            NaktisFrameDataSet.Start();
+            NaktisFrameDataSet.GetFrameData();
         }
 
         public NaktisFrameRangesDictionary() : base()

@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using Data.FrameRanges;
-using DataTable;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections.Generic;
+using DataTable.FrameRanges;
+using DataTable.DataSet;
 
 namespace Handler
 {
@@ -93,7 +93,7 @@ namespace Handler
 
         private void OnDrawGizmos()
         {
-            foreach (CharacterAllStatement statement in NaktisFrameDataSet.DataSet)
+            foreach (DataSet.CharacterAllStatement statement in NaktisFrameDataSet.RawDataSet)
             {
                 if (statement.Statement.Equals(currentClip))
                 {
@@ -106,7 +106,7 @@ namespace Handler
                         {
                             Gizmos.color = Color.red;
                             playerCenter = PlayerTransform.position;
-                            center = playerCenter + NaktisFrameDataSet.FloatArrayToVector2(box.OffSet);
+                            center = playerCenter + DataSet.FloatArrayToVector2(box.OffSet);
                             size = NaktisFrameDataSet.FloatArrayToVector2(box.Size);
                         }
                         else

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using Data.FrameRanges;
-using DataTable;
+using DataTable.FrameRanges;
 using Handler;
 using UnityEngine;
 

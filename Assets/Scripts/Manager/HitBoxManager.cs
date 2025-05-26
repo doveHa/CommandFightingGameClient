@@ -1,4 +1,5 @@
-﻿using Unity.VisualScripting;
+﻿using System.Collections.Generic;
+using DataTable.DataSet;
 using UnityEngine;
 
 namespace Manager
@@ -6,15 +7,28 @@ namespace Manager
     public class HitBoxManager : MonoBehaviour
     {
         public static HitBoxManager Manager;
-        
-        public 
-        void Awake() 
+
+        void Awake()
         {
-            if(Manager == null)
+            if (Manager == null)
             {
                 Manager = this;
             }
         }
-        
+
+        public string PlayerCurrentState { get; set; }
+        public string OpponentCurrentState { get; set; }
+
+        private List<DataSet.FrameData> playerCurrentFrameData;
+        private List<DataSet.FrameData> opponentCurrentFrameData;
+
+        public void SetPlayerState(string state)
+        {
+            PlayerCurrentState = state;
+        }
+        public void HitJudgement()
+        {
+            
+        }
     }
 }
