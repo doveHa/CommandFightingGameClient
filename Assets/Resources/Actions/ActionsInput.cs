@@ -280,7 +280,7 @@ public partial class @ActionsInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6f8ebce1-0e8e-448a-9266-1290e2d0cf94"",
-                    ""path"": ""<Keyboard>/z"",
+                    ""path"": ""<Keyboard>/x"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

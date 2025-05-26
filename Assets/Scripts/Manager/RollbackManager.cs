@@ -143,13 +143,13 @@ namespace Manager
             if (local.JumpInput)
             {
                 Debug.Log(CurrentFrame + "JUMP!" + remote.JumpInput);
-                CharacterMovementController.JumpCharacter(VarManager.Manager.PlayerGameObject);
+                CharacterMovementController.JumpCharacter(VarManager.Manager.PlayerGameObject.transform.GetChild(0).gameObject);
             }
 
             if (remote.JumpInput)
             {
                 Debug.Log("REMOTE JUMP!");
-                CharacterMovementController.JumpCharacter(VarManager.Manager.OpponentGameObject);
+                CharacterMovementController.JumpCharacter(VarManager.Manager.OpponentGameObject.transform.GetChild(0).gameObject);
             }
 
             if (!string.IsNullOrEmpty(local.SkillInput))

@@ -31,7 +31,7 @@ namespace Handler
 
             animationFlag = new Dictionary<string, bool>();
             animationFlag.Add("Punch", false);
-            //InputActionManager.Manager.Inputs.Atk.Atk.started += (ctx => { StartPunchAnimation();});
+            InputActionManager.Manager.Inputs.Atk.Atk.started += (ctx => { StartPunchAnimation();});
         }
 
         protected virtual void FixedUpdate()
