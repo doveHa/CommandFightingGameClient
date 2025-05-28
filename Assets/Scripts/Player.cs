@@ -12,7 +12,8 @@ public class Player : MonoBehaviour
     public DataSet DataSet { get; set; }
 
     private bool isLeft;
-    private bool isGuard;
+    public bool isGuard;
+    private bool isHit;
     public bool IsJumping { get; set; }
 
     private int health = 100;
@@ -29,7 +30,7 @@ public class Player : MonoBehaviour
     {
         spriteRenderer.flipX = isLeft;
         isLeft = !isLeft;
-        
+
         if (isLeft)
         {
             Debug.Log("left side");
@@ -40,7 +41,6 @@ public class Player : MonoBehaviour
             Debug.Log("right side");
             DataSet.SetRightSide();
         }
-
     }
 
     public void SetGuard(bool isGuard)
@@ -53,12 +53,20 @@ public class Player : MonoBehaviour
         if (isGuard)
         {
             Debug.Log("guard");
+            Animator.StartGuardAnimation();
         }
         else
         {
+            isHit = true;
+            Animator.StartHitAnimation();
             health -= atk;
             Debug.Log(health);
         }
+    }
+
+    public void HitEnd()
+    {
+        isHit = false;
     }
 
     public void SetDataSet(string charaterName)

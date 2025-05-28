@@ -67,7 +67,7 @@ namespace Manager
                             if (playerHitRect.Overlaps(opponentHurtRect))
                             {
                                 Debug.Log("Hit Detected!");
-                                // TODO: 여기에 데미지 처리, 피격 반응 등 추가
+                                VarManager.Manager.Opponent.Hit(10);
                                 return;
                             }
                         }
