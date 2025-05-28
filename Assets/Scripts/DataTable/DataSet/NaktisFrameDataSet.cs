@@ -9,13 +9,22 @@ namespace DataTable.DataSet
     {
         public NaktisFrameDataSet()
         {
-            RawDataSet = JsonSerializer.Deserialize<List<CharacterAllStatement>>(
-                File.ReadAllText("Assets/Data/HitBox/Naktis.json"));
-            Statements = new Dictionary<string, FrameNumberDictionary>();
-            foreach (CharacterAllStatement statement in RawDataSet)
+            RawLeftSideData = JsonSerializer.Deserialize<List<CharacterAllStatement>>(
+                File.ReadAllText("Assets/Data/HitBox/NaktisLeftSide.json"));
+            LeftSideStatements = new Dictionary<string, FrameNumberDictionary>();
+            foreach (CharacterAllStatement statement in RawLeftSideData)
             {
-                Statements.Add(statement.Statement, new FrameNumberDictionary(statement.FrameData));
+                LeftSideStatements.Add(statement.Statement, new FrameNumberDictionary(statement.FrameData));
+            } 
+            
+            RawRightSideData = JsonSerializer.Deserialize<List<CharacterAllStatement>>(
+                File.ReadAllText("Assets/Data/HitBox/NaktisRightSide.json"));
+            RightSideStatements = new Dictionary<string, FrameNumberDictionary>();
+            foreach (CharacterAllStatement statement in RawRightSideData)
+            {
+                RightSideStatements.Add(statement.Statement, new FrameNumberDictionary(statement.FrameData));
             }
+            
         }
     }
 }

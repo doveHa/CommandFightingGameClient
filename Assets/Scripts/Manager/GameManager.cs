@@ -5,9 +5,7 @@ namespace Manager
 {
     public class GameManager : MonoBehaviour
     {
-        //public GameObject Player { get; private set; }
         public Vector2 PlayerCenter { get; set; }
-        //public GameObject Opponent { get; private set; }
         public Vector2 OpponentCenter { get; set; }
 
         private bool wasPlayerLeft;
@@ -26,10 +24,8 @@ namespace Manager
         {
             wasPlayerLeft = true;
             VarManager.Manager.Opponent.Flip();
-            //Opponent.GetComponentInChildren<Player>().Flip();
         }
 
-        // Update is called once per frame
         void Update()
         {
             IsPlayerLeft = CalculatePlayerIsLeft();
@@ -38,8 +34,6 @@ namespace Manager
             {
                 VarManager.Manager.Player.Flip();
                 VarManager.Manager.Opponent.Flip();
-                //Player.GetComponentInChildren<Player>().Flip();
-                //Opponent.GetComponentInChildren<Player>().Flip();
                 wasPlayerLeft = IsPlayerLeft;
             }
         }

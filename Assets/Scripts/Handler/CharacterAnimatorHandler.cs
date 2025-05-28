@@ -107,7 +107,7 @@ namespace Handler
 
         private void OnDrawGizmos()
         {
-            foreach (CharacterAllStatement statement in VarManager.Manager.Player.DataSet.RawDataSet)
+            foreach (CharacterAllStatement statement in VarManager.Manager.Player.DataSet.RawData)
             {
                 if (statement.Statement.Equals(State))
                 {
