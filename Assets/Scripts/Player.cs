@@ -2,6 +2,7 @@
 using Handler;
 using Manager;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
 {
@@ -13,7 +14,8 @@ public class Player : MonoBehaviour
 
     private bool isLeft;
     public bool isGuard;
-    private bool isHit;
+    public bool isHit;
+    public bool IsAirborne;
     public bool IsJumping { get; set; }
 
     private int health = 100;
@@ -48,6 +50,30 @@ public class Player : MonoBehaviour
         this.isGuard = isGuard;
     }
 
+    public void Airborne(int atk)
+    {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (isGuard)
+        {
+            Animator.StartGuardAnimation();
+        }
+        else if (IsAirborne)
+        {
+            rb.AddForce(Vector2.up * ConstController.Manager.ReAirbonneForceY, ForceMode2D.Impulse);
+            Animator.ReAirborneHitAnimation();
+        }
+        else
+        {
+            IsAirborne = true;
+            isHit = true;
+            Animator.StartAirborneAnimation();
+
+            rb.linearVelocity = Vector2.zero;
+            rb.AddForce(Vector2.up * ConstController.Manager.AirborneForceY, ForceMode2D.Impulse);
+            health -= atk;
+        }
+    }
+
     public void Hit(int atk)
     {
         if (isGuard)
@@ -55,10 +81,15 @@ public class Player : MonoBehaviour
             Debug.Log("guard");
             Animator.StartGuardAnimation();
         }
-        else
+        else if (IsAirborne)
+        {
+            Debug.Log("Re");
+            GetComponent<Rigidbody2D>().AddForce(Vector2.up * ConstController.Manager.ReAirbonneForceY, ForceMode2D.Impulse);
+            Animator.ReAirborneHitAnimation();
+        }else
         {
             isHit = true;
-            Animator.StartHitAnimation();
+            Animator.ChangeHitLayer();
             health -= atk;
             Debug.Log(health);
         }

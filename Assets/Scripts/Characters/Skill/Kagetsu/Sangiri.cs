@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 
-public class Sangiri : MonoBehaviour
+namespace Characters.Skill.Kagetsu
 {
-    public void SetCoff()
+    public class Sangiri : MonoBehaviour
     {
-        
+        public void SetCoff()
+        {
+
+        }
     }
 }

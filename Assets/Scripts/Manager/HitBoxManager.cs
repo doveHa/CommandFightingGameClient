@@ -44,7 +44,7 @@ namespace Manager
             {
                 var playerFrame = playerCurrentFrameData.Dictionary[playerFrameIndex + 1];
                 var opponentFrame = opponentCurrentFrameData.Dictionary[opponentFrameIndex + 1];
-                
+
                 foreach (var playerBox in playerFrame.HurtBoxes)
                 {
                     if (playerBox.PartName.Equals("HitBox"))
@@ -67,13 +67,18 @@ namespace Manager
                             if (playerHitRect.Overlaps(opponentHurtRect))
                             {
                                 Debug.Log("Hit Detected!");
-                                VarManager.Manager.Opponent.Hit(10);
+                                GetHitSkill().Hit();
                                 return;
                             }
                         }
                     }
                 }
             }
+        }
+
+        private ICharacterSkill GetHitSkill()
+        {
+            return VarManager.Manager.PlayerSkills[PlayerCurrentState];
         }
     }
 }

@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 8086766787404335021}
   - component: {fileID: 6639711209606482386}
   - component: {fileID: 2628985842413365116}
+  - component: {fileID: 4691111117004035107}
   m_Layer: 0
   m_Name: Skills
   m_TagString: Untagged
@@ -113,6 +114,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b1bf4e42346428c80405fc60b64c80e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4691111117004035107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7790257116742212350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f1cf29c9bd41a3bef1e3490aa8b946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8625228902607096901
@@ -276,8 +289,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Position: {x: 0, y: 0}
-  skill1CoolTime: 0
-  skill2CoolTime: 0
+  isGuard: 0
+  isHit: 0
+  IsAirborne: 0
 --- !u!50 &5748234748559053433
 Rigidbody2D:
   serializedVersion: 5
@@ -304,7 +318,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &6700030213764588847
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ namespace Manager
 
         private bool wasPlayerLeft;
         public bool IsPlayerLeft { get; private set; }
+        
         public static GameManager Manager { get; private set; }
 
         void Awake()
@@ -53,19 +54,19 @@ namespace Manager
         void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             VarManager.Manager.PlayerGameObject = GameObject.Find("Player");
+            VarManager.Manager.OpponentGameObject = GameObject.Find("Opponent");
+
             Instantiate(
                 Resources.Load<GameObject>("Prefabs/Character/" + VarManager.Manager.PlayerCharacterName + "/" +
                                            VarManager.Manager.PlayerCharacterName),
                 VarManager.Manager.PlayerGameObject.transform).tag = "Player";
-            VarManager.Manager.SetPlayerComponent();
-            VarManager.Manager.Player.SetDataSet(VarManager.Manager.PlayerCharacterName);
-            VarManager.Manager.OpponentGameObject = GameObject.Find("Opponent");
             Instantiate(
                 Resources.Load<GameObject>("Prefabs/Character/" + VarManager.Manager.OpponentCharacterName + "/" +
                                            VarManager.Manager.OpponentCharacterName),
                 VarManager.Manager.OpponentGameObject.transform).tag = "Opponent";
-            VarManager.Manager.SetOpponentComponent();
-            VarManager.Manager.Opponent.SetDataSet(VarManager.Manager.OpponentCharacterName);
+            
+            VarManager.Manager.PlayerOpponentInitialize();;
+            
         }
 
         void OnDisable()

@@ -10,8 +10,11 @@ public class ConstController : MonoBehaviour
     public float MoveSpeed = 1f;
 
     public float GravityScale = 1f;
-
+    
     public int WaitTime = 1;
+
+    public float AirborneForceY = 2f;
+    public float ReAirbonneForceY = 0.25f;
     void Awake()
     {
         Manager = this;
