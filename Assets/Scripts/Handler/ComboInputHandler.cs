@@ -12,7 +12,7 @@ namespace Handler
         public class ComboTireNode
         {
             public Dictionary<string, ComboTireNode> Children = new();
-            public ISkill Skill;
+            public SkillInfo SkillInfo;
             public bool IsEndOfCombo;
         }
 
@@ -38,16 +38,16 @@ namespace Handler
         {
             CharacterManager.Manager.CharacterGroup.Characters.TryGetValue(characterName, out ICharacter character);
 
-            foreach (KeyValuePair<string, ISkill> skill in character.SkillGroup.Skills)
+            foreach (KeyValuePair<string, SkillInfo> skill in character.SkillGroup.Skills)
             {
                 AddCombo(skill.Value);
                 Debug.Log(skill.Key);
             }
         }
 
-        public void AddCombo(ISkill skill)
+        public void AddCombo(SkillInfo skillInfo)
         {
-            List<string> keySequence = skill.Command;
+            List<string> keySequence = skillInfo.Command;
             ComboTireNode currentNode = _comboTireRoot;
 
             foreach (string key in keySequence)
@@ -63,7 +63,7 @@ namespace Handler
                 currentNode = nextNode;
             }
 
-            currentNode.Skill = skill;
+            currentNode.SkillInfo = skillInfo;
             currentNode.IsEndOfCombo = true;
         }
 
@@ -91,7 +91,8 @@ namespace Handler
                     if (nextNode.IsEndOfCombo)
                     {
                         InputActionManager.Manager.Inputs.Atk.Atk.Disable();
-                        nextNode.Skill.Action.Invoke(nextNode.Skill);
+                        VarManager.Manager.PlayerGameObject.GetComponentInChildren<SendKey>().SetSkillName(nextNode.SkillInfo.Name);
+                        //nextNode.SkillInfo.Action.Invoke(nextNode.SkillInfo);
                         comboExecuted = true;
                         InputActionManager.Manager.Inputs.Atk.Atk.Enable();
 

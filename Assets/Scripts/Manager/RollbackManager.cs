@@ -2,6 +2,7 @@
 using Manager;
 using UnityEngine;
 using Movement;
+using UnityEngine.Rendering;
 
 namespace Manager
 {
@@ -62,6 +63,7 @@ namespace Manager
                 case Constant.SteamNetworkingType.KeyInput.MOVEMENT:
                     input.JumpInput = bool.Parse(splitMessage[2]);
                     input.MoveInput = int.Parse(splitMessage[3]);
+                    input.SkillInput = splitMessage[4];
                     changed = true;
                     break;
                 //splitMessage[2] = SKillName
@@ -128,9 +130,11 @@ namespace Manager
             FrameInput local = inputDictionary.GetLocal(frame);
             FrameInput remote = inputDictionary.GetRemote(frame);
 
-            CharacterMovementController.MoveCharacter(VarManager.Manager.PlayerGameObject.transform.GetChild(0).gameObject, local.MoveInput);
+            CharacterMovementController.MoveCharacter(
+                VarManager.Manager.PlayerGameObject.transform.GetChild(0).gameObject, local.MoveInput);
 
-            CharacterMovementController.MoveCharacter(VarManager.Manager.OpponentGameObject.transform.GetChild(0).gameObject, remote.MoveInput);
+            CharacterMovementController.MoveCharacter(
+                VarManager.Manager.OpponentGameObject.transform.GetChild(0).gameObject, remote.MoveInput);
             if (remote.MoveInput == 0)
             {
                 VarManager.Manager.Opponent.Animator.EndWalkAnimation();
@@ -139,30 +143,48 @@ namespace Manager
             {
                 VarManager.Manager.Opponent.Animator.StartWalkAnimation();
             }
-            
+
             if (local.JumpInput)
             {
                 Debug.Log(CurrentFrame + "JUMP!" + remote.JumpInput);
-                CharacterMovementController.JumpCharacter(VarManager.Manager.PlayerGameObject.transform.GetChild(0).gameObject);
+                CharacterMovementController.JumpCharacter(VarManager.Manager.PlayerGameObject.transform.GetChild(0)
+                    .gameObject);
             }
 
             if (remote.JumpInput)
             {
                 Debug.Log("REMOTE JUMP!");
-                CharacterMovementController.JumpCharacter(VarManager.Manager.OpponentGameObject.transform.GetChild(0).gameObject);
+                CharacterMovementController.JumpCharacter(VarManager.Manager.OpponentGameObject.transform.GetChild(0)
+                    .gameObject);
             }
 
             if (!string.IsNullOrEmpty(local.SkillInput))
             {
+                VarManager.Manager.PlayerSkills[TranslateKorToEng(local.SkillInput)].Run();
                 //player.UseSkill(local.SkillInput);
             }
 
             if (!string.IsNullOrEmpty(remote.SkillInput))
             {
+                VarManager.Manager.OpponentSkills[TranslateKorToEng(remote.SkillInput)].Run();
                 //opponent.UseSkill(remote.SkillInput);
             }
 
-            stateHistory[frame] = new PlayerState(VarManager.Manager.Player.Position, VarManager.Manager.Opponent.Position);
+            stateHistory[frame] =
+                new PlayerState(VarManager.Manager.Player.Position, VarManager.Manager.Opponent.Position);
+        }
+
+        private string TranslateKorToEng(string kor)
+        {
+            switch (kor)
+            {
+                case "할퀴기":
+                    return "Scratch";
+                case "어퍼윙":
+                    return "UpperWing";
+                default:
+                    return kor;
+            }
         }
 
         public class InputDictionary

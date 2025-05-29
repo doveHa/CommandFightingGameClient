@@ -5,13 +5,12 @@ namespace Manager
 {
     public class GameManager : MonoBehaviour
     {
-        //public GameObject Player { get; private set; }
         public Vector2 PlayerCenter { get; set; }
-        //public GameObject Opponent { get; private set; }
         public Vector2 OpponentCenter { get; set; }
 
         private bool wasPlayerLeft;
         public bool IsPlayerLeft { get; private set; }
+        
         public static GameManager Manager { get; private set; }
 
         void Awake()
@@ -26,10 +25,8 @@ namespace Manager
         {
             wasPlayerLeft = true;
             VarManager.Manager.Opponent.Flip();
-            //Opponent.GetComponentInChildren<Player>().Flip();
         }
 
-        // Update is called once per frame
         void Update()
         {
             IsPlayerLeft = CalculatePlayerIsLeft();
@@ -38,8 +35,6 @@ namespace Manager
             {
                 VarManager.Manager.Player.Flip();
                 VarManager.Manager.Opponent.Flip();
-                //Player.GetComponentInChildren<Player>().Flip();
-                //Opponent.GetComponentInChildren<Player>().Flip();
                 wasPlayerLeft = IsPlayerLeft;
             }
         }
@@ -59,19 +54,19 @@ namespace Manager
         void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             VarManager.Manager.PlayerGameObject = GameObject.Find("Player");
+            VarManager.Manager.OpponentGameObject = GameObject.Find("Opponent");
+
             Instantiate(
                 Resources.Load<GameObject>("Prefabs/Character/" + VarManager.Manager.PlayerCharacterName + "/" +
                                            VarManager.Manager.PlayerCharacterName),
                 VarManager.Manager.PlayerGameObject.transform).tag = "Player";
-            VarManager.Manager.SetPlayerComponent();
-            VarManager.Manager.Player.SetDataSet(VarManager.Manager.PlayerCharacterName);
-            VarManager.Manager.OpponentGameObject = GameObject.Find("Opponent");
             Instantiate(
                 Resources.Load<GameObject>("Prefabs/Character/" + VarManager.Manager.OpponentCharacterName + "/" +
                                            VarManager.Manager.OpponentCharacterName),
                 VarManager.Manager.OpponentGameObject.transform).tag = "Opponent";
-            VarManager.Manager.SetOpponentComponent();
-            VarManager.Manager.Opponent.SetDataSet(VarManager.Manager.OpponentCharacterName);
+            
+            VarManager.Manager.PlayerOpponentInitialize();;
+            
         }
 
         void OnDisable()

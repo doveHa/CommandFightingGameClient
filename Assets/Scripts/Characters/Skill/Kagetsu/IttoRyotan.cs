@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 
-public class IttoRyotan : MonoBehaviour
+namespace Characters.Skill.Kagetsu
 {
-    public void SetCoff()
+    public class IttoRyotan : MonoBehaviour
     {
-        
+        public void SetCoff()
+        {
+        }
     }
 }

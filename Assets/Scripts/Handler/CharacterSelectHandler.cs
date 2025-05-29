@@ -87,7 +87,7 @@ namespace Handler
             }
 
             ICharacter character = CurrentCharacter();
-            List<ISkill> skills = character.SkillGroup.Skills.Values.ToList();
+            List<SkillInfo> skills = character.SkillGroup.Skills.Values.ToList();
             for (int i = 0; i < skills.Count; i++)
             {
                 buttons[i].GetComponent<Image>().sprite =
@@ -106,7 +106,7 @@ namespace Handler
                 commands[i] = changeCommandSkills[i].GetComponentInChildren<TextMeshProUGUI>();
             }
 
-            List<ISkill> skills = character.SkillGroup.Skills.Values.ToList();
+            List<SkillInfo> skills = character.SkillGroup.Skills.Values.ToList();
             for (int i = 0; i < skills.Count; i++)
             {
                 skillIcons[i].sprite = Resources.Load<Sprite>("Images/Icon/SkillIcon/" + skills[i].Name);
@@ -120,10 +120,10 @@ namespace Handler
         public void OnClickSkillIcon(int index)
         {
             CharacterManager.Manager.CharacterGroup.Characters.TryGetValue(CurrentShowCharacter, out var character);
-            ISkill skill = character.SkillGroup.Skills.Values.ToList()[index];
-            CurrentShowSkill = skill.Name;
-            skillName.text = skill.Name;
-            skillDescription.text = skill.Description;
+            SkillInfo skillInfo = character.SkillGroup.Skills.Values.ToList()[index];
+            CurrentShowSkill = skillInfo.Name;
+            skillName.text = skillInfo.Name;
+            skillDescription.text = skillInfo.Description;
         }
         
         //커맨드 키를 char로 변환
@@ -169,7 +169,7 @@ namespace Handler
         {
             ICharacter character = CurrentCharacter();
 
-            List<ISkill> skills = character.SkillGroup.Skills.Values.ToList();
+            List<SkillInfo> skills = character.SkillGroup.Skills.Values.ToList();
 
             for (int i = 0; i < skills.Count; i++)
             {

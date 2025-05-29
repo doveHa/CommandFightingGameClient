@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 
-public class NageKunai : MonoBehaviour
+namespace Characters.Skill.Kagetsu
 {
-    public void SetCoff()
+    public class NageKunai : MonoBehaviour
     {
-        
+        public void SetCoff()
+        {
+
+        }
     }
 }

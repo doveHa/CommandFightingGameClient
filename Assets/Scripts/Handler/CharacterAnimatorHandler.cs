@@ -10,6 +10,7 @@ namespace Handler
 {
     public abstract class CharacterAnimatorHandler : MonoBehaviour
     {
+        private int BASE_LAYER_INDEX, HIT_LAYER_INDEX, GUARD_LAYER_INDEX;
         protected Animator Animator;
         protected Transform PlayerTransform;
 
@@ -31,16 +32,14 @@ namespace Handler
 
             animationFlag = new Dictionary<string, bool>();
             animationFlag.Add("Punch", false);
-            InputActionManager.Manager.Inputs.Atk.Atk.started += (ctx => { StartPunchAnimation();});
+
+            BASE_LAYER_INDEX = Animator.GetLayerIndex("BaseLayer");
+            HIT_LAYER_INDEX = Animator.GetLayerIndex("HitLayer");
+            GUARD_LAYER_INDEX = Animator.GetLayerIndex("GuardLayer");
         }
 
         protected virtual void FixedUpdate()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                StartPunchAnimation();
-            }
-
             CalFrameNumber();
         }
 
@@ -58,7 +57,44 @@ namespace Handler
         {
             animationFlag["Punch"] = false;
             motionFlag = false;
-            Debug.Log(motionFlag);
+        }
+
+        public void StartGuardAnimation()
+        {
+            Animator.SetLayerWeight(BASE_LAYER_INDEX, 0);
+            Animator.SetLayerWeight(GUARD_LAYER_INDEX, 1);
+        }
+
+        public void EndGuardAnimation()
+        {
+            Animator.SetLayerWeight(GUARD_LAYER_INDEX, 0);
+            Animator.SetLayerWeight(BASE_LAYER_INDEX, 1);
+        }
+
+        public void StartAirborneAnimation()
+        {
+            Animator.SetTrigger("Airborne");
+            ChangeHitLayer();
+        }
+
+        public void ReAirborneHitAnimation()
+        {
+            ChangeHitLayer();
+            Animator.Play("Airborne");
+        }
+
+        public void ChangeHitLayer()
+        {
+            Animator.SetLayerWeight(BASE_LAYER_INDEX, 0);
+            Animator.SetLayerWeight(HIT_LAYER_INDEX, 1);
+        }
+
+        public void EndHitAnimation()
+        {
+            Animator.SetLayerWeight(BASE_LAYER_INDEX, 1);
+            Animator.SetLayerWeight(HIT_LAYER_INDEX, 0);
+            InputActionManager.Manager.UnLockInput();
+            GetComponent<Player>().HitEnd();
         }
 
         public void StartWalkAnimation()
@@ -98,7 +134,7 @@ namespace Handler
             {
                 HitBoxManager.Manager.SetPlayerState(State, FrameIndex);
             }
-            
+
             if (gameObject.CompareTag("Opponent"))
             {
                 HitBoxManager.Manager.SetOpponentState(State, FrameIndex);
@@ -107,7 +143,7 @@ namespace Handler
 
         private void OnDrawGizmos()
         {
-            foreach (CharacterAllStatement statement in VarManager.Manager.Player.DataSet.RawDataSet)
+            foreach (CharacterAllStatement statement in VarManager.Manager.Opponent.DataSet.RawData)
             {
                 if (statement.Statement.Equals(State))
                 {

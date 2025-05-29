@@ -1,41 +1,53 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using Characters.AnimationHandler;
 using UnityEngine;
+using Manager;
 
-public class Scratch : MonoBehaviour
+namespace Characters.Skill.Naktis
 {
-    private NaktisAnimationHandler naktisAnimationHandler;
-
-    public void SetCoff()
+    public class Scratch : MonoBehaviour, ICharacterSkill
     {
-    }
+        public bool HasHit { get; set; }
 
-    public void Run()
-    {
-        naktisAnimationHandler = transform.parent.GetComponent<NaktisAnimationHandler>();
-        naktisAnimationHandler.StartScratchAnimation();
-        //StartCoroutine(WaitScratchTiming());
-    }
+        private NaktisAnimationHandler naktisAnimationHandler;
 
-    private IEnumerator WaitScratchTiming()
-    {
-        yield return new WaitUntil(() => naktisAnimationHandler.FirstScratch);
-        FirstScratch();
-        naktisAnimationHandler.FirstScratch = false;
-        
-        yield return new WaitUntil(() => naktisAnimationHandler.SecondScratch);
-        SecondScratch();
-        naktisAnimationHandler.SecondScratch = false;
-    }
+        public void SetCoff()
+        {
+        }
 
-    private void FirstScratch()
-    {
-        Debug.Log(1);
-    }
+        public void Run()
+        {
+            HasHit = false;
+            naktisAnimationHandler = transform.parent.GetComponent<NaktisAnimationHandler>();
+            naktisAnimationHandler.StartScratchAnimation();
+            //StartCoroutine(WaitScratchTiming());
+        }
 
-    private void SecondScratch()
-    {
-        Debug.Log(2);
+        public void Hit()
+        {
+            HasHit = true;
+            VarManager.Manager.Opponent.Hit(10);
+        }
+
+        private IEnumerator WaitScratchTiming()
+        {
+            yield return new WaitUntil(() => naktisAnimationHandler.FirstScratch);
+            FirstScratch();
+            naktisAnimationHandler.FirstScratch = false;
+
+            yield return new WaitUntil(() => naktisAnimationHandler.SecondScratch);
+            SecondScratch();
+            naktisAnimationHandler.SecondScratch = false;
+        }
+
+        private void FirstScratch()
+        {
+            Debug.Log(1);
+        }
+
+        private void SecondScratch()
+        {
+            Debug.Log(2);
+        }
     }
 }

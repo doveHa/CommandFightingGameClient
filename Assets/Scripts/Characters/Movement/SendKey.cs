@@ -1,4 +1,5 @@
-﻿using Handler;
+﻿using System;
+using Handler;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Manager;
@@ -13,7 +14,7 @@ public class SendKey : MonoBehaviour
     [SerializeField] private Animator animator;
     private bool jumpKeyInput;
 
-    private static string _skillName = string.Empty;
+    private string skillName = string.Empty;
     //private bool[] skillsInput = new bool[4];
 
     void Awake()
@@ -28,9 +29,9 @@ public class SendKey : MonoBehaviour
         InputActionManager.Manager.Inputs.Movement.Jump.performed += JumpKeyInput;
     }
 
-    public static void SetSkillName(string skillName)
+    public void SetSkillName(string skillName)
     {
-        _skillName = skillName;
+        this.skillName = skillName;
     }
 
     private void PerformKeyInput(InputAction.CallbackContext ctx)
@@ -90,22 +91,22 @@ public class SendKey : MonoBehaviour
     {
         int playerMovement = PlayerMovement();
 
-        RollbackManager.Manager.AdvanceFrame(playerMovement, jumpKeyInput, _skillName);
+        RollbackManager.Manager.AdvanceFrame(playerMovement, jumpKeyInput, skillName);
 
-        if (jumpKeyInput == false && playerMovement == 0)
+        if (jumpKeyInput == false && playerMovement == 0 && skillName == String.Empty)
         {
+            return;
         }
-        else
-        {
-            SteamNetworkManager.Manager.SendMsg(
-                SteamNetworkManager.Manager.RemoteSteamId,
-                Constant.SteamNetworkingType.KEYINPUT,
-                SendMovementInputFormatting(Constant.SteamNetworkingType.KeyInput.MOVEMENT)
-            );
-        }
+
+        SteamNetworkManager.Manager.SendMsg(
+            SteamNetworkManager.Manager.RemoteSteamId,
+            Constant.SteamNetworkingType.KEYINPUT,
+            SendMovementInputFormatting()
+        );
+
 
         jumpKeyInput = false;
-        _skillName = null;
+        skillName = null;
     }
 
     private int PlayerMovement()
@@ -123,7 +124,7 @@ public class SendKey : MonoBehaviour
         return 0;
     }
 
-    private string SendMovementInputFormatting(int type)
+    private string SendMovementInputFormatting()
     {
         return Constant.SteamNetworkingType.KeyInput.MOVEMENT.ToString()
                + Constant.SteamNetworkingType.DELIMITER
@@ -131,6 +132,8 @@ public class SendKey : MonoBehaviour
                + Constant.SteamNetworkingType.DELIMITER
                + jumpKeyInput
                + Constant.SteamNetworkingType.DELIMITER
-               + (-1 * PlayerMovement());
+               + (-1 * PlayerMovement())
+               + Constant.SteamNetworkingType.DELIMITER
+               + skillName;
     }
 }

@@ -44,7 +44,7 @@ namespace Manager
             {
                 var playerFrame = playerCurrentFrameData.Dictionary[playerFrameIndex + 1];
                 var opponentFrame = opponentCurrentFrameData.Dictionary[opponentFrameIndex + 1];
-                
+
                 foreach (var playerBox in playerFrame.HurtBoxes)
                 {
                     if (playerBox.PartName.Equals("HitBox"))
@@ -63,17 +63,22 @@ namespace Manager
                                 DataSet.FloatArrayToVector2(opponentBox.OffSet);
                             Vector2 opponentSize = DataSet.FloatArrayToVector2(opponentBox.Size);
                             Rect opponentHurtRect = new Rect(opponentCenter - opponentSize / 2f, opponentSize);
-
-                            if (playerHitRect.Overlaps(opponentHurtRect))
+                            ICharacterSkill skill = GetHitSkill();
+                            if (!skill.HasHit && playerHitRect.Overlaps(opponentHurtRect))
                             {
                                 Debug.Log("Hit Detected!");
-                                // TODO: 여기에 데미지 처리, 피격 반응 등 추가
+                                GetHitSkill().Hit();
                                 return;
                             }
                         }
                     }
                 }
             }
+        }
+
+        private ICharacterSkill GetHitSkill()
+        {
+            return VarManager.Manager.PlayerSkills[PlayerCurrentState];
         }
     }
 }

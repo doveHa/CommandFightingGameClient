@@ -1,17 +1,30 @@
 ﻿using Characters.AnimationHandler;
 using UnityEngine;
+using Manager;
 
-public class UpperWing : MonoBehaviour
+namespace Characters.Skill.Naktis
 {
-    private NaktisAnimationHandler naktisAnimationHandler;
-
-    public void SetCoff()
+    public class UpperWing : MonoBehaviour, ICharacterSkill
     {
-    }
+        public bool HasHit { get; set; }
 
-    public void Run()
-    {
-        naktisAnimationHandler = transform.parent.GetComponent<NaktisAnimationHandler>();
-        naktisAnimationHandler.StartUpperWingAnimation();
+        private NaktisAnimationHandler naktisAnimationHandler;
+
+        public void SetCoff()
+        {
+        }
+
+        public void Run()
+        {
+            HasHit = false;
+            naktisAnimationHandler = transform.parent.GetComponent<NaktisAnimationHandler>();
+            naktisAnimationHandler.StartUpperWingAnimation();
+        }
+
+        public void Hit()
+        {
+            HasHit = true;
+            VarManager.Manager.Opponent.Airborne(10);
+        }
     }
 }

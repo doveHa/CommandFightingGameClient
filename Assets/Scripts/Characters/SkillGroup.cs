@@ -7,18 +7,18 @@ namespace Characters
 {
     public class SkillGroup
     {
-        public SkillGroup(Dictionary<string, Action<ISkill>> actionGroup, List<SkillDTO> skills)
+        public SkillGroup(Dictionary<string, Action<SkillInfo>> actionGroup, List<SkillDTO> skills)
         {
-            Skills = new Dictionary<string, ISkill>();
+            Skills = new Dictionary<string, SkillInfo>();
 
             foreach (SkillDTO skill in skills)
             {
                 actionGroup.TryGetValue(skill.Name, out var action);
-                Skills.Add(skill.Name, new Skill(action, skill));
+                Skills.Add(skill.Name, new SkillInfo(action, skill));
             }
         }
 
-        public Dictionary<string, ISkill> Skills { get; }
+        public Dictionary<string, SkillInfo> Skills { get; }
 
         public void ChangeCommand(string skillName, List<string> command)
         {
@@ -29,7 +29,7 @@ namespace Characters
         public List<SetCommandDTO> CustomCommandLists(string characterName)
         {
             List<SetCommandDTO> skills = new List<SetCommandDTO>();
-            foreach (KeyValuePair<string, ISkill> pair in Skills)
+            foreach (KeyValuePair<string, SkillInfo> pair in Skills)
             {
                 skills.Add(new SetCommandDTO(characterName, pair.Value.Name, pair.Value.Command));
             }
@@ -38,9 +38,9 @@ namespace Characters
         }
     }
 
-    public class Skill : ISkill
+    public class SkillInfo
     {
-        public Skill(Action<ISkill> action, SkillDTO skillDto)
+        public SkillInfo(Action<SkillInfo> action, SkillDTO skillDto)
         {
             AtkCoeff = skillDto.AtkCoeff;
             HpCoeff = skillDto.HpCoeff;
@@ -60,6 +60,6 @@ namespace Characters
         public int CoolTime { get; set; }
         public List<string> Command { get; set; }
 
-        public Action<ISkill> Action { get; set; }
+        public Action<SkillInfo> Action { get; set; }
     }
 }
