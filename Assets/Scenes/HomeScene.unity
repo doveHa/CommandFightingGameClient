@@ -5064,8 +5064,8 @@ MonoBehaviour:
   MoveSpeed: 1
   GravityScale: 1
   WaitTime: 1
-  AirborneForceY: 2
-  ReAirbonneForceY: 0.25
+  AirborneForceY: 3
+  ReAirbonneForceY: 2
 --- !u!4 &1576687135
 Transform:
   m_ObjectHideFlags: 0

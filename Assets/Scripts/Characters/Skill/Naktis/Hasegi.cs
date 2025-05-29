@@ -7,6 +7,8 @@ namespace Characters.Skill.Naktis
 {
     public class Hasegi : MonoBehaviour, ICharacterSkill
     {
+        public bool HasHit { get; set; }
+
         private float speed = 10f;
         private NaktisAnimationHandler naktisAnimationHandler;
 
@@ -16,6 +18,7 @@ namespace Characters.Skill.Naktis
 
         public void Run()
         {
+            HasHit = false;
             naktisAnimationHandler = transform.parent.GetComponent<NaktisAnimationHandler>();
             naktisAnimationHandler.StartHasegiAnimation();
             StartCoroutine(WaitHasegiMotion());
@@ -23,6 +26,7 @@ namespace Characters.Skill.Naktis
 
         public void Hit()
         {
+            HasHit = true;
             VarManager.Manager.Opponent.Hit(10);
         }
 

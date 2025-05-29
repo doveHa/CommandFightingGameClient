@@ -6,6 +6,8 @@ namespace Characters.Skill.Naktis
 {
     public class UpperWing : MonoBehaviour, ICharacterSkill
     {
+        public bool HasHit { get; set; }
+
         private NaktisAnimationHandler naktisAnimationHandler;
 
         public void SetCoff()
@@ -14,12 +16,14 @@ namespace Characters.Skill.Naktis
 
         public void Run()
         {
+            HasHit = false;
             naktisAnimationHandler = transform.parent.GetComponent<NaktisAnimationHandler>();
             naktisAnimationHandler.StartUpperWingAnimation();
         }
 
         public void Hit()
         {
+            HasHit = true;
             VarManager.Manager.Opponent.Airborne(10);
         }
     }

@@ -6,18 +6,23 @@ namespace Characters.Skill
 {
     public class Punch : MonoBehaviour, ICharacterSkill
     {
+        public bool HasHit { get; set; }
+
         void Start()
         {
-            CharacterAnimatorHandler animator = GetComponentInParent<CharacterAnimatorHandler>();
-            InputActionManager.Manager.Inputs.Atk.Atk.started += (ctx => { animator.StartPunchAnimation(); });
+            InputActionManager.Manager.Inputs.Atk.Atk.started += (ctx => { Run(); });
         }
 
         public void Run()
         {
+            HasHit = false;
+            CharacterAnimatorHandler animator = GetComponentInParent<CharacterAnimatorHandler>();
+            animator.StartPunchAnimation();
         }
 
         public void Hit()
         {
+            HasHit = true;
             VarManager.Manager.Opponent.Hit(10);
         }
     }

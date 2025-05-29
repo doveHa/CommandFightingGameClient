@@ -8,6 +8,9 @@ namespace Characters.Skill.Naktis
 {
     public class Fly : MonoBehaviour, ICharacterSkill
     {
+        public bool HasHit { get; set; }
+
+        
         private NaktisAnimationHandler naktisAnimationHandler;
         private Coroutine flyCoroutine;
 

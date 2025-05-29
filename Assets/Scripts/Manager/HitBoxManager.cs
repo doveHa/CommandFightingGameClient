@@ -63,8 +63,8 @@ namespace Manager
                                 DataSet.FloatArrayToVector2(opponentBox.OffSet);
                             Vector2 opponentSize = DataSet.FloatArrayToVector2(opponentBox.Size);
                             Rect opponentHurtRect = new Rect(opponentCenter - opponentSize / 2f, opponentSize);
-
-                            if (playerHitRect.Overlaps(opponentHurtRect))
+                            ICharacterSkill skill = GetHitSkill();
+                            if (!skill.HasHit && playerHitRect.Overlaps(opponentHurtRect))
                             {
                                 Debug.Log("Hit Detected!");
                                 GetHitSkill().Hit();
