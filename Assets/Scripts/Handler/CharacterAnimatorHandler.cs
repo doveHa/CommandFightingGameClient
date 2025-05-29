@@ -94,7 +94,7 @@ namespace Handler
             Animator.SetLayerWeight(BASE_LAYER_INDEX, 1);
             Animator.SetLayerWeight(HIT_LAYER_INDEX, 0);
             InputActionManager.Manager.UnLockInput();
-            GetComponent<Player>().HitEnd();
+            GetComponentInParent<Player>().HitEnd();
         }
 
         public void StartWalkAnimation()

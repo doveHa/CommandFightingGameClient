@@ -10,7 +10,7 @@ namespace Characters.Skill
 
         void Start()
         {
-            InputActionManager.Manager.Inputs.Atk.Atk.started += (ctx => { VarManager.Manager.PlayerGameObject.GetComponentInChildren<SendKey>().SetSkillName("Atk_Punch"); });
+            InputActionManager.Manager.Inputs.Atk.Atk.started += (ctx => { VarManager.Manager.PlayerGameObject.GetComponent<SendKey>().SetSkillName("Atk_Punch"); });
         }
 
         

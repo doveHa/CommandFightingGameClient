@@ -7,11 +7,7 @@ using Manager;
 public class SendKey : MonoBehaviour
 {
     private Vector2 moveDirection;
-
-    private Player player;
-
-    //private bool isMove;
-    [SerializeField] private Animator animator;
+    private Animator animator;
     private bool jumpKeyInput;
 
     private string skillName = string.Empty;
@@ -19,7 +15,6 @@ public class SendKey : MonoBehaviour
 
     void Awake()
     {
-        player = GetComponent<Player>();
     }
 
     void Start()
@@ -27,6 +22,8 @@ public class SendKey : MonoBehaviour
         InputActionManager.Manager.Inputs.Movement.Move.started += PerformKeyInput;
         InputActionManager.Manager.Inputs.Movement.Move.canceled += CancelKeyInput;
         InputActionManager.Manager.Inputs.Movement.Jump.performed += JumpKeyInput;
+
+        animator = GetComponentInChildren<Animator>();
     }
 
     public void SetSkillName(string skillName)
@@ -42,11 +39,11 @@ public class SendKey : MonoBehaviour
         if ((moveDirection.x > 0 && !GameManager.Manager.IsPlayerLeft)
             || (moveDirection.x < 0 && GameManager.Manager.IsPlayerLeft))
         {
-            player.SetGuard(true);
+            VarManager.Manager.Player.SetGuard(true);
         }
         else
         {
-            player.SetGuard(false);
+            VarManager.Manager.Player.SetGuard(false);
         }
         //isMove = true;
     }
@@ -54,7 +51,7 @@ public class SendKey : MonoBehaviour
     private void CancelKeyInput(InputAction.CallbackContext ctx)
     {
         moveDirection = Vector2.zero;
-        player.SetGuard(false);
+        VarManager.Manager.Player.SetGuard(false);
         animator.SetBool("IsMove", false);
 
         //isMove = false;

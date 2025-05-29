@@ -45,8 +45,10 @@ namespace Manager
 
         private void SetComponents()
         {
-            Player = PlayerGameObject.GetComponentInChildren<Player>();
-            Opponent = OpponentGameObject.GetComponentInChildren<Player>();
+            Player = PlayerGameObject.GetComponent<Player>();
+            Player.Initialize();
+            Opponent = OpponentGameObject.GetComponent<Player>();
+            Opponent.Initialize();
         }
 
         private void SetSkills()

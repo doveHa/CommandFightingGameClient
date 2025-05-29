@@ -20,13 +20,12 @@ public class Player : MonoBehaviour
 
     private int health = 100;
 
-    void Awake()
+    public void Initialize()
     {
         isLeft = true;
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        Animator = GetComponent<CharacterAnimatorHandler>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        Animator = GetComponentInChildren<CharacterAnimatorHandler>();
     }
-
 
     public void Flip()
     {
@@ -52,7 +51,7 @@ public class Player : MonoBehaviour
 
     public void Airborne(int atk)
     {
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        Rigidbody2D rb = GetComponentInChildren<Rigidbody2D>();
         if (isGuard)
         {
             Animator.StartGuardAnimation();
@@ -85,7 +84,7 @@ public class Player : MonoBehaviour
         {
             InputActionManager.Manager.LockInput();
             Debug.Log("Re");
-            GetComponent<Rigidbody2D>()
+            GetComponentInChildren<Rigidbody2D>()
                 .AddForce(Vector2.up * ConstController.Manager.ReAirbonneForceY, ForceMode2D.Impulse);
             Animator.ReAirborneHitAnimation();
         }

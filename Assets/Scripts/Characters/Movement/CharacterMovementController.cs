@@ -12,12 +12,12 @@ namespace Movement
 
         public static void JumpCharacter(GameObject gameObject)
         {
-            Player player = gameObject.transform.GetComponent<Player>();
+            Player player = gameObject.transform.GetComponentInParent<Player>();
 
             if (!player.IsJumping)
             {
                 player.IsJumping = true;
-                Rigidbody2D body = gameObject.transform.GetComponentInChildren<Rigidbody2D>();
+                Rigidbody2D body = gameObject.transform.GetComponent<Rigidbody2D>();
                 body.AddForce(Vector2.up * ConstController.Manager.JumpForce, ForceMode2D.Impulse);
             }
         }

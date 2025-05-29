@@ -170,10 +170,8 @@ GameObject:
   - component: {fileID: 2006101865272511628}
   - component: {fileID: 4347122662915702748}
   - component: {fileID: 364755455780853350}
-  - component: {fileID: 6142085352469375474}
   - component: {fileID: 5748234748559053433}
   - component: {fileID: 6700030213764588847}
-  - component: {fileID: 5358853565678682948}
   - component: {fileID: 8624173512030556186}
   m_Layer: 0
   m_Name: Naktis
@@ -276,22 +274,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6142085352469375474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9135708968095291585}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ca4d80f1cb84f24b3d32d3a9f1e2f6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Position: {x: 0, y: 0}
-  isGuard: 0
-  isHit: 0
-  IsAirborne: 0
 --- !u!50 &5748234748559053433
 Rigidbody2D:
   serializedVersion: 5
@@ -365,19 +347,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.98, y: 2.44}
   m_EdgeRadius: 0
---- !u!114 &5358853565678682948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9135708968095291585}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d067776828372145aa4005f77ed1b79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 364755455780853350}
 --- !u!114 &8624173512030556186
 MonoBehaviour:
   m_ObjectHideFlags: 0

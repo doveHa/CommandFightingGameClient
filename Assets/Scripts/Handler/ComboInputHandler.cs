@@ -91,7 +91,7 @@ namespace Handler
                     if (nextNode.IsEndOfCombo)
                     {
                         InputActionManager.Manager.Inputs.Atk.Atk.Disable();
-                        VarManager.Manager.PlayerGameObject.GetComponentInChildren<SendKey>().SetSkillName(nextNode.SkillInfo.Name);
+                        VarManager.Manager.PlayerGameObject.GetComponent<SendKey>().SetSkillName(nextNode.SkillInfo.Name);
                         //nextNode.SkillInfo.Action.Invoke(nextNode.SkillInfo);
                         comboExecuted = true;
                         InputActionManager.Manager.Inputs.Atk.Atk.Enable();
