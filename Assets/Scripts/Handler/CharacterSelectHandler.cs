@@ -31,7 +31,7 @@ namespace Handler
         void Start()
         {
             defaultColor = images[0].color;
-            ColorUtility.TryParseHtmlString("#4690F0", out selectCharacterColor);
+            ColorUtility.TryParseHtmlString("#4690F0FF", out selectCharacterColor);
             skillIcons = new Image[changeCommandSkills.Length];
             commands = new TextMeshProUGUI[changeCommandSkills.Length];
             skillNames = new string[4];
