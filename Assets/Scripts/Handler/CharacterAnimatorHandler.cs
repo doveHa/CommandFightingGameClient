@@ -93,6 +93,7 @@ namespace Handler
         {
             Animator.SetLayerWeight(BASE_LAYER_INDEX, 1);
             Animator.SetLayerWeight(HIT_LAYER_INDEX, 0);
+            InputActionManager.Manager.UnLockInput();
             GetComponent<Player>().HitEnd();
         }
 
@@ -142,7 +143,7 @@ namespace Handler
 
         private void OnDrawGizmos()
         {
-            foreach (CharacterAllStatement statement in VarManager.Manager.Player.DataSet.RawData)
+            foreach (CharacterAllStatement statement in VarManager.Manager.Opponent.DataSet.RawData)
             {
                 if (statement.Statement.Equals(State))
                 {

@@ -83,11 +83,15 @@ public class Player : MonoBehaviour
         }
         else if (IsAirborne)
         {
+            InputActionManager.Manager.LockInput();
             Debug.Log("Re");
-            GetComponent<Rigidbody2D>().AddForce(Vector2.up * ConstController.Manager.ReAirbonneForceY, ForceMode2D.Impulse);
+            GetComponent<Rigidbody2D>()
+                .AddForce(Vector2.up * ConstController.Manager.ReAirbonneForceY, ForceMode2D.Impulse);
             Animator.ReAirborneHitAnimation();
-        }else
+        }
+        else
         {
+            InputActionManager.Manager.LockInput();
             isHit = true;
             Animator.ChangeHitLayer();
             health -= atk;

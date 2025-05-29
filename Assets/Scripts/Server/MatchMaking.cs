@@ -20,13 +20,14 @@ namespace Server
         public async void StartMatching()
         {
             //솔로 테스트 용
+            /*
             SteamNetworkManager.Manager.RemoteSteamId = SteamNetworkManager.Manager.PlayerSteamId;
-            
+
             SteamNetworkManager.Manager.SendMsg(SteamNetworkManager.Manager.RemoteSteamId,
                 Constant.SteamNetworkingType.CONNECTION,
                 VarManager.Manager.PlayerCharacterName);
-
-            //await StartConnect();
+*/
+            await StartConnect();
         }
 
         private async Task StartConnect()
@@ -131,7 +132,7 @@ namespace Server
         }
 
         async void OnApplicationQuit()
-        { 
+        {
             await StopMatching();
         }
 
