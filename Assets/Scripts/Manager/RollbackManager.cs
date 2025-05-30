@@ -161,13 +161,11 @@ namespace Manager
             if (!string.IsNullOrEmpty(local.SkillInput))
             {
                 VarManager.Manager.PlayerSkills[TranslateKorToEng(local.SkillInput)].Run();
-                //player.UseSkill(local.SkillInput);
             }
 
             if (!string.IsNullOrEmpty(remote.SkillInput))
             {
                 VarManager.Manager.OpponentSkills[TranslateKorToEng(remote.SkillInput)].Run();
-                //opponent.UseSkill(remote.SkillInput);
             }
 
             stateHistory[frame] =
