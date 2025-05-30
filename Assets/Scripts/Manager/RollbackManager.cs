@@ -78,14 +78,12 @@ namespace Manager
         {
             if (stateHistory.TryGetValue(frame, out PlayerState state))
             {
+                Debug.Log("Restore state " + state.Player2Position);
                 var player = VarManager.Manager.PlayerGameObject.transform.GetChild(0);
                 var opponent = VarManager.Manager.OpponentGameObject.transform.GetChild(0);
 
                 player.position = state.Player1Position;
                 opponent.position = state.Player2Position;
-
-                VarManager.Manager.Player.Position = state.Player1Position;
-                VarManager.Manager.Opponent.Position = state.Player2Position;
             }
         }
 
@@ -125,7 +123,6 @@ namespace Manager
             if (isRollingBack)
             {
                 opponentObj.transform.position = remote.RemotePosition;
-                VarManager.Manager.Opponent.Position = remote.RemotePosition;
             }
 
             // 상태 저장
