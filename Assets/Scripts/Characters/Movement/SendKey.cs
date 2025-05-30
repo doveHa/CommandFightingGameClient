@@ -90,7 +90,7 @@ public class SendKey : MonoBehaviour
 
         RollbackManager.Manager.AdvanceFrame(playerMovement, jumpKeyInput, skillName);
 
-        if (jumpKeyInput == false && playerMovement == 0 && skillName == String.Empty)
+        if (jumpKeyInput == false && playerMovement == 0 && skillName == string.Empty)
         {
             return;
         }
@@ -103,7 +103,7 @@ public class SendKey : MonoBehaviour
 
 
         jumpKeyInput = false;
-        skillName = null;
+        skillName = string.Empty;
     }
 
     private int PlayerMovement()
