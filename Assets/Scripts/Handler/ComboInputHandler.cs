@@ -70,7 +70,6 @@ namespace Handler
         public void OnInputPerformed(InputAction.CallbackContext ctx)
         {
             string context = ctx.control.name;
-            Debug.Log(context);
             ProcessInput(context.ToUpper());
         }
 

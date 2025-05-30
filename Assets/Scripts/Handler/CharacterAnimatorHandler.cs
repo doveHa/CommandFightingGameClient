@@ -83,6 +83,14 @@ namespace Handler
             Animator.Play("Airborne");
         }
 
+        public void EndAirborneHitAnimation()
+        {
+            Animator.SetLayerWeight(BASE_LAYER_INDEX, 1);
+            Animator.SetLayerWeight(HIT_LAYER_INDEX, 0);
+            InputActionManager.Manager.UnLockInput();
+            GetComponentInParent<Player>().HitEnd();
+        } 
+
         public void ChangeHitLayer()
         {
             Animator.SetLayerWeight(BASE_LAYER_INDEX, 0);
