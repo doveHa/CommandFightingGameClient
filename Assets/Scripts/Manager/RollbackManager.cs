@@ -39,6 +39,9 @@ namespace Manager
                     input.MoveInput = int.Parse(splitMessage[3]);
                     input.RemotePosition = new Vector2(-1 * float.Parse(splitMessage[4]), float.Parse(splitMessage[5]));
                     input.SkillInput = splitMessage[6];
+                    stateHistory[frame].Player1Position =
+                        VarManager.Manager.PlayerGameObject.transform.GetChild(0).position;
+                    stateHistory[frame].Player2Position = input.RemotePosition;
                     break;
 
                 case Constant.SteamNetworkingType.KeyInput.SKILL:
