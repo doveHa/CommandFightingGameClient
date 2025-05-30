@@ -47,7 +47,7 @@ namespace Manager
         void Start()
         {
         }
-
+/*
         public void ProcessingMessage(string message)
         {
             string[] splitMessage = message.Split(Constant.SteamNetworkingType.DELIMITER);
@@ -73,6 +73,44 @@ namespace Manager
                     break;
             }
         }
+        */
+        public void ProcessingMessage(string message)
+        {
+            string[] splitMessage = message.Split(Constant.SteamNetworkingType.DELIMITER);
+            int type = int.Parse(splitMessage[0]);
+            int frame = int.Parse(splitMessage[1]);
+
+            bool changed = false;
+
+            FrameInput input = inputDictionary.GetRemote(frame);
+            switch (type)
+            {
+                case Constant.SteamNetworkingType.KeyInput.MOVEMENT:
+                    input.JumpInput = bool.Parse(splitMessage[2]);
+                    input.MoveInput = int.Parse(splitMessage[3]);
+                    input.SkillInput = splitMessage[4];
+                    changed = true;
+                    break;
+
+                case Constant.SteamNetworkingType.KeyInput.SKILL:
+                    input.SkillInput = splitMessage[2];
+                    changed = true;
+                    break;
+            }
+
+            if (changed && frame < CurrentFrame)
+            {
+                Debug.Log($"[Remote Correction Detected] Rolling back from frame {frame}");
+
+                RestoreState(frame - 1);
+
+                for (int f = frame; f < CurrentFrame; f++)
+                {
+                    Simulate(f);
+                }
+            }
+        }
+
 
         public void AdvanceFrame(int localInput, bool localJump, string localSkill)
         {
@@ -86,6 +124,12 @@ namespace Manager
             if (rollbackStart < CurrentFrame)
             {
                 Debug.Log("RollBack");
+                RestoreState(rollbackStart - 1);
+
+                for (int f = rollbackStart; f <= CurrentFrame; f++)
+                {
+                    Simulate(f);
+                }
             }
             else
             {
@@ -93,6 +137,26 @@ namespace Manager
             }
 
             CurrentFrame++;
+        }
+
+        private void RestoreState(int frame)
+        {
+            if (stateHistory.TryGetValue(frame, out PlayerState state))
+            {
+                VarManager.Manager.Player.Position = state.Player1Position;
+                VarManager.Manager.Opponent.Position = state.Player2Position;
+
+                // Transform도 이동
+                VarManager.Manager.PlayerGameObject.transform.GetChild(0).position = state.Player1Position;
+                VarManager.Manager.OpponentGameObject.transform.GetChild(0).position = state.Player2Position;
+
+                Debug.Log(
+                    $"[RestoreState] Frame {frame} - Player: {state.Player1Position}, Opponent: {state.Player2Position}");
+            }
+            else
+            {
+                Debug.LogWarning($"[RestoreState] No saved state at frame {frame}");
+            }
         }
 
         private int FindRollbackStart()
