@@ -131,6 +131,10 @@ public class SendKey : MonoBehaviour
                + Constant.SteamNetworkingType.DELIMITER
                + (-1 * PlayerMovement())
                + Constant.SteamNetworkingType.DELIMITER
+               + VarManager.Manager.PlayerGameObject.transform.GetChild(0).position.x
+               + Constant.SteamNetworkingType.DELIMITER
+               + VarManager.Manager.PlayerGameObject.transform.GetChild(0).position.y
+               + Constant.SteamNetworkingType.DELIMITER
                + skillName;
     }
 }
