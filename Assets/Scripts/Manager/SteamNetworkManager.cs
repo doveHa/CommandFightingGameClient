@@ -13,7 +13,7 @@ namespace Manager
         private static uint gameAppId = 480;
         public SteamId PlayerSteamId { get; private set; }
         public string LocalSteamIdString { get; set; }
-        
+
         public ulong RemoteSteamId { get; set; }
         //public string RemoteSteamIdString { get; set; }
 
@@ -61,14 +61,18 @@ namespace Manager
                 if (packet.HasValue)
                 {
                     string receiveData = Encoding.UTF8.GetString(packet.Value.Data);
-                    Debug.Log(receiveData);
+                    if (RollbackManager.Manager != null)
+                    {
+                        Debug.Log(receiveData + " " + RollbackManager.Manager.CurrentFrame);
+                    }
+
                     //SteamNetworkingType>Data
                     string[] splitData = receiveData.Split(Constant.SteamNetworkingType.DELIMITER);
                     switch (int.Parse(splitData[0]))
                     {
                         //splitData[1] = ping | pong
                         case Constant.SteamNetworkingType.PINGTEST:
-                            PingTest.ReceivePingPong(packet.Value.SteamId,splitData[1]);
+                            PingTest.ReceivePingPong(packet.Value.SteamId, splitData[1]);
                             break;
                         //splitData[1] = CharacterName
                         case Constant.SteamNetworkingType.CONNECTION:
@@ -81,11 +85,10 @@ namespace Manager
                             break;
                     }
                 }
-                
             }
         }
 
-        public bool SendMsg(ulong steamId,int type, string msg)
+        public bool SendMsg(ulong steamId, int type, string msg)
         {
             if (!SteamClient.IsValid)
             {

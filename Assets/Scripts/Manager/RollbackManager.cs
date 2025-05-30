@@ -86,7 +86,6 @@ namespace Manager
             if (rollbackStart < CurrentFrame)
             {
                 Debug.Log("RollBack");
-                //RollbackTo(rollbackStart);
             }
             else
             {
@@ -108,22 +107,6 @@ namespace Manager
 
             return CurrentFrame;
         }
-
-/*
-        private void RollbackTo(int rollbackStart)
-        {
-            Debug.Log($"[RollbackManager] Rolling back to frame {rollbackStart}");
-            if (!stateHistory.ContainsKey(rollbackStart)) return;
-            var state = stateHistory[rollbackStart].Clone();
-            player.Position = state.Player1Position;
-            opponent.Position = state.Player2Position;
-
-            for (int frame = rollbackStart; frame < CurrentFrame; frame++)
-            {
-                Simulate(frame);
-            }
-        }
-*/
 
         private void Simulate(int frame)
         {
