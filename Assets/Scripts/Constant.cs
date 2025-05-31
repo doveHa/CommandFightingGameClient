@@ -71,10 +71,31 @@ public static class Constant
         public static class KeyInput
         {
             public const int MOVEMENT = 0;
+
             //public const int JUMP = 1;
             public const int SKILL = 2;
         }
     }
 
-    public const int SELECTED_CHARACTER = 0;
+    public static class SkillName
+    {
+        public const int PUNCH = 0;
+
+        public static class Naktis
+        {
+            public const int HASEGI = 1;
+            public const int SCRATCH = 2;
+            public const int UPPERWING = 3;
+            public const int FLY = 4;
+        }
+
+        public static class Kagetsu
+        {
+        }
+    }
+
+    /*
+        Punch = Atk_Punch
+     */
+    
 }

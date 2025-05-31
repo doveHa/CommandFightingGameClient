@@ -79,4 +79,9 @@ public class Player : MonoBehaviour
                 break;
         }
     }
+
+    void Update()
+    {
+        Debug.Log(spriteRenderer.sprite.name);
+    }
 }

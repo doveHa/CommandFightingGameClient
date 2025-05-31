@@ -22,11 +22,11 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: -5871635277437990334, guid: 691c5521e25f8f045af83c780432bc16, type: 3}
-    - time: 0.083333336
+    - time: 0.05
       value: {fileID: -6989978431794374950, guid: 691c5521e25f8f045af83c780432bc16, type: 3}
-    - time: 0.16666667
+    - time: 0.1
       value: {fileID: 3320091120173774469, guid: 691c5521e25f8f045af83c780432bc16, type: 3}
-    - time: 0.33333334
+    - time: 0.25
       value: {fileID: 95073187546026743, guid: 691c5521e25f8f045af83c780432bc16, type: 3}
     attribute: m_Sprite
     path: 
@@ -59,7 +59,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.35000002
+    m_StopTime: 0.26666668
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -79,8 +79,8 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.083333336
-    functionName: FlagUpperWingFalse
+  - time: 0.25
+    functionName: EndUpperWingAnimation
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

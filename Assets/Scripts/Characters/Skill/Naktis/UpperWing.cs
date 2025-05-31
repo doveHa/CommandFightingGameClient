@@ -16,6 +16,7 @@ namespace Characters.Skill.Naktis
 
         public void Run()
         {
+            Debug.Log("UpperWing Run");
             HasHit = false;
             naktisAnimationHandler = transform.parent.GetComponent<NaktisAnimationHandler>();
             naktisAnimationHandler.StartUpperWingAnimation();

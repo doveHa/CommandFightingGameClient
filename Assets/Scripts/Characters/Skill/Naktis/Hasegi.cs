@@ -32,7 +32,7 @@ namespace Characters.Skill.Naktis
 
         private IEnumerator WaitHasegiMotion()
         {
-            yield return new WaitUntil(() => naktisAnimationHandler.HasegiMotion);
+            yield return new WaitUntil(() => naktisAnimationHandler.ShootHasegi);
 
             CreateWind();
         }
@@ -47,7 +47,7 @@ namespace Characters.Skill.Naktis
 
             rigidbody.linearVelocity = direction * speed;
 
-            naktisAnimationHandler.HasegiMotion = false;
+            naktisAnimationHandler.ShootHasegi = false;
         }
     }
 }

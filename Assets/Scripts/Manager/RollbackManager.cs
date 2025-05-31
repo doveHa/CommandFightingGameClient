@@ -38,20 +38,22 @@ namespace Manager
                     input.JumpInput = bool.Parse(splitMessage[2]);
                     input.MoveInput = int.Parse(splitMessage[3]);
                     input.RemotePosition = new Vector2(-1 * float.Parse(splitMessage[4]), float.Parse(splitMessage[5]));
-                    input.SkillInput = splitMessage[6];
-                    Debug.Log(frame + ">" + input.RemotePosition.x);
-                    stateHistory[frame].Player2Position = input.RemotePosition;
+                    input.SkillInput = int.Parse(splitMessage[6]);
+                    if (stateHistory.ContainsKey(frame))
+                    {
+                        stateHistory[frame].Player2Position = input.RemotePosition;
+                    }
+
                     break;
 
                 case Constant.SteamNetworkingType.KeyInput.SKILL:
-                    input.SkillInput = splitMessage[2];
+                    //input.SkillInput = splitMessage[2];
                     break;
             }
 
             // 롤백 트리거
             if (frame < CurrentFrame)
             {
-                Debug.Log($"Rollback from frame {frame}");
                 isRollingBack = true;
                 RestoreState(frame - 1);
 
@@ -64,7 +66,7 @@ namespace Manager
             }
         }
 
-        public void AdvanceFrame(int localInput, bool localJump, string localSkill)
+        public void AdvanceFrame(int localInput, bool localJump, int localSkill)
         {
             FrameInput input = inputDictionary.GetLocal(CurrentFrame);
             input.MoveInput = localInput;
@@ -83,7 +85,7 @@ namespace Manager
 
             PlayerState state = stateHistory[frame];
             //positioon 변경
-            Debug.Log("Change Position]"+state.Player2Position);
+            Debug.Log("Change Position]" + state.Player2Position);
             VarManager.Manager.PlayerGameObject.transform.GetChild(0).position = state.Player1Position;
             VarManager.Manager.OpponentGameObject.transform.GetChild(0).position = state.Player2Position;
         }
@@ -114,11 +116,11 @@ namespace Manager
                 CharacterMovementController.JumpCharacter(opponentObj);
 
             // 스킬
-            if (!string.IsNullOrEmpty(local.SkillInput))
-                VarManager.Manager.PlayerSkills[TranslateKorToEng(local.SkillInput)].Run();
+            if (local.SkillInput != -1)
+                VarManager.Manager.PlayerSkills[local.SkillInput].Run();
 
-            if (!string.IsNullOrEmpty(remote.SkillInput))
-                VarManager.Manager.OpponentSkills[TranslateKorToEng(remote.SkillInput)].Run();
+            if (remote.SkillInput != -1)
+                VarManager.Manager.OpponentSkills[remote.SkillInput].Run();
 
             // 위치 보정: Rollback 중일 때만 상대 위치를 강제 덮어쓰기
             if (isRollingBack)
@@ -133,22 +135,12 @@ namespace Manager
                 opponentObj.transform.position
             );
         }
-
-        private string TranslateKorToEng(string kor)
-        {
-            return kor switch
-            {
-                "할퀴기" => "Scratch",
-                "어퍼윙" => "UpperWing",
-                _ => kor
-            };
-        }
-
+        
         public class FrameInput
         {
             public int MoveInput = 0;
             public bool JumpInput = false;
-            public string SkillInput = string.Empty;
+            public int SkillInput = -1;
             public Vector2 RemotePosition = Vector2.zero;
 
             public FrameInput Clone()

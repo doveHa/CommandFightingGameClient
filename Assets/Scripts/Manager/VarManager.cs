@@ -19,8 +19,8 @@ namespace Manager
         public string PlayerCharacterName { get; set; }
         public string OpponentCharacterName { get; set; }
 
-        public Dictionary<string, ICharacterSkill> PlayerSkills { get; set; }
-        public Dictionary<string, ICharacterSkill> OpponentSkills { get; set; }
+        public Dictionary<int, ICharacterSkill> PlayerSkills { get; set; }
+        public Dictionary<int, ICharacterSkill> OpponentSkills { get; set; }
 
         private void Awake()
         {
@@ -53,22 +53,22 @@ namespace Manager
 
         private void SetSkills()
         {
-            PlayerSkills = new Dictionary<string, ICharacterSkill>();
-            OpponentSkills = new Dictionary<string, ICharacterSkill>();
+            PlayerSkills = new Dictionary<int, ICharacterSkill>();
+            OpponentSkills = new Dictionary<int, ICharacterSkill>();
             SetSkill(PlayerCharacterName, Player, PlayerSkills);
             SetSkill(OpponentCharacterName, Opponent, OpponentSkills);
         }
 
-        private void SetSkill(string characterName, Player player, Dictionary<string, ICharacterSkill> skills)
+        private void SetSkill(string characterName, Player player, Dictionary<int, ICharacterSkill> skills)
         {
-            skills.Add("Atk_Punch", player.GetComponentInChildren<Punch>());
+            skills.Add(Constant.SkillName.PUNCH, player.GetComponentInChildren<Punch>());
             switch (characterName)
             {
                 case "Naktis":
-                    skills.Add("Hasegi", player.GetComponentInChildren<Hasegi>());
-                    skills.Add("Scratch", player.GetComponentInChildren<Scratch>());
-                    skills.Add("UpperWing", player.GetComponentInChildren<UpperWing>());
-                    skills.Add("Fly", player.GetComponentInChildren<Fly>());
+                    skills.Add(Constant.SkillName.Naktis.HASEGI, player.GetComponentInChildren<Hasegi>());
+                    skills.Add(Constant.SkillName.Naktis.SCRATCH, player.GetComponentInChildren<Scratch>());
+                    skills.Add(Constant.SkillName.Naktis.UPPERWING, player.GetComponentInChildren<UpperWing>());
+                    skills.Add(Constant.SkillName.Naktis.FLY, player.GetComponentInChildren<Fly>());
                     break;
                 case "Kagetus":
 
@@ -77,6 +77,17 @@ namespace Manager
 
                     break;
             }
+        }
+        
+        public static int SkillMapping(string str)
+        {
+            return str switch
+            {
+                "Atk_Punch" => Constant.SkillName.PUNCH,
+                "Hasegi" => Constant.SkillName.Naktis.HASEGI,
+                "Scratch" => Constant.SkillName.Naktis.SCRATCH,
+                "UpperWing" => Constant.SkillName.Naktis.UPPERWING
+            };
         }
     }
 }

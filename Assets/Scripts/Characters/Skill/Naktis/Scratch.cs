@@ -20,34 +20,12 @@ namespace Characters.Skill.Naktis
             HasHit = false;
             naktisAnimationHandler = transform.parent.GetComponent<NaktisAnimationHandler>();
             naktisAnimationHandler.StartScratchAnimation();
-            //StartCoroutine(WaitScratchTiming());
         }
 
         public void Hit()
         {
             HasHit = true;
             VarManager.Manager.Opponent.Hit(10);
-        }
-
-        private IEnumerator WaitScratchTiming()
-        {
-            yield return new WaitUntil(() => naktisAnimationHandler.FirstScratch);
-            FirstScratch();
-            naktisAnimationHandler.FirstScratch = false;
-
-            yield return new WaitUntil(() => naktisAnimationHandler.SecondScratch);
-            SecondScratch();
-            naktisAnimationHandler.SecondScratch = false;
-        }
-
-        private void FirstScratch()
-        {
-            Debug.Log(1);
-        }
-
-        private void SecondScratch()
-        {
-            Debug.Log(2);
         }
     }
 }

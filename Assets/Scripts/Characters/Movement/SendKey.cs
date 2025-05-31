@@ -88,7 +88,7 @@ public class SendKey : MonoBehaviour
     {
         int playerMovement = PlayerMovement();
 
-        RollbackManager.Manager.AdvanceFrame(playerMovement, jumpKeyInput, skillName);
+        RollbackManager.Manager.AdvanceFrame(playerMovement, jumpKeyInput, SkillMapping(skillName));
 
         if (jumpKeyInput == false && playerMovement == 0 && skillName == string.Empty)
         {
@@ -135,6 +135,25 @@ public class SendKey : MonoBehaviour
                + Constant.SteamNetworkingType.DELIMITER
                + VarManager.Manager.PlayerGameObject.transform.GetChild(0).localPosition.y
                + Constant.SteamNetworkingType.DELIMITER
-               + skillName;
+               + SkillMapping(skillName);
+    }
+
+    private int SkillMapping(string skillName)
+    {
+        switch (skillName)
+        {
+            case "Atk_Punch":
+                return Constant.SkillName.PUNCH;
+            case "어퍼윙":
+                return Constant.SkillName.Naktis.UPPERWING;
+            case "바람강타":
+                return Constant.SkillName.Naktis.HASEGI;
+            case "비행":
+                return Constant.SkillName.Naktis.FLY;
+            case "할퀴기":
+                return Constant.SkillName.Naktis.SCRATCH;
+            default:
+                return -1;
+        }
     }
 }

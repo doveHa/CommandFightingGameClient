@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using DataTable.DataSet;
 using UnityEngine;
 
@@ -78,7 +79,9 @@ namespace Manager
 
         private ICharacterSkill GetHitSkill()
         {
-            return VarManager.Manager.PlayerSkills[PlayerCurrentState];
+            return VarManager.Manager.PlayerSkills[VarManager.SkillMapping(PlayerCurrentState)];
         }
+
+        
     }
 }

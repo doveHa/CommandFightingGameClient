@@ -10,13 +10,17 @@ namespace Handler
 {
     public abstract class CharacterAnimatorHandler : MonoBehaviour
     {
-        private int BASE_LAYER_INDEX, HIT_LAYER_INDEX, GUARD_LAYER_INDEX;
+        protected int baseLayerIndex, punchLayerIndex;
+
         protected Animator Animator;
         protected Transform PlayerTransform;
 
+        private bool punchFlag;
+        private bool additionalPunch;
         private Dictionary<string, bool> animationFlag;
         protected bool motionFlag = false;
 
+        protected int CurrentLayerIndex;
         protected FrameRangesDictionary dictionary;
         public string State { get; set; }
         public int FrameIndex { get; set; }
@@ -25,6 +29,7 @@ namespace Handler
 
         protected virtual void Awake()
         {
+            CurrentLayerIndex = baseLayerIndex;
             Center = transform.Find("Center").gameObject;
 
             Animator = GetComponent<Animator>();
@@ -33,9 +38,11 @@ namespace Handler
             animationFlag = new Dictionary<string, bool>();
             animationFlag.Add("Punch", false);
             animationFlag.Add("Punch2", false);
-            BASE_LAYER_INDEX = Animator.GetLayerIndex("BaseLayer");
-            HIT_LAYER_INDEX = Animator.GetLayerIndex("HitLayer");
-            GUARD_LAYER_INDEX = Animator.GetLayerIndex("GuardLayer");
+
+            punchFlag = false;
+
+            baseLayerIndex = Animator.GetLayerIndex("BaseLayer");
+            punchLayerIndex = Animator.GetLayerIndex("Punch");
         }
 
         protected virtual void FixedUpdate()
@@ -45,29 +52,37 @@ namespace Handler
 
         public void StartPunchAnimation()
         {
-            if (animationFlag["Punch"])
+            if (punchFlag)
             {
-                Debug.Log("Punch2");
-                animationFlag["Punch2"] = true;
+                additionalPunch = true;
             }
-
-            if (!animationFlag["Punch"] && !motionFlag)
+            else
             {
-                motionFlag = true;
-                animationFlag["Punch"] = true;
-                Animator.SetTrigger("Punch");
+                ChangeLayer(punchLayerIndex);
+                Animator.SetBool("PunchExit", false);
+                Animator.Play("Atk_Punch", CurrentLayerIndex, 0);
+                punchFlag = true;
             }
         }
 
         public void AdditionalPunchAnimation()
         {
-            Debug.Log("AdditionalPunchAnimation");
-            Debug.Log(animationFlag["Punch2"]);
-            if (animationFlag["Punch2"])
+            if (additionalPunch)
             {
-                Debug.Log("AdditionalPunchAnimation");
-                Animator.SetTrigger("Punch2");
+                Animator.SetTrigger("AdditionalPunch");
             }
+        }
+
+        public void EndPunchAnimation()
+        {
+            PunchFlagInitialize();
+            Animator.SetBool("PunchExit", true);
+        }
+
+        protected void PunchFlagInitialize()
+        {
+            punchFlag = false;
+            additionalPunch = false;
         }
 
         public void StartHitAnimation()
@@ -84,14 +99,14 @@ namespace Handler
 
         public void StartGuardAnimation()
         {
-            Animator.SetLayerWeight(BASE_LAYER_INDEX, 0);
-            Animator.SetLayerWeight(GUARD_LAYER_INDEX, 1);
+            Animator.SetLayerWeight(baseLayerIndex, 0);
+            Animator.SetLayerWeight(baseLayerIndex, 1);
         }
 
         public void EndGuardAnimation()
         {
-            Animator.SetLayerWeight(GUARD_LAYER_INDEX, 0);
-            Animator.SetLayerWeight(BASE_LAYER_INDEX, 1);
+            Animator.SetLayerWeight(baseLayerIndex, 0);
+            Animator.SetLayerWeight(baseLayerIndex, 1);
         }
 
         public void StartAirborneAnimation()
@@ -123,12 +138,20 @@ namespace Handler
             Animator.SetBool("IsMove", false);
         }
 
+        protected void ChangeLayer(int targetLayerIndex)
+        {
+            Animator.SetLayerWeight(CurrentLayerIndex, 0.01f);
+            Animator.SetLayerWeight(targetLayerIndex, 1);
+            CurrentLayerIndex = targetLayerIndex;
+        }
+
+
         private void CalFrameNumber()
         {
-            AnimatorStateInfo stateInfo = Animator.GetCurrentAnimatorStateInfo(0);
+            AnimatorStateInfo stateInfo = Animator.GetCurrentAnimatorStateInfo(CurrentLayerIndex);
             float normalizedTime = stateInfo.normalizedTime % 1f;
 
-            AnimatorClipInfo[] clipInfo = Animator.GetCurrentAnimatorClipInfo(0);
+            AnimatorClipInfo[] clipInfo = Animator.GetCurrentAnimatorClipInfo(CurrentLayerIndex);
             AnimationClip clip = clipInfo[0].clip;
 
             int totalFrames = Mathf.RoundToInt(clip.length * clip.frameRate);
