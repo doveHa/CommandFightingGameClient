@@ -5,11 +5,6 @@ namespace Data.FrameRanges
 {
     public class NaktisFrameRangesDictionary : FrameRangesDictionary
     {
-        protected override void Start()
-        {
-            NaktisFrameDataSet.Start();
-        }
-
         public NaktisFrameRangesDictionary() : base()
         {
             AddRange(new int[] { 6, 14, 21, 28 }, "Hasegi");

@@ -39,6 +39,8 @@ namespace Manager
                     input.MoveInput = int.Parse(splitMessage[3]);
                     input.RemotePosition = new Vector2(-1 * float.Parse(splitMessage[4]), float.Parse(splitMessage[5]));
                     input.SkillInput = splitMessage[6];
+                    Debug.Log(frame + ">" + input.RemotePosition.x);
+                    stateHistory[frame].Player2Position = input.RemotePosition;
                     break;
 
                 case Constant.SteamNetworkingType.KeyInput.SKILL:
@@ -76,15 +78,14 @@ namespace Manager
 
         private void RestoreState(int frame)
         {
-            if (stateHistory.TryGetValue(frame, out PlayerState state))
-            {
-                Debug.Log("Restore state " + state.Player2Position);
-                var player = VarManager.Manager.PlayerGameObject.transform.GetChild(0);
-                var opponent = VarManager.Manager.OpponentGameObject.transform.GetChild(0);
+            Debug.Log("RestorState Start]" + frame + ">" + stateHistory[frame].Player2Position.x);
+            //Debug.Log("TryGetValue]"+stateHistory.TryGetValue(frame, out PlayerState state1));
 
-                player.position = state.Player1Position;
-                opponent.position = state.Player2Position;
-            }
+            PlayerState state = stateHistory[frame];
+            //positioon 변경
+            Debug.Log("Change Position]"+state.Player2Position);
+            VarManager.Manager.PlayerGameObject.transform.GetChild(0).position = state.Player1Position;
+            VarManager.Manager.OpponentGameObject.transform.GetChild(0).position = state.Player2Position;
         }
 
         private void Simulate(int frame)
@@ -122,7 +123,8 @@ namespace Manager
             // 위치 보정: Rollback 중일 때만 상대 위치를 강제 덮어쓰기
             if (isRollingBack)
             {
-                opponentObj.transform.position = remote.RemotePosition;
+                Debug.Log(frame + " " + remote.RemotePosition);
+                //opponentObj.transform.position = remote.RemotePosition;
             }
 
             // 상태 저장

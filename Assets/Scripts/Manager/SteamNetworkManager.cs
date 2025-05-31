@@ -61,11 +61,6 @@ namespace Manager
                 if (packet.HasValue)
                 {
                     string receiveData = Encoding.UTF8.GetString(packet.Value.Data);
-                    if (RollbackManager.Manager != null)
-                    {
-                        Debug.Log(receiveData + " " + RollbackManager.Manager.CurrentFrame);
-                    }
-
                     //SteamNetworkingType>Data
                     string[] splitData = receiveData.Split(Constant.SteamNetworkingType.DELIMITER);
                     switch (int.Parse(splitData[0]))

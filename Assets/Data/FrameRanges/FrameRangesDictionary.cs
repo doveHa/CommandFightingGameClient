@@ -9,7 +9,6 @@ namespace Data.FrameRanges
 
         public FrameRangesDictionary()
         {
-            Start();
             FrameRanges = new Dictionary<string, List<FrameRange>>();
             AddRange(new int[]{30,60,90,120, 121},"Idle");
             AddRange(new int[]{10,20,30,40, 41},"Walk");
@@ -35,8 +34,6 @@ namespace Data.FrameRanges
 
             FrameRanges.Add(state, frameRanges);
         }
-
-        protected abstract void Start();
     }
 
     public struct FrameRange
