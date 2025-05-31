@@ -297,7 +297,14 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      wave-sound_0: 8013727578907320330
+      wave-sound_1: -5280951000400827083
+      wave-sound_2: -4225120985901668859
+      wave-sound_3: -8059709690467726962
+      wave-sound_4: -8487496445614597015
+      wave-sound_5: 8453507029968573375
+      wave-sound_6: -7472583704574448795
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
