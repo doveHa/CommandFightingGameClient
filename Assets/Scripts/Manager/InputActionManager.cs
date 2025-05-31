@@ -27,16 +27,5 @@ namespace Manager
         {
             Inputs.Disable();
         }
-
-        public void UnLockInput()
-        {
-            Debug.Log("Unlock");
-            Inputs.Enable();
-        }
-        public void LockInput()
-        {
-            Debug.Log("Lock");
-            Inputs.Disable();
-        }
     }
 }

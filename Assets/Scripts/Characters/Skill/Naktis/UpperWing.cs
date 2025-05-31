@@ -24,7 +24,7 @@ namespace Characters.Skill.Naktis
         public void Hit()
         {
             HasHit = true;
-            VarManager.Manager.Opponent.Airborne(10);
+            VarManager.Manager.Opponent.Hit(10);
         }
     }
 }

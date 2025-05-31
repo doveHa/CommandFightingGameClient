@@ -32,7 +32,7 @@ namespace Handler
 
             animationFlag = new Dictionary<string, bool>();
             animationFlag.Add("Punch", false);
-
+            animationFlag.Add("Punch2", false);
             BASE_LAYER_INDEX = Animator.GetLayerIndex("BaseLayer");
             HIT_LAYER_INDEX = Animator.GetLayerIndex("HitLayer");
             GUARD_LAYER_INDEX = Animator.GetLayerIndex("GuardLayer");
@@ -45,6 +45,12 @@ namespace Handler
 
         public void StartPunchAnimation()
         {
+            if (animationFlag["Punch"])
+            {
+                Debug.Log("Punch2");
+                animationFlag["Punch2"] = true;
+            }
+
             if (!animationFlag["Punch"] && !motionFlag)
             {
                 motionFlag = true;
@@ -53,9 +59,26 @@ namespace Handler
             }
         }
 
+        public void AdditionalPunchAnimation()
+        {
+            Debug.Log("AdditionalPunchAnimation");
+            Debug.Log(animationFlag["Punch2"]);
+            if (animationFlag["Punch2"])
+            {
+                Debug.Log("AdditionalPunchAnimation");
+                Animator.SetTrigger("Punch2");
+            }
+        }
+
+        public void StartHitAnimation()
+        {
+            Animator.SetBool("Hit", true);
+        }
+
         public void FlagPunchFalse()
         {
             animationFlag["Punch"] = false;
+            animationFlag["Punch2"] = false;
             motionFlag = false;
         }
 
@@ -73,36 +96,21 @@ namespace Handler
 
         public void StartAirborneAnimation()
         {
-            Animator.SetTrigger("Airborne");
-            ChangeHitLayer();
+            Animator.SetBool("Airborne", true);
         }
 
         public void ReAirborneHitAnimation()
         {
-            ChangeHitLayer();
             Animator.Play("Airborne");
         }
 
         public void EndAirborneHitAnimation()
         {
-            Animator.SetLayerWeight(BASE_LAYER_INDEX, 1);
-            Animator.SetLayerWeight(HIT_LAYER_INDEX, 0);
-            InputActionManager.Manager.UnLockInput();
-            GetComponentInParent<Player>().HitEnd();
-        } 
-
-        public void ChangeHitLayer()
-        {
-            Animator.SetLayerWeight(BASE_LAYER_INDEX, 0);
-            Animator.SetLayerWeight(HIT_LAYER_INDEX, 1);
         }
 
         public void EndHitAnimation()
         {
-            Animator.SetLayerWeight(BASE_LAYER_INDEX, 1);
-            Animator.SetLayerWeight(HIT_LAYER_INDEX, 0);
-            InputActionManager.Manager.UnLockInput();
-            GetComponentInParent<Player>().HitEnd();
+            Animator.SetBool("Hit", false);
         }
 
         public void StartWalkAnimation()

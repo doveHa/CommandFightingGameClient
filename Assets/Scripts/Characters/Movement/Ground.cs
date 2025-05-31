@@ -9,7 +9,6 @@ namespace Movement
             if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Opponent"))
             {
                 collision.gameObject.GetComponentInParent<Player>().IsJumping = false;
-                collision.gameObject.GetComponentInParent<Player>().IsAirborne = false;
             }
         }
     }
