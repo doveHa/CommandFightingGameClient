@@ -6,7 +6,8 @@ public class PlayCharacterSoundOnClick : MonoBehaviour, IPointerDownHandler, IPo
 {
     public AudioClip clickSound;
     public float scaleMultiplier = 1.0f;
-    public Button stopButton;
+    public Button stopButton1;
+    public Button stopButton2;
 
     private Vector3 originalScale;
     private AudioSource audioSource;
@@ -26,15 +27,30 @@ public class PlayCharacterSoundOnClick : MonoBehaviour, IPointerDownHandler, IPo
         // 마우스 왼쪽 버튼이 클릭되었을 때
         if (Input.GetMouseButtonDown(0))
         {
-            // stopButton이 설정되어 있다면
-            if (stopButton != null)
+            // stopButton1이 설정되어 있다면
+            if (stopButton1 != null)
             {
-                RectTransform stopRect = stopButton.GetComponent<RectTransform>();
+                RectTransform stopRect1 = stopButton1.GetComponent<RectTransform>();
 
-                // 클릭한 위치가 stopButton 안에 있는지 확인
-                if (RectTransformUtility.RectangleContainsScreenPoint(stopRect, Input.mousePosition, null))
+                if (RectTransformUtility.RectangleContainsScreenPoint(stopRect1, Input.mousePosition, null))
                 {
-                    Debug.Log("Stop button clicked (via Update).");
+                    Debug.Log("Stop button 1 clicked (via Update).");
+                    if (audioSource.isPlaying)
+                    {
+                        audioSource.Stop();
+                        Debug.Log("Audio stopped.");
+                    }
+                }
+            }
+
+            // stopButton2도 같은 방식으로 처리
+            if (stopButton2 != null)
+            {
+                RectTransform stopRect2 = stopButton2.GetComponent<RectTransform>();
+
+                if (RectTransformUtility.RectangleContainsScreenPoint(stopRect2, Input.mousePosition, null))
+                {
+                    Debug.Log("Stop button 2 clicked (via Update).");
                     if (audioSource.isPlaying)
                     {
                         audioSource.Stop();
