@@ -70,13 +70,21 @@ namespace Handler
             if (additionalPunch)
             {
                 Animator.SetTrigger("AdditionalPunch");
+                additionalPunch = false;
             }
         }
 
         public void EndPunchAnimation()
         {
-            PunchFlagInitialize();
-            Animator.SetBool("PunchExit", true);
+            Debug.Log("EndPunchAnimation Method");
+            Debug.Log(additionalPunch);
+            if (!additionalPunch)
+            {
+                Debug.Log("EndPunch");
+                PunchFlagInitialize();
+                ChangeLayer(baseLayerIndex);
+                Animator.SetBool("PunchExit", true);
+            }
         }
 
         protected void PunchFlagInitialize()
@@ -149,34 +157,37 @@ namespace Handler
         private void CalFrameNumber()
         {
             AnimatorStateInfo stateInfo = Animator.GetCurrentAnimatorStateInfo(CurrentLayerIndex);
-            float normalizedTime = stateInfo.normalizedTime % 1f;
-
-            AnimatorClipInfo[] clipInfo = Animator.GetCurrentAnimatorClipInfo(CurrentLayerIndex);
-            AnimationClip clip = clipInfo[0].clip;
-
-            int totalFrames = Mathf.RoundToInt(clip.length * clip.frameRate);
-            int currentFrame = Mathf.FloorToInt(normalizedTime * totalFrames);
-
-            State = clip.name;
-            List<FrameRange> frameRanges =
-                dictionary.FrameRanges[State];
-            for (int i = 0; i < 4; i++)
+            if (!stateInfo.IsName("Empty"))
             {
-                if (currentFrame >= frameRanges[i].start && currentFrame <= frameRanges[i].end)
+                float normalizedTime = stateInfo.normalizedTime % 1f;
+
+                AnimatorClipInfo[] clipInfo = Animator.GetCurrentAnimatorClipInfo(CurrentLayerIndex);
+                AnimationClip clip = clipInfo[0].clip;
+                Debug.Log(CurrentLayerIndex);
+                int totalFrames = Mathf.RoundToInt(clip.length * clip.frameRate);
+                int currentFrame = Mathf.FloorToInt(normalizedTime * totalFrames);
+
+                State = clip.name;
+                List<FrameRange> frameRanges =
+                    dictionary.FrameRanges[State];
+                for (int i = 0; i < 4; i++)
                 {
-                    FrameIndex = i;
-                    break;
+                    if (currentFrame >= frameRanges[i].start && currentFrame <= frameRanges[i].end)
+                    {
+                        FrameIndex = i;
+                        break;
+                    }
                 }
-            }
 
-            if (gameObject.CompareTag("Player"))
-            {
-                HitBoxManager.Manager.SetPlayerState(State, FrameIndex);
-            }
+                if (gameObject.CompareTag("Player"))
+                {
+                    HitBoxManager.Manager.SetPlayerState(State, FrameIndex);
+                }
 
-            if (gameObject.CompareTag("Opponent"))
-            {
-                HitBoxManager.Manager.SetOpponentState(State, FrameIndex);
+                if (gameObject.CompareTag("Opponent"))
+                {
+                    HitBoxManager.Manager.SetOpponentState(State, FrameIndex);
+                }
             }
         }
 
