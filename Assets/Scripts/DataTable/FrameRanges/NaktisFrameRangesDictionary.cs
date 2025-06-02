@@ -7,7 +7,7 @@ namespace DataTable.FrameRanges
         public NaktisFrameRangesDictionary() : base()
         {
             AddRange("Hasegi", new int[] { 6, 14, 21, 28 });
-            AddRange("Scratch", new int[] { 8, 20, 28, 35 });
+            AddRange("Scratch", new int[] { 8, 14, 19, 25 });
             AddRange("UpperWing", new int[] { 5, 10, 20, 21 });
             AddRange("Fly_Drop", new int[] { 10, 20, 30, 31 });
             AddRange("Fly_Standing", new int[] { 15, 30, 45, 61, 62 });
