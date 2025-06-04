@@ -19,8 +19,11 @@ public class ChatController : MonoBehaviour
     private GameObject newObj;
     private TMP_Text tmpText;
     private int chatCount = 0; // 생성된 ChatSubObject 개수 추적
+    float minPso;
 
-    public List<string> chatHistory = new List<string>();
+    //public List<string> chatHistory = new List<string>(); -> 나중에 서버로 주고 받고 할 때 사용
+
+    private Coroutine currentCoroutine; // 현재 실행 중인 코루틴을 저장
 
     void Start()
     {
@@ -42,26 +45,39 @@ public class ChatController : MonoBehaviour
                 chatInput.ActivateInputField();
                 isChatActive = true;
 
+                // 기존 코루틴이 실행 중이라면 멈춤
+                if (currentCoroutine != null)
+                {
+                    StopCoroutine(currentCoroutine);
+                    currentCoroutine = null;
+                }
+
                 CreateEmptyObject();
             }
             else
             {
                 CopyText();
                 isChatActive = false;
-                StartCoroutine(HideChatPanelAfterDelay(2f));
+
+                // 새로운 코루틴 실행
+                currentCoroutine = StartCoroutine(HideChatPanelAfterDelay(2f));
             }
         }
     }
 
     void CreateEmptyObject()
     {
-        float yPos = 290f - (chatCount * 40f); // 채팅 수에 따라 y 위치 조정
+        RectTransform parentRect = parentObject.GetComponent<RectTransform>();
+        // parentObject의 높이를 40씩 증가
+        parentRect.sizeDelta = new Vector2(parentRect.sizeDelta.x, parentRect.sizeDelta.y + 40f);
+
+        minPso = 0f - (chatCount * 40f); // 채팅 수에 따라 y 위치 조정
 
         newObj = new GameObject("ChatSubObject", typeof(RectTransform));
         newObj.transform.SetParent(parentObject.transform, false);
 
         RectTransform rect = newObj.GetComponent<RectTransform>();
-        rect.anchoredPosition = new Vector2(-5f, yPos);
+        rect.anchoredPosition = new Vector2(-5f, minPso);
         rect.sizeDelta = new Vector2(548f, 40f);
 
         CreateText();
