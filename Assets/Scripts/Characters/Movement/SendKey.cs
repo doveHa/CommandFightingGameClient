@@ -119,6 +119,8 @@ public class SendKey : MonoBehaviour
         {
             case "Atk_Punch":
                 return Constant.SkillName.PUNCH;
+            case "Jumping_Attack":
+                return Constant.SkillName.JUMP_PUNCH;
             case "어퍼윙":
                 return Constant.SkillName.Naktis.UPPERWING;
             case "바람강타":
@@ -127,8 +129,14 @@ public class SendKey : MonoBehaviour
                 return Constant.SkillName.Naktis.FLY;
             case "할퀴기":
                 return Constant.SkillName.Naktis.SCRATCH;
-            case "Jumping_Attack":
-                return Constant.SkillName.JUMP_PUNCH;
+            case "잡기":
+                return Constant.SkillName.Kagetsu.Nageru;
+            case "3단 베기":
+                return Constant.SkillName.Kagetsu.Sangiri;
+            case "베기":
+                return Constant.SkillName.Kagetsu.IttoRyotan;
+            case "쿠나이":
+                return Constant.SkillName.Kagetsu.NageKunai;
             default:
                 return -1;
         }

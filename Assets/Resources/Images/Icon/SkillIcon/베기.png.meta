@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: 1e491f7515b3e364e9f132713fe47434
+guid: cb7e949b0d8e3fd488fcab86f3a13d3d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6283861925496552448
-    second: IMG_2404_0
-  - first:
-      213: 5013023881235516745
-    second: IMG_2404_1
-  - first:
-      213: 3065829985747954791
-    second: IMG_2404_2
-  - first:
-      213: 3370087964538560993
-    second: IMG_2404_3
+      213: 2915364802761599010
+    second: "\uBCA0\uAE30_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -105,74 +96,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: IMG_2404_0
+      name: "\uBCA0\uAE30_0"
       rect:
         serializedVersion: 2
-        x: 39
-        y: 255
-        width: 172
-        height: 244
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00cf2deb023c43750800000000000000
-      internalID: 6283861925496552448
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: IMG_2404_1
-      rect:
-        serializedVersion: 2
-        x: 295
-        y: 255
-        width: 178
-        height: 242
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 94dc79be8a6d19540800000000000000
-      internalID: 5013023881235516745
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: IMG_2404_2
-      rect:
-        serializedVersion: 2
-        x: 47
+        x: 0
         y: 0
-        width: 186
-        height: 241
+        width: 1024
+        height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,30 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 76c6f3ae0240c8a20800000000000000
-      internalID: 3065829985747954791
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: IMG_2404_3
-      rect:
-        serializedVersion: 2
-        x: 295
-        y: 0
-        width: 178
-        height: 241
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1e1e324f525f4ce20800000000000000
-      internalID: 3370087964538560993
+      spriteID: 228284387d4757820800000000000000
+      internalID: 2915364802761599010
       vertices: []
       indices: 
       edges: []
@@ -222,11 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      IMG_2404_0: 6283861925496552448
-      IMG_2404_1: 5013023881235516745
-      IMG_2404_2: 3065829985747954791
-      IMG_2404_3: 3370087964538560993
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

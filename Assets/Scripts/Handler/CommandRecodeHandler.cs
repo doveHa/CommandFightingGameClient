@@ -37,18 +37,18 @@ namespace Handler
 
         public void OnClickRecode(GameObject skill)
         {
-            TextMeshProUGUI buttonText = skill.transform.Find("Button").GetComponentInChildren<TextMeshProUGUI>();
+            //TextMeshProUGUI buttonText = skill.transform.Find("Button").GetComponentInChildren<TextMeshProUGUI>();
             currentChangeCommand = skill.transform.Find("Command").GetComponent<TextMeshProUGUI>();
             currentChangeCommand.text = "";
 
             if (!isRecode)
             {
-                buttonText.text = "완료";
+                //buttonText.text = "완료";
                 StartRecode();
             }
             else
             {
-                buttonText.text = "변경";
+                //buttonText.text = "변경";
                 StopRecode(skill.name);
             }
         }

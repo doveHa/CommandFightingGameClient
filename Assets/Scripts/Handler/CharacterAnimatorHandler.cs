@@ -218,16 +218,16 @@ namespace Handler
 
                 if (gameObject.CompareTag("Player"))
                 {
-                    HitBoxManager.Manager.SetPlayerState(State, FrameIndex);
+                    //HitBoxManager.Manager.SetPlayerState(State, FrameIndex);
                 }
 
                 if (gameObject.CompareTag("Opponent"))
                 {
-                    HitBoxManager.Manager.SetOpponentState(State, FrameIndex);
+                    //HitBoxManager.Manager.SetOpponentState(State, FrameIndex);
                 }
             }
         }
-
+/*
         private void OnDrawGizmos()
         {
             foreach (CharacterAllStatement statement in GetComponentInParent<Player>().DataSet.RawData)
@@ -259,7 +259,7 @@ namespace Handler
                 }
             }
         }
-
+*/
         protected void LockMovement()
         {
             GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX;

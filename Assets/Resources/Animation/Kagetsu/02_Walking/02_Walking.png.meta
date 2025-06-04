@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: a0a06c6f1090ede47ade762114b736bf
+guid: 3dc087ff46321194984fa0115f3bdba4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4060493750630760511
-    second: Kagetsu s2_0
+      213: -8160754021181871408
+    second: 02_Walking_0
+  - first:
+      213: -3263475326577719385
+    second: 02_Walking_1
+  - first:
+      213: -3496537359549925469
+    second: 02_Walking_2
+  - first:
+      213: -5326539998016684971
+    second: 02_Walking_3
+  - first:
+      213: 4579734882466583916
+    second: 02_Walking_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,30 +108,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Kagetsu s2_0
+      name: 02_Walking_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1024
-        height: 1024
+        x: 23
+        y: 255
+        width: 224
+        height: 244
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +127,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1cfb5fc727a36a7c0800000000000000
-      internalID: -4060493750630760511
+      spriteID: 0da2d1c847d2fbe80800000000000000
+      internalID: -8160754021181871408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 02_Walking_1
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 255
+        width: 218
+        height: 246
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a7451a2b7ec5b2d0800000000000000
+      internalID: -3263475326577719385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 02_Walking_2
+      rect:
+        serializedVersion: 2
+        x: 535
+        y: 255
+        width: 224
+        height: 250
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a7f4240ccdc97fc0800000000000000
+      internalID: -3496537359549925469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 02_Walking_3
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 0
+        width: 218
+        height: 245
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55c3e40d7145416b0800000000000000
+      internalID: -5326539998016684971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 02_Walking_4
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 0
+        width: 224
+        height: 243
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c65d2e27c9c7e8f30800000000000000
+      internalID: 4579734882466583916
       vertices: []
       indices: 
       edges: []
@@ -147,8 +234,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Kagetsu s2_0: -4060493750630760511
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

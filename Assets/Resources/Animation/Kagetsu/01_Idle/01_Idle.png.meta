@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 3b9bfe90d9ee90f49b98bb0de92b8053
+guid: 68afc6a942f041441b6ade21ac08ab0c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2147365913516388620
-    second: Kagetsu s3_0
+      213: 3306335875233583201
+    second: 01_Idle_0
+  - first:
+      213: 3188269498457771536
+    second: 01_Idle_1
+  - first:
+      213: -8600857377299105517
+    second: 01_Idle_2
+  - first:
+      213: 8511586618924088186
+    second: 01_Idle_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,30 +105,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Kagetsu s3_0
+      name: 01_Idle_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1024
-        height: 1013
+        x: 39
+        y: 255
+        width: 172
+        height: 244
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +124,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c013dedcbe9fccd10800000000000000
-      internalID: 2147365913516388620
+      spriteID: 1609d67f5f672ed20800000000000000
+      internalID: 3306335875233583201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 01_Idle_1
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 255
+        width: 178
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01ec9c777320f3c20800000000000000
+      internalID: 3188269498457771536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 01_Idle_2
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 0
+        width: 186
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 319f94ed8cd93a880800000000000000
+      internalID: -8600857377299105517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 01_Idle_3
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 0
+        width: 178
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7b30fffeea3f1670800000000000000
+      internalID: 8511586618924088186
       vertices: []
       indices: 
       edges: []
@@ -147,8 +209,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Kagetsu s3_0: 2147365913516388620
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

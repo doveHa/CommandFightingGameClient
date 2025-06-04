@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Characters;
 using Characters.Skill;
+using Characters.Skill.Kagetsu;
 using Characters.Skill.Naktis;
 using UnityEngine;
 
@@ -72,8 +73,11 @@ namespace Manager
                     skills.Add(Constant.SkillName.Naktis.UPPERWING, player.GetComponentInChildren<UpperWing>());
                     skills.Add(Constant.SkillName.Naktis.FLY, player.GetComponentInChildren<Fly>());
                     break;
-                case "Kagetus":
-
+                case "Kagetsu":
+                    skills.Add(Constant.SkillName.Kagetsu.Nageru, player.GetComponentInChildren<Nageru>());
+                    skills.Add(Constant.SkillName.Kagetsu.Sangiri, player.GetComponentInChildren<Sangiri>());
+                    skills.Add(Constant.SkillName.Kagetsu.NageKunai, player.GetComponentInChildren<NageKunai>());
+                    skills.Add(Constant.SkillName.Kagetsu.IttoRyotan, player.GetComponentInChildren<IttoRyotan>());
                     break;
                 case "Vargon":
 

@@ -92,6 +92,10 @@ public static class Constant
 
         public static class Kagetsu
         {
+            public const int IttoRyotan = 6;
+            public const int NageKunai = 7;
+            public const int Nageru = 8;
+            public const int Sangiri = 9;
         }
     }
 

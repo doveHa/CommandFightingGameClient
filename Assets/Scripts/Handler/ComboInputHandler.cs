@@ -41,7 +41,13 @@ namespace Handler
             foreach (KeyValuePair<string, SkillInfo> skill in character.SkillGroup.Skills)
             {
                 AddCombo(skill.Value);
+                
                 Debug.Log(skill.Key);
+                
+                for (int i = 0; i < skill.Value.Command.Count; i++)
+                {
+                    Debug.Log(skill.Value.Command[i]);
+                }
             }
         }
 
