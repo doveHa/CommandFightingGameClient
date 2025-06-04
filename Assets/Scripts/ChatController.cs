@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem.LowLevel;
+using System;
 
 public class ChatController : MonoBehaviour
 {
@@ -77,13 +78,22 @@ public class ChatController : MonoBehaviour
         newObj.transform.SetParent(parentObject.transform, false);
 
         RectTransform rect = newObj.GetComponent<RectTransform>();
-        rect.anchoredPosition = new Vector2(-5f, minPso);
+
+        // Anchor와 Pivot을 고정된 위치로 설정 (좌측 상단 기준)
+        rect.anchorMin = new Vector2(0f, 1f);
+        rect.anchorMax = new Vector2(0f, 1f);
+        rect.pivot = new Vector2(0f, 1f);
+
         rect.sizeDelta = new Vector2(548f, 40f);
+
+        // localPosition으로 고정 위치 설정
+        newObj.transform.localPosition = new Vector3(-5f, minPso, 0f);
 
         CreateText();
 
         chatCount++; // 카운트 증가
     }
+
 
     void CreateText()
     {
@@ -118,5 +128,16 @@ public class ChatController : MonoBehaviour
         yield return new WaitForSeconds(delay);
         chatPanel.SetActive(false);
         inputSpace.SetActive(false);
+    }
+
+    void SendMsg(string msg)
+    {
+
+    }
+
+    string RecieveMsg()
+    {
+        string msg = "";
+        return msg;
     }
 }
