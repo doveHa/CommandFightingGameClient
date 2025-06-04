@@ -62,6 +62,8 @@ namespace Manager
         private void SetSkill(string characterName, Player player, Dictionary<int, ICharacterSkill> skills)
         {
             skills.Add(Constant.SkillName.PUNCH, player.GetComponentInChildren<Punch>());
+            skills.Add(Constant.SkillName.JUMP_PUNCH, player.GetComponentInChildren<Punch>());
+            
             switch (characterName)
             {
                 case "Naktis":
@@ -81,13 +83,15 @@ namespace Manager
 
         public static int SkillMapping(string str)
         {
+            Debug.Log(str);
             return str switch
             {
                 "Atk_Punch" => Constant.SkillName.PUNCH,
                 "Hasegi" => Constant.SkillName.Naktis.HASEGI,
                 "Scratch" => Constant.SkillName.Naktis.SCRATCH,
                 "UpperWing" => Constant.SkillName.Naktis.UPPERWING,
-                "Atk_Kick" => Constant.SkillName.PUNCH
+                "Atk_Kick" => Constant.SkillName.PUNCH,
+                "Jumping_Attack" => Constant.SkillName.JUMP_PUNCH,
             };
         }
     }

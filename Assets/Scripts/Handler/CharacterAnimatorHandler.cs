@@ -137,6 +137,7 @@ namespace Handler
         public void StartHitAnimation()
         {
             LockMovement();
+            // 입력 잠금
             ChangeLayer(baseLayerIndex);
             Animator.SetBool("Hit", true);
             motionFlag = true;
@@ -158,6 +159,7 @@ namespace Handler
         public void EndHitAnimation()
         {
             UnLockMovement();
+            //입력 잠금 해제
             motionFlag = false;
             Animator.SetBool("Hit", false);
         }

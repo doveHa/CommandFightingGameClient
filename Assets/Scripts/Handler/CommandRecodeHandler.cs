@@ -61,12 +61,12 @@ namespace Handler
             }
 
             isRecode = true;
-            InputActionManager.Manager.Inputs.Command.CommandInput.started += CommandRecoding;
+            InputActionManager.Manager.Inputs.Inputs.CommandInput.started += CommandRecoding;
         }
 
         public void StopRecode(string gameObjectName)
         {
-            InputActionManager.Manager.Inputs.Command.CommandInput.started -= CommandRecoding;
+            InputActionManager.Manager.Inputs.Inputs.CommandInput.started -= CommandRecoding;
             string currentCharacterName = CharacterSelectHandler.CurrentShowCharacter;
             string currentSkillName = GetSkillName(gameObjectName);
             string key = currentCharacterName + "+" + currentSkillName;

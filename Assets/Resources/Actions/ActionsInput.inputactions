@@ -2,7 +2,7 @@
     "name": "ActionsInput",
     "maps": [
         {
-            "name": "Movement",
+            "name": "Inputs",
             "id": "4f3bba94-8ed8-4bc1-b2df-3d70ebdcac8d",
             "actions": [
                 {
@@ -18,6 +18,33 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "b1a1231f-2ae6-497a-8665-09dda5f4c9c6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Command Input",
+                    "type": "Value",
+                    "id": "a52d4f94-abcb-4684-a657-25e69a09c2f8",
+                    "expectedControlType": "Integer",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "BasicAtk",
+                    "type": "Button",
+                    "id": "63b9f6db-2ba4-441f-922b-eca5b8f4ba00",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Guard",
+                    "type": "Button",
+                    "id": "ef385cac-649e-479b-8e47-54b1286aed46",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -40,17 +67,6 @@
                     "name": "up",
                     "id": "7b8974e9-27cc-40c3-89e1-7ac1873b9f1a",
                     "path": "<Keyboard>/upArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "9fd78523-24b2-4129-8abf-b1e2091df463",
-                    "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -90,27 +106,10 @@
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Command",
-            "id": "d85e101a-12bb-4eb4-98d2-1cd5487de5e5",
-            "actions": [
-                {
-                    "name": "Command Input",
-                    "type": "Value",
-                    "id": "d9dd3d49-1a92-4ca3-af9b-5c93d39e47ec",
-                    "expectedControlType": "Integer",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                }
-            ],
-            "bindings": [
+                },
                 {
                     "name": "",
-                    "id": "f1ba2d54-2925-47b1-89ca-725c02d68cf5",
+                    "id": "e02be8ef-23ce-42ef-abd2-b991d02e44f6",
                     "path": "<Keyboard>/z",
                     "interactions": "",
                     "processors": "",
@@ -121,7 +120,7 @@
                 },
                 {
                     "name": "",
-                    "id": "78908f3e-f74f-40d9-a44a-066e833c68bf",
+                    "id": "5dfe6f70-bf0e-42fb-9b21-f1f5a9384453",
                     "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
@@ -132,7 +131,7 @@
                 },
                 {
                     "name": "",
-                    "id": "3227b3d2-ab12-425e-83b0-330822343a19",
+                    "id": "64eb8f3c-cf48-4296-8e3f-84b50d931921",
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
@@ -143,7 +142,7 @@
                 },
                 {
                     "name": "",
-                    "id": "6445fde9-ff9b-4d08-9425-96700b2031f1",
+                    "id": "d8cdb05f-06b8-4bff-b56c-c8de87599259",
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
@@ -154,7 +153,7 @@
                 },
                 {
                     "name": "",
-                    "id": "40917033-4e80-47eb-b8ac-25b402681c17",
+                    "id": "fcab1ae7-657b-457b-aa94-436aebd6cb45",
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
@@ -165,7 +164,7 @@
                 },
                 {
                     "name": "",
-                    "id": "c33e86e2-7e08-4427-8f66-723e81d8b760",
+                    "id": "faa677b0-516d-4494-8179-ae1bfe5e44b3",
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
@@ -173,32 +172,37 @@
                     "action": "Command Input",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Atk",
-            "id": "af5fb5f3-1371-4bfa-802d-fbfb77354550",
-            "actions": [
-                {
-                    "name": "Atk",
-                    "type": "Button",
-                    "id": "3cd600d7-bf5d-442b-8c4c-b468ae920718",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
+                },
                 {
                     "name": "",
-                    "id": "6f8ebce1-0e8e-448a-9266-1290e2d0cf94",
+                    "id": "3f21b446-7b1b-4d29-9372-44576311bb0b",
                     "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Atk",
+                    "action": "BasicAtk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "06129f53-7536-4cab-bb7d-34946ffba24c",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BasicAtk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7a282fa2-2a8c-401d-a830-402a016ea897",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Guard",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

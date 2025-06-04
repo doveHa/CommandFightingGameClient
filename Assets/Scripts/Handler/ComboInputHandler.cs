@@ -31,7 +31,7 @@ namespace Handler
 
         private void Start()
         {
-            InputActionManager.Manager.Inputs.Command.CommandInput.performed += OnInputPerformed;
+            InputActionManager.Manager.Inputs.Inputs.CommandInput.performed += OnInputPerformed;
         }
 
         public void AddCharacterCombo(string characterName)
@@ -89,11 +89,11 @@ namespace Handler
                 {
                     if (nextNode.IsEndOfCombo)
                     {
-                        InputActionManager.Manager.Inputs.Atk.Atk.Disable();
+                        InputActionManager.Manager.Inputs.Inputs.BasicAtk.Disable();
                         VarManager.Manager.PlayerGameObject.GetComponent<SendKey>().SetSkillName(nextNode.SkillInfo.Name);
                         //nextNode.SkillInfo.Action.Invoke(nextNode.SkillInfo);
                         comboExecuted = true;
-                        InputActionManager.Manager.Inputs.Atk.Atk.Enable();
+                        InputActionManager.Manager.Inputs.Inputs.BasicAtk.Enable();
 
                         break;
                     }

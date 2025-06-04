@@ -80,13 +80,14 @@ public static class Constant
     public static class SkillName
     {
         public const int PUNCH = 0;
+        public const int JUMP_PUNCH = 1;
 
         public static class Naktis
         {
-            public const int HASEGI = 1;
-            public const int SCRATCH = 2;
-            public const int UPPERWING = 3;
-            public const int FLY = 4;
+            public const int HASEGI = 2;
+            public const int SCRATCH = 3;
+            public const int UPPERWING = 4;
+            public const int FLY = 5;
         }
 
         public static class Kagetsu
@@ -97,5 +98,4 @@ public static class Constant
     /*
         Punch = Atk_Punch
      */
-    
 }

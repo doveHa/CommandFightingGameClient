@@ -10,9 +10,16 @@ namespace Characters.Skill
 
         void Start()
         {
-            InputActionManager.Manager.Inputs.Atk.Atk.started += (ctx =>
+            InputActionManager.Manager.Inputs.Inputs.BasicAtk.started += (ctx =>
             {
-                VarManager.Manager.PlayerGameObject.GetComponent<SendKey>().SetSkillName("Atk_Punch");
+                if (VarManager.Manager.Player.IsJumping)
+                {
+                    VarManager.Manager.PlayerGameObject.GetComponent<SendKey>().SetSkillName("Jumping_Attack");
+                }
+                else
+                {
+                    VarManager.Manager.PlayerGameObject.GetComponent<SendKey>().SetSkillName("Atk_Punch");
+                }
             });
         }
 
@@ -23,12 +30,14 @@ namespace Characters.Skill
 
             if (VarManager.Manager.Player.IsJumping)
             {
-                animator.StartJumpAnimation();
+                animator.StartJumpPunchAnimation();
+            }
+            else
+            {
+                animator.StartPunchAnimation();
             }
 
-            animator.StartPunchAnimation();
-
-            HasHit = false; 
+            HasHit = false;
         }
 
         public void Hit()

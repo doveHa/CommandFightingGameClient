@@ -45,7 +45,7 @@ namespace Manager
             {
                 var playerFrame = playerCurrentFrameData.Dictionary[playerFrameIndex + 1];
                 var opponentFrame = opponentCurrentFrameData.Dictionary[opponentFrameIndex + 1];
-
+                Debug.Log(PlayerCurrentState);
                 foreach (var playerBox in playerFrame.HurtBoxes)
                 {
                     if (playerBox.PartName.Equals("HitBox"))
