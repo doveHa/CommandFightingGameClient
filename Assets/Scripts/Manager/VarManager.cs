@@ -78,7 +78,7 @@ namespace Manager
                     break;
             }
         }
-        
+
         public static int SkillMapping(string str)
         {
             return str switch
@@ -86,7 +86,8 @@ namespace Manager
                 "Atk_Punch" => Constant.SkillName.PUNCH,
                 "Hasegi" => Constant.SkillName.Naktis.HASEGI,
                 "Scratch" => Constant.SkillName.Naktis.SCRATCH,
-                "UpperWing" => Constant.SkillName.Naktis.UPPERWING
+                "UpperWing" => Constant.SkillName.Naktis.UPPERWING,
+                "Atk_Kick" => Constant.SkillName.PUNCH
             };
         }
     }

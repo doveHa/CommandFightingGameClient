@@ -10,15 +10,25 @@ namespace Characters.Skill
 
         void Start()
         {
-            InputActionManager.Manager.Inputs.Atk.Atk.started += (ctx => { VarManager.Manager.PlayerGameObject.GetComponent<SendKey>().SetSkillName("Atk_Punch"); });
+            InputActionManager.Manager.Inputs.Atk.Atk.started += (ctx =>
+            {
+                VarManager.Manager.PlayerGameObject.GetComponent<SendKey>().SetSkillName("Atk_Punch");
+            });
         }
 
-        
+
         public void Run()
         {
-            HasHit = false;
             CharacterAnimatorHandler animator = GetComponentInParent<CharacterAnimatorHandler>();
+
+            if (VarManager.Manager.Player.IsJumping)
+            {
+                animator.StartJumpAnimation();
+            }
+
             animator.StartPunchAnimation();
+
+            HasHit = false; 
         }
 
         public void Hit()

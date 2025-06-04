@@ -22,11 +22,11 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 7716438891177783553, guid: f680087c7a48c154babbf49ebcc5eab2, type: 3}
-    - time: 0.18333334
+    - time: 0.05
       value: {fileID: 4207904681746366100, guid: f680087c7a48c154babbf49ebcc5eab2, type: 3}
-    - time: 0.2
+    - time: 0.3
       value: {fileID: 4359537359689468351, guid: f680087c7a48c154babbf49ebcc5eab2, type: 3}
-    - time: 0.35
+    - time: 0.43333334
       value: {fileID: 7716438891177783553, guid: f680087c7a48c154babbf49ebcc5eab2, type: 3}
     attribute: m_Sprite
     path: 
@@ -59,7 +59,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.36666667
+    m_StopTime: 0.45000002
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -79,14 +79,14 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.25
+  - time: 0.18333334
     functionName: AdditionalPunchAnimation
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.35
+  - time: 0.45
     functionName: EndPunchAnimation
     data: 
     objectReferenceParameter: {fileID: 0}

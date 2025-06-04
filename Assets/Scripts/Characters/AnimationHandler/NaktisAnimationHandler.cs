@@ -8,23 +8,14 @@ namespace Characters.AnimationHandler
 {
     public class NaktisAnimationHandler : CharacterAnimatorHandler
     {
-        //private Dictionary<string, bool> animationFlag;
-        private bool motionFlag = false;
         private int upperWingLayerIndex, scratchLayerIndex, hasegiLayerIndex, flyLayerIndex;
 
         public bool ShootHasegi { get; set; }
-
 
         protected override void Awake()
         {
             base.Awake();
             dictionary = new NaktisFrameRangesDictionary();
-            /*
-            animationFlag = new Dictionary<string, bool>();
-            animationFlag.Add("Hasegi", false);
-            animationFlag.Add("Scratch", false);
-            animationFlag.Add("UpperWing", false);
-            */
             LayerIndexInitialize();
             ShootHasegi = false;
         }
@@ -37,19 +28,15 @@ namespace Characters.AnimationHandler
             flyLayerIndex = Animator.GetLayerIndex("Fly");
         }
 
-        protected override void FixedUpdate()
-        {
-            base.FixedUpdate();
-        }
-
         public void StartScratchAnimation()
         {
             if (!motionFlag)
             {
+                LockMovement();
                 motionFlag = true;
                 ChangeLayer(scratchLayerIndex);
                 Animator.SetBool("ScratchExit", false);
-                Animator.Play("Scratch", CurrentLayerIndex, 0);
+                Animator.Play("Scratch", scratchLayerIndex, 0);
             }
         }
 
@@ -57,10 +44,11 @@ namespace Characters.AnimationHandler
         {
             if (!motionFlag)
             {
+                LockMovement();
                 motionFlag = true;
                 ChangeLayer(upperWingLayerIndex);
                 Animator.SetBool("UpperWingExit", false);
-                Animator.Play("UpperWing", CurrentLayerIndex, 0);
+                Animator.Play("UpperWing", upperWingLayerIndex, 0);
             }
         }
 
@@ -71,7 +59,7 @@ namespace Characters.AnimationHandler
                 motionFlag = true;
                 ChangeLayer(flyLayerIndex);
                 Animator.SetBool("FlyExit", false);
-                Animator.Play("Fly", CurrentLayerIndex, 0);
+                Animator.Play("Fly_Up", flyLayerIndex, 0);
             }
         }
 
@@ -79,15 +67,17 @@ namespace Characters.AnimationHandler
         {
             if (!motionFlag)
             {
+                LockMovement();
                 motionFlag = true;
                 ChangeLayer(hasegiLayerIndex);
                 Animator.SetBool("HasegiExit", false);
-                Animator.Play("Hasegi", CurrentLayerIndex, 0);
+                Animator.Play("Hasegi", hasegiLayerIndex, 0);
             }
         }
 
         public void EndScratchAnimation()
         {
+            UnLockMovement();
             FlagInitialize();
             ChangeLayer(baseLayerIndex);
             Animator.SetBool("ScratchExit", true);
@@ -96,6 +86,7 @@ namespace Characters.AnimationHandler
 
         public void EndUpperWingAnimation()
         {
+            UnLockMovement();
             FlagInitialize();
             ChangeLayer(baseLayerIndex);
             Animator.SetBool("UpperWingExit", true);
@@ -104,22 +95,19 @@ namespace Characters.AnimationHandler
 
         public void EndFlyAnimation()
         {
-            FlagInitialize();
-            Animator.SetBool("IsFlying", false);
-            foreach (AnimatorControllerParameter parameter in Animator.parameters)
-            {
-                if (parameter.type == AnimatorControllerParameterType.Trigger)
-                {
-                    Animator.ResetTrigger(parameter.name);
-                    //animationFlag[parameter.name] = false;
-                }
-            }
+            Animator.Play("Fly_Drop", CurrentLayerIndex, 0);
+        }
 
-            motionFlag = false;
+        public void EndFlySettingFlag()
+        {
+            ChangeLayer(baseLayerIndex);
+            Animator.SetBool("FlyExit", true);
+            FlagInitialize();
         }
 
         public void EndHasegiAnimation()
         {
+            UnLockMovement();
             FlagInitialize();
             ChangeLayer(baseLayerIndex);
             Animator.SetBool("HasegiExit", true);
@@ -131,7 +119,7 @@ namespace Characters.AnimationHandler
             ShootHasegi = true;
         }
 
-        private void FlagInitialize()
+        protected override void FlagInitialize()
         {
             PunchFlagInitialize();
             motionFlag = false;
