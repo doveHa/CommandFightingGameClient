@@ -4,17 +4,16 @@ using UnityEngine;
 
 namespace Characters.Skill.Kagetsu
 {
-    public class Sangiri : MonoBehaviour,ICharacterSkill
+    public class Sangiri : ICharacterSkill
     {
+        protected override int Damage { get; set; } = 6;
+        private int Damage2 { get; set; } = 6;
+        private int Damage3 { get; set; } = 8;
+
         private KagetsuAnimationHandler kagetsuAnimationHandler;
 
-        public void SetCoff()
+        public override void Run()
         {
-
-        }
-        
-        public void Run()
-        { 
             Debug.Log("Sangiri");
 
             HasHit = false;
@@ -22,12 +21,8 @@ namespace Characters.Skill.Kagetsu
             kagetsuAnimationHandler.StartSangiriAnimation();
         }
 
-        public void Hit()
+        public override void Hit()
         {
-            HasHit = true;
-            VarManager.Manager.Opponent.Hit(10);
         }
-
-        public bool HasHit { get; set; }
     }
 }

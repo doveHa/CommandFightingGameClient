@@ -64,20 +64,30 @@ namespace Manager
         {
             skills.Add(Constant.SkillName.PUNCH, player.GetComponentInChildren<Punch>());
             skills.Add(Constant.SkillName.JUMP_PUNCH, player.GetComponentInChildren<Punch>());
-            
+
+            SkillGroup skillGroup = CharacterManager.Manager.CharacterGroup.Characters[characterName].SkillGroup;
             switch (characterName)
             {
                 case "Naktis":
                     skills.Add(Constant.SkillName.Naktis.HASEGI, player.GetComponentInChildren<Hasegi>());
+                    player.GetComponentInChildren<Hasegi>().SetCommandCoff(skillGroup.Skills["바람강타"].Command.Count);
                     skills.Add(Constant.SkillName.Naktis.SCRATCH, player.GetComponentInChildren<Scratch>());
+                    player.GetComponentInChildren<Scratch>().SetCommandCoff(skillGroup.Skills["할퀴기"].Command.Count);
                     skills.Add(Constant.SkillName.Naktis.UPPERWING, player.GetComponentInChildren<UpperWing>());
+                    player.GetComponentInChildren<UpperWing>()
+                        .SetCommandCoff(skillGroup.Skills["어퍼윙"].Command.Count);
                     skills.Add(Constant.SkillName.Naktis.FLY, player.GetComponentInChildren<Fly>());
+                    player.GetComponentInChildren<Fly>().SetCommandCoff(skillGroup.Skills["비행"].Command.Count);
                     break;
                 case "Kagetsu":
                     skills.Add(Constant.SkillName.Kagetsu.Nageru, player.GetComponentInChildren<Nageru>());
+                    player.GetComponentInChildren<Nageru>().SetCommandCoff(skillGroup.Skills["잡기"].Command.Count);
                     skills.Add(Constant.SkillName.Kagetsu.Sangiri, player.GetComponentInChildren<Sangiri>());
+                    player.GetComponentInChildren<Sangiri>().SetCommandCoff(skillGroup.Skills["3단 베기"].Command.Count);
                     skills.Add(Constant.SkillName.Kagetsu.NageKunai, player.GetComponentInChildren<NageKunai>());
+                    player.GetComponentInChildren<NageKunai>().SetCommandCoff(skillGroup.Skills["쿠나이"].Command.Count);
                     skills.Add(Constant.SkillName.Kagetsu.IttoRyotan, player.GetComponentInChildren<IttoRyotan>());
+                    player.GetComponentInChildren<IttoRyotan>().SetCommandCoff(skillGroup.Skills["베기"].Command.Count);
                     break;
                 case "Vargon":
 

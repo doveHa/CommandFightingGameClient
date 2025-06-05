@@ -5,27 +5,19 @@ using Manager;
 
 namespace Characters.Skill.Naktis
 {
-    public class Scratch : MonoBehaviour, ICharacterSkill
+    public class Scratch : ICharacterSkill
     {
-        public bool HasHit { get; set; }
-
         private NaktisAnimationHandler naktisAnimationHandler;
 
-        public void SetCoff()
-        {
-        }
+        protected override int Damage { get; set; } = 7;
+        private int Damage2 { get; set; } = 10;
 
-        public void Run()
+        public override void Run()
         {
             HasHit = false;
             naktisAnimationHandler = transform.parent.GetComponent<NaktisAnimationHandler>();
             naktisAnimationHandler.StartScratchAnimation();
         }
 
-        public void Hit()
-        {
-            HasHit = true;
-            VarManager.Manager.Opponent.Hit(10);
-        }
     }
 }

@@ -1,32 +1,20 @@
 ﻿using Characters.AnimationHandler;
-using Manager;
 using UnityEngine;
 
 namespace Characters.Skill.Kagetsu
 {
-    public class IttoRyotan : MonoBehaviour, ICharacterSkill
+    public class IttoRyotan : ICharacterSkill
     {
-        private KagetsuAnimationHandler kagetsuAnimationHandler;
+        protected override int Damage { get; set; } = 24;
         
-        public void SetCoff()
-        {
-        }
+        private KagetsuAnimationHandler kagetsuAnimationHandler;
 
-        public void Run()
+        public override void Run()
         {
             Debug.Log("IttoRyotan");
             HasHit = false;
             kagetsuAnimationHandler = transform.parent.GetComponent<KagetsuAnimationHandler>();
             kagetsuAnimationHandler.StartIttoRyotanAnimation();
         }
-
-        public void Hit()
-        {
-            HasHit = true;
-            VarManager.Manager.Opponent.Hit(10);
-        }
-
-        public bool HasHit { get; set; }
-
     }
 }

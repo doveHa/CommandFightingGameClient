@@ -97,7 +97,6 @@ namespace Handler
                     {
                         InputActionManager.Manager.Inputs.Inputs.BasicAtk.Disable();
                         VarManager.Manager.PlayerGameObject.GetComponent<SendKey>().SetSkillName(nextNode.SkillInfo.Name);
-                        //nextNode.SkillInfo.Action.Invoke(nextNode.SkillInfo);
                         comboExecuted = true;
                         InputActionManager.Manager.Inputs.Inputs.BasicAtk.Enable();
 

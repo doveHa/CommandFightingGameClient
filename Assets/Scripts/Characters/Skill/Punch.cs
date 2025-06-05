@@ -4,9 +4,12 @@ using UnityEngine;
 
 namespace Characters.Skill
 {
-    public class Punch : MonoBehaviour, ICharacterSkill
+    public class Punch : ICharacterSkill
     {
-        public bool HasHit { get; set; }
+        public void SetDamage(int damage)
+        {
+            Damage = damage;
+        }
 
         void Start()
         {
@@ -23,8 +26,7 @@ namespace Characters.Skill
             });
         }
 
-
-        public void Run()
+        public override void Run()
         {
             CharacterAnimatorHandler animator = GetComponentInParent<CharacterAnimatorHandler>();
 
@@ -38,12 +40,6 @@ namespace Characters.Skill
             }
 
             HasHit = false;
-        }
-
-        public void Hit()
-        {
-            HasHit = true;
-            VarManager.Manager.Opponent.Hit(10);
         }
     }
 }

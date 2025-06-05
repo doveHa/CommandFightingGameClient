@@ -284,7 +284,14 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      06_Airborne_0: -6967260916513076169
+      06_Airborne_1: 7415314431977914974
+      06_Airborne_2: 4370860571726749037
+      06_Airborne_3: 9014881448213097648
+      06_Airborne_4: -8753576849678577978
+      06_Airborne_5: 4974186629182062715
+      06_Airborne_6: -4561197922844730294
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

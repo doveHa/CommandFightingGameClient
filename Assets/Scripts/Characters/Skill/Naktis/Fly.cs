@@ -6,20 +6,12 @@ using UnityEngine;
 
 namespace Characters.Skill.Naktis
 {
-    public class Fly : MonoBehaviour, ICharacterSkill
+    public class Fly : ICharacterSkill
     {
-        public bool HasHit { get; set; }
-
-        
         private NaktisAnimationHandler naktisAnimationHandler;
         private Coroutine flyCoroutine;
-
-        public void SetCoff()
-        {
-
-        }
-
-        public void Run()
+        
+        public override void Run()
         {
             naktisAnimationHandler = transform.parent.GetComponent<NaktisAnimationHandler>();
 
@@ -40,11 +32,7 @@ namespace Characters.Skill.Naktis
 
             Debug.Log("NaktisS1");
         }
-
-        public void Hit()
-        {
-            
-        }
+        
 
         private IEnumerator NaktisFly()
         {

@@ -41,8 +41,8 @@ public class Player : MonoBehaviour
             DataSet.SetRightSide();
         }
     }
-    
-    public void Hit(int atk)
+
+    public void Hit(int atk, int commandLength)
     {
         if (IsGuard)
         {
@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            health -= atk;
+            health -= atk * commandLength;
             Animator.StartHitAnimation();
             Debug.Log(health);
         }
