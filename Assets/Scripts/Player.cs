@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     private DataSet leftSide, rightSide;
     public DataSet DataSet { get; set; }
 
-    private bool isLeft;
+    public bool IsLeft { get; private set; }
     public bool IsGuard { get; set; }
     public bool IsJumping { get; set; }
 
@@ -20,17 +20,17 @@ public class Player : MonoBehaviour
 
     public void Initialize()
     {
-        isLeft = true;
+        IsLeft = true;
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         Animator = GetComponentInChildren<CharacterAnimatorHandler>();
     }
 
     public void Flip()
     {
-        spriteRenderer.flipX = isLeft;
-        isLeft = !isLeft;
+        spriteRenderer.flipX = IsLeft;
+        IsLeft = !IsLeft;
 
-        if (isLeft)
+        if (IsLeft)
         {
             Debug.Log("left side");
             DataSet.SetLeftSide();

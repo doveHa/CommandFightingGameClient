@@ -10,14 +10,14 @@ namespace Characters.AnimationHandler
     {
         private int nageruLayerIndex, sangiriLayerIndex, nageKunaiLayerIndex, ittoRyotanLayerIndex;
 
-        public bool ShootHasegi { get; set; }
+        public bool ShootKunai { get; set; }
 
         protected override void Awake()
         {
             base.Awake();
             dictionary = new NaktisFrameRangesDictionary();
             LayerIndexInitialize();
-            ShootHasegi = false;
+            ShootKunai = false;
         }
 
         private void LayerIndexInitialize()

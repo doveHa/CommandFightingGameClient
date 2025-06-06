@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Characters.Skill.Naktis;
 using DataTable.FrameRanges;
 using Handler;
-using UnityEngine;
 
 namespace Characters.AnimationHandler
 {
@@ -38,6 +36,16 @@ namespace Characters.AnimationHandler
                 Animator.SetBool("ScratchExit", false);
                 Animator.Play("Scratch", scratchLayerIndex, 0);
             }
+        }
+
+        public void Scratch1Hit()
+        {
+            GetComponentInChildren<Scratch>().SetScratch1();
+        }
+
+        public void Scratch2Hit()
+        {
+            GetComponentInChildren<Scratch>().SetScratch2();
         }
 
         public void StartUpperWingAnimation()

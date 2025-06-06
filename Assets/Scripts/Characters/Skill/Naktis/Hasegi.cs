@@ -7,14 +7,11 @@ namespace Characters.Skill.Naktis
 {
     public class Hasegi : ICharacterSkill
     {
-        public bool HasHit { get; set; }
-
-        private float speed = 10f;
-        private NaktisAnimationHandler naktisAnimationHandler;
-        
         protected override int Damage { get; set; } = 14;
-
         
+        [SerializeField] private GameObject leftSideStartPosition, rightSideStartPosition;
+        private NaktisAnimationHandler naktisAnimationHandler;
+
         public override void Run()
         {
             HasHit = false;
@@ -22,24 +19,21 @@ namespace Characters.Skill.Naktis
             naktisAnimationHandler.StartHasegiAnimation();
             StartCoroutine(WaitHasegiMotion());
         }
-        
+
         private IEnumerator WaitHasegiMotion()
         {
             yield return new WaitUntil(() => naktisAnimationHandler.ShootHasegi);
 
-            CreateWind();
-        }
-
-        public void CreateWind()
-        {
-            Vector2 HasegiDirection = gameObject.transform.Find("HasegiStartTransform").position;
-            GameObject hasegi = Instantiate(Resources.Load<GameObject>("Prefabs/Character/Naktis/Skill/Hasegi"),
-                HasegiDirection, Quaternion.identity);
-            Vector3 direction = (GameManager.Manager.OpponentCenter - GameManager.Manager.PlayerCenter).normalized;
-            Rigidbody2D rigidbody = hasegi.GetComponent<Rigidbody2D>();
-
-            rigidbody.linearVelocity = direction * speed;
-
+            Vector2 startDirection;
+            if (VarManager.Manager.Player.IsLeft)
+            {
+                startDirection = leftSideStartPosition.transform.position;
+            }
+            else
+            {
+                startDirection = rightSideStartPosition.transform.position;
+            }
+            CreateProjectile(startDirection, "Prefabs/Characters/Naktis/Skill/Hasegi");
             naktisAnimationHandler.ShootHasegi = false;
         }
     }

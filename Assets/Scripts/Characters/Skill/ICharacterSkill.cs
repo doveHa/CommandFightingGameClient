@@ -20,4 +20,12 @@ public abstract class ICharacterSkill : MonoBehaviour
         HasHit = true;
         VarManager.Manager.Opponent.Hit(Damage, CommandLength);
     }
+
+    protected void CreateProjectile(Vector2 startDirection, string projectilePath)
+    {
+        GameObject projectile =
+            Instantiate(Resources.Load<GameObject>(projectilePath), startDirection, Quaternion.identity);
+        Vector3 endDirection = GameManager.Manager.ProjectileEndDirection();
+        projectile.GetComponent<Rigidbody2D>().linearVelocity = endDirection * ConstController.Manager.ShootSpeed;
+    }
 }

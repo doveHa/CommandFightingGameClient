@@ -7,8 +7,16 @@ namespace Characters.Skill.Kagetsu
     public class Sangiri : ICharacterSkill
     {
         protected override int Damage { get; set; } = 6;
-        private int Damage2 { get; set; } = 6;
-        private int Damage3 { get; set; } = 8;
+
+        public void SetNigiri()
+        {
+            Damage = 6;
+        }
+
+        public void SetSangiri()
+        {
+            Damage = 8;
+        }
 
         private KagetsuAnimationHandler kagetsuAnimationHandler;
 

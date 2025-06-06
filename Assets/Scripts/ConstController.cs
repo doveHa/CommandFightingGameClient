@@ -14,6 +14,7 @@ public class ConstController : MonoBehaviour
 
     [Tooltip("이동 속도")] public float MoveSpeed { get; } = 5f;
 
+    [Tooltip("투사체 속도")] public float ShootSpeed = 5f;
     public float GravityScale { get; set; } = 1f;
 
     void Awake()

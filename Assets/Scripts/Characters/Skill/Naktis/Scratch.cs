@@ -12,12 +12,20 @@ namespace Characters.Skill.Naktis
         protected override int Damage { get; set; } = 7;
         private int Damage2 { get; set; } = 10;
 
+        public void SetScratch1()
+        {
+            Damage = 7;
+        }
+
+        public void SetScratch2()
+        {
+            Damage = 10;
+        }
         public override void Run()
         {
             HasHit = false;
             naktisAnimationHandler = transform.parent.GetComponent<NaktisAnimationHandler>();
             naktisAnimationHandler.StartScratchAnimation();
         }
-
     }
 }

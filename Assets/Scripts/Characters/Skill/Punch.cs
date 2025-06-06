@@ -6,13 +6,14 @@ namespace Characters.Skill
 {
     public class Punch : ICharacterSkill
     {
-        public void SetDamage(int damage)
+        public void JumpPunch()
         {
-            Damage = damage;
+            Damage = 8;
         }
 
         void Start()
         {
+            Damage = 5;
             InputActionManager.Manager.Inputs.Inputs.BasicAtk.started += (ctx =>
             {
                 if (VarManager.Manager.Player.IsJumping)

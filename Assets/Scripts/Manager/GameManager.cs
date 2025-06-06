@@ -10,7 +10,7 @@ namespace Manager
 
         private bool wasPlayerLeft;
         public bool IsPlayerLeft { get; private set; }
-        
+
         public static GameManager Manager { get; private set; }
 
         void Awake()
@@ -39,6 +39,11 @@ namespace Manager
             }
         }
 
+        public Vector3 ProjectileEndDirection()
+        {
+            return (OpponentCenter - PlayerCenter).normalized;
+        }
+
         private bool CalculatePlayerIsLeft()
         {
             float playerX = VarManager.Manager.PlayerGameObject.transform.position.x;
@@ -64,9 +69,9 @@ namespace Manager
                 Resources.Load<GameObject>("Prefabs/Character/" + VarManager.Manager.OpponentCharacterName + "/" +
                                            VarManager.Manager.OpponentCharacterName),
                 VarManager.Manager.OpponentGameObject.transform).tag = "Opponent";
-            
-            VarManager.Manager.PlayerOpponentInitialize();;
-            
+
+            VarManager.Manager.PlayerOpponentInitialize();
+            ;
         }
 
         void OnDisable()
