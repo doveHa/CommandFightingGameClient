@@ -5,7 +5,7 @@ namespace Characters.Skill.Kagetsu
 {
     public class IttoRyotan : ICharacterSkill
     {
-        protected override int Damage { get; set; } = 24;
+        public override int Damage { get; protected set; } = 24;
         
         private KagetsuAnimationHandler kagetsuAnimationHandler;
 

@@ -3,10 +3,10 @@ using Handler;
 using Manager;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityStandardAssets.ImageEffects;
 
 public class Player : MonoBehaviour
 {
-    public Vector2 Position;
     private SpriteRenderer spriteRenderer;
     public CharacterAnimatorHandler Animator { get; set; }
     private DataSet leftSide, rightSide;
@@ -51,7 +51,16 @@ public class Player : MonoBehaviour
         }
         else
         {
-            HealthSystem.Manager.TakeDamage(false, atk * commandLength);
+            bool isPlayer;
+            if (CompareTag("Player"))
+            {
+                isPlayer = true;
+            }
+            else
+            {
+                isPlayer = false;
+            }
+            HealthSystem.Manager.TakeDamage(isPlayer, atk * commandLength);
             Animator.StartHitAnimation();
         }
     }

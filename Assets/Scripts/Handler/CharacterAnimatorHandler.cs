@@ -231,12 +231,16 @@ namespace Handler
 
                 if (gameObject.CompareTag("Player"))
                 {
-                    HitBoxManager.Manager.SetPlayerState(State, FrameIndex);
+                    VarManager.Manager.PlayerHitBoxHandler.SetCurrentState(State, FrameIndex);
+                    VarManager.Manager.OpponentHitBoxHandler.SetOpponentState(State, FrameIndex);
+                    //HitBoxManager.Manager.SetPlayerState(State, FrameIndex);
                 }
 
                 if (gameObject.CompareTag("Opponent"))
                 {
-                    HitBoxManager.Manager.SetOpponentState(State, FrameIndex);
+                    VarManager.Manager.OpponentHitBoxHandler.SetCurrentState(State, FrameIndex);
+                    VarManager.Manager.PlayerHitBoxHandler.SetOpponentState(State, FrameIndex);
+                    //HitBoxManager.Manager.SetOpponentState(State, FrameIndex);
                 }
             }
         }

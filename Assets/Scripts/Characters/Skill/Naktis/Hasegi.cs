@@ -7,7 +7,7 @@ namespace Characters.Skill.Naktis
 {
     public class Hasegi : ICharacterSkill
     {
-        protected override int Damage { get; set; } = 14;
+        public override int Damage { get; protected set; } = 14;
         
         [SerializeField] private GameObject leftSideStartPosition, rightSideStartPosition;
         private NaktisAnimationHandler naktisAnimationHandler;

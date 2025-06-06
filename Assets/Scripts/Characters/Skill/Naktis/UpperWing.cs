@@ -8,7 +8,7 @@ namespace Characters.Skill.Naktis
     {
         private NaktisAnimationHandler naktisAnimationHandler;
 
-        protected override int Damage { get; set; } = 12;
+        public override int Damage { get; protected set; } = 12;
 
         public override void Run()
         {

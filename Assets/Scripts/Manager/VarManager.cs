@@ -20,6 +20,9 @@ namespace Manager
         public string PlayerCharacterName { get; set; }
         public string OpponentCharacterName { get; set; }
 
+        public HitBoxHandler PlayerHitBoxHandler { get; set; }
+        public HitBoxHandler OpponentHitBoxHandler { get; set; }
+
         public Dictionary<int, ICharacterSkill> PlayerSkills { get; set; }
         public Dictionary<int, ICharacterSkill> OpponentSkills { get; set; }
 
@@ -36,12 +39,7 @@ namespace Manager
             SetComponents();
             SetDataSets();
             SetSkills();
-        }
-
-        private void SetDataSets()
-        {
-            Player.SetDataSet(PlayerCharacterName);
-            Opponent.SetDataSet(OpponentCharacterName);
+            SetHitBoxHandler();
         }
 
         private void SetComponents()
@@ -52,12 +50,25 @@ namespace Manager
             Opponent.Initialize();
         }
 
+        private void SetDataSets()
+        {
+            Player.SetDataSet(PlayerCharacterName);
+            Opponent.SetDataSet(OpponentCharacterName);
+        }
+
+
         private void SetSkills()
         {
             PlayerSkills = new Dictionary<int, ICharacterSkill>();
             OpponentSkills = new Dictionary<int, ICharacterSkill>();
             SetSkill(PlayerCharacterName, Player, PlayerSkills);
             SetSkill(OpponentCharacterName, Opponent, OpponentSkills);
+        }
+
+        private void SetHitBoxHandler()
+        {
+            PlayerHitBoxHandler = PlayerGameObject.GetComponent<HitBoxHandler>();
+            OpponentHitBoxHandler = OpponentGameObject.GetComponent<HitBoxHandler>();
         }
 
         private void SetSkill(string characterName, Player player, Dictionary<int, ICharacterSkill> skills)

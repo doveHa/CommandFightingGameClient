@@ -6,7 +6,7 @@ namespace Characters.Skill.Kagetsu
 {
     public class Nageru : ICharacterSkill
     {
-        protected override int Damage { get; set; } = 14;
+        public override int Damage { get; protected set; } = 14;
 
         
         private KagetsuAnimationHandler kagetsuAnimationHandler;

@@ -9,7 +9,7 @@ namespace Characters.Skill.Naktis
     {
         private NaktisAnimationHandler naktisAnimationHandler;
 
-        protected override int Damage { get; set; } = 7;
+        public override int Damage { get; protected set; } = 7;
         private int Damage2 { get; set; } = 10;
 
         public void SetScratch1()

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿/*
+
+using System.Collections.Generic;
 using System.Globalization;
 using DataTable.DataSet;
 using UnityEngine;
@@ -51,23 +53,14 @@ namespace Manager
                 {
                     if (playerBox.PartName.Equals("HitBox"))
                     {
-                        /*
-                        Vector2 playerCenter =
-                            (Vector2)VarManager.Manager.PlayerGameObject.transform.GetChild(0).GetChild(0).position +
-                            DataSet.FloatArrayToVector2(playerBox.OffSet);
-                        */
+                        
                         Vector2 playerCenter = GameManager.Manager.PlayerCenter + DataSet.FloatArrayToVector2(playerBox.OffSet);
                         Vector2 playerSize = DataSet.FloatArrayToVector2(playerBox.Size);
                         Rect playerHitRect = new Rect(playerCenter - playerSize / 2f, playerSize);
 
                         foreach (var opponentBox in opponentFrame.HurtBoxes)
                         {
-                            /*
-                            Vector2 opponentCenter =
-                                (Vector2)VarManager.Manager.OpponentGameObject.transform.GetChild(0).GetChild(0)
-                                    .position +
-                                DataSet.FloatArrayToVector2(opponentBox.OffSet);
-                            */
+                           
                             Vector2 opponentCenter = GameManager.Manager.OpponentCenter + DataSet.FloatArrayToVector2(opponentBox.OffSet);
                             Vector2 opponentSize = DataSet.FloatArrayToVector2(opponentBox.Size);
                             Rect opponentHurtRect = new Rect(opponentCenter - opponentSize / 2f, opponentSize);
@@ -89,4 +82,4 @@ namespace Manager
             return VarManager.Manager.PlayerSkills[VarManager.SkillMapping(PlayerCurrentState)];
         }
     }
-}
+}*/

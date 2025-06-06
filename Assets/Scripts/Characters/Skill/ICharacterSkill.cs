@@ -4,8 +4,8 @@ using UnityEngine;
 
 public abstract class ICharacterSkill : MonoBehaviour
 {
-    protected virtual int Damage { get; set; }
-    private int CommandLength { get; set; }
+    public virtual int Damage { get; protected set; }
+    public int CommandLength { get; private set; }
     public bool HasHit { get; set; }
 
     public abstract void Run();

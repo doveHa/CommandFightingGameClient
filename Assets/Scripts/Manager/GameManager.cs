@@ -42,13 +42,15 @@ namespace Manager
         public void SetPlayerCenter(Vector3 playerCenter)
         {
             PlayerCenter = playerCenter + VarManager.Manager.PlayerGameObject.transform.GetChild(0).position;
+            VarManager.Manager.PlayerGameObject.transform.GetChild(0).GetChild(0).position = PlayerCenter;
         }
 
         public void SetOpponentCenter(Vector3 opponentCenter)
         {
             OpponentCenter = opponentCenter + VarManager.Manager.OpponentGameObject.transform.GetChild(0).position;
-
+            VarManager.Manager.OpponentGameObject.transform.GetChild(0).GetChild(0).position = OpponentCenter;
         }
+
         public Vector3 ProjectileEndDirection()
         {
             return (OpponentCenter - PlayerCenter).normalized;
