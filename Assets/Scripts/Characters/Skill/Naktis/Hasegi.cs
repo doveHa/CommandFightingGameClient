@@ -33,7 +33,7 @@ namespace Characters.Skill.Naktis
             {
                 startDirection = rightSideStartPosition.transform.position;
             }
-            CreateProjectile(startDirection, "Prefabs/Characters/Naktis/Skill/Hasegi");
+            CreateProjectile(startDirection, "Prefabs/Character/Naktis/Skill/Hasegi");
             naktisAnimationHandler.ShootHasegi = false;
         }
     }

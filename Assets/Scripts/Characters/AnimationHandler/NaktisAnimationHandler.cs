@@ -88,7 +88,7 @@ namespace Characters.AnimationHandler
             UnLockMovement();
             FlagInitialize();
             ChangeLayer(baseLayerIndex);
-            Animator.SetBool("ScratchExit", true);
+            EndAllAnimations();
             Animator.Play("Idle");
         }
 
@@ -97,7 +97,7 @@ namespace Characters.AnimationHandler
             UnLockMovement();
             FlagInitialize();
             ChangeLayer(baseLayerIndex);
-            Animator.SetBool("UpperWingExit", true);
+            EndAllAnimations();
             Animator.Play("Idle");
         }
 
@@ -109,7 +109,7 @@ namespace Characters.AnimationHandler
         public void EndFlySettingFlag()
         {
             ChangeLayer(baseLayerIndex);
-            Animator.SetBool("FlyExit", true);
+            EndAllAnimations();
             FlagInitialize();
         }
 
@@ -118,7 +118,7 @@ namespace Characters.AnimationHandler
             UnLockMovement();
             FlagInitialize();
             ChangeLayer(baseLayerIndex);
-            Animator.SetBool("HasegiExit", true);
+            EndAllAnimations();
             Animator.Play("Idle");
         }
 
@@ -127,6 +127,15 @@ namespace Characters.AnimationHandler
             ShootHasegi = true;
         }
 
+        protected override void EndAllAnimations()
+        {
+            base.EndAllAnimations();
+            Animator.SetBool("HasegiExit",true);
+            Animator.SetBool("FlyExit",true);
+            Animator.SetBool("UpperWingExit",true);
+            Animator.SetBool("ScratchExit",true);
+        }
+        
         protected override void FlagInitialize()
         {
             PunchFlagInitialize();

@@ -36,7 +36,7 @@ namespace Characters.Skill.Kagetsu
                 startDirection = rightSideStartPosition.transform.position;
             }
 
-            CreateProjectile(startDirection, "Prefabs/Characters/Kagetsu/Skill/Kunai");
+            CreateProjectile(startDirection, "Prefabs/Character/Kagetsu/Skill/Kunai");
             kagetsuAnimationHandler.ShootKunai = false;
         }
     }

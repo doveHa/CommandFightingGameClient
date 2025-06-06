@@ -105,7 +105,7 @@ namespace Handler
             {
                 PunchFlagInitialize();
                 ChangeLayer(baseLayerIndex);
-                Animator.SetBool("PunchExit", true);
+                EndAllAnimations();
                 UnLockMovement();
             }
         }
@@ -113,7 +113,7 @@ namespace Handler
 
         public void EndJumpPunchAnimation()
         {
-            Debug.Log("EndJumpPunchAnimation");
+            EndAllAnimations();
             motionFlag = false;
         }
 
@@ -123,7 +123,7 @@ namespace Handler
             {
                 PunchFlagInitialize();
                 ChangeLayer(baseLayerIndex);
-                Animator.SetBool("PunchExit", true);
+                EndAllAnimations();
                 UnLockMovement();
             }
         }
@@ -162,6 +162,7 @@ namespace Handler
             //입력 잠금 해제
             motionFlag = false;
             Animator.SetBool("Hit", false);
+            EndAllAnimations();
         }
 
         public void StartWalkAnimation()
@@ -174,15 +175,27 @@ namespace Handler
             Animator.SetBool("IsMove", false);
         }
 
-        public void StartJumpAnimation()
+        public bool StartJumpAnimation()
         {
-            Animator.SetTrigger("IsJump");
+            if (CurrentLayerIndex == baseLayerIndex)
+            {
+                Animator.SetTrigger("IsJump");
+                return true;
+            }
+
+            return false;
         }
 
         public void EndJumpAnimation()
         {
             Animator.Play("Jumping_Down", baseLayerIndex, 0);
             motionFlag = false;
+            EndAllAnimations();
+        }
+
+        protected virtual void EndAllAnimations()
+        {
+            Animator.SetBool("PunchExit", true);
         }
 
         protected void ChangeLayer(int targetLayerIndex)

@@ -7,7 +7,7 @@ using Manager;
 public class SendKey : MonoBehaviour
 {
     private Vector2 moveDirection;
-    private Animator animator;
+    private CharacterAnimatorHandler handler;
     private bool jumpKeyInput;
 
     private string skillName = string.Empty;
@@ -24,8 +24,7 @@ public class SendKey : MonoBehaviour
         InputActionManager.Manager.Inputs.Inputs.Guard.performed += GuardKeyInput;
         InputActionManager.Manager.Inputs.Inputs.Guard.canceled += GuardKeyInputCancel;
 
-
-        animator = GetComponentInChildren<Animator>();
+        handler = GetComponentInChildren<CharacterAnimatorHandler>();
     }
 
     public void SetSkillName(string skillName)
@@ -35,19 +34,22 @@ public class SendKey : MonoBehaviour
 
     private void PerformKeyInput(InputAction.CallbackContext ctx)
     {
-        animator.SetBool("IsMove", true);
+        handler.StartWalkAnimation();
         moveDirection = ctx.ReadValue<Vector2>();
     }
 
     private void CancelKeyInput(InputAction.CallbackContext ctx)
     {
         moveDirection = Vector2.zero;
-        animator.SetBool("IsMove", false);
+        handler.EndWalkAnimation();
     }
 
     private void JumpKeyInput(InputAction.CallbackContext ctx)
     {
-        jumpKeyInput = true;
+        if (!GetComponent<Player>().IsJumping && handler.StartJumpAnimation())
+        {
+            jumpKeyInput = true;
+        }
     }
 
     private void GuardKeyInput(InputAction.CallbackContext ctx)
