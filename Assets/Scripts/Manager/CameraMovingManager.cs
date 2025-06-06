@@ -10,7 +10,9 @@ public class CameraMovingManager : MonoBehaviour
     private Transform player2;
     private float additionalRender = 4;
     private float minDistance = 18f;
-    private float maxDistance = 26f;
+    public float maxDistance = 26f;
+
+    public float currentDistance;
     
     private Camera cam;
     private float initialY;
@@ -26,7 +28,7 @@ public class CameraMovingManager : MonoBehaviour
     void Update()
     {
         float distance = Mathf.Abs(player1.position.x - player2.position.x) + additionalRender;
-        
+        currentDistance = distance;
         float currentWidth = Mathf.Clamp(distance / 2f, minDistance / 2f, maxDistance / 2f);
         float needHeight = Mathf.Max(verticalSize, currentWidth / cam.aspect);
         
