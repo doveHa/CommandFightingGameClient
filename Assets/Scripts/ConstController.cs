@@ -3,18 +3,19 @@
 public class ConstController : MonoBehaviour
 {
     public static ConstController Manager { get; private set; }
-    public float NaktisFlyYPosition = 0.25f;
-    public float DurationTime = 4;
-    
-    public float JumpForce = 5f;
-    public float MoveSpeed = 1f;
+        
+    [Tooltip("체공 지속 시간")] public float DurationTime { get; } = 4;
 
-    public float GravityScale = 1f;
-    
-    public int WaitTime = 1;
+    [Tooltip("올라가는 속도")] public float JumpForce { get; } = 20f;
 
-    public float AirborneForceY = 2f;
-    public float ReAirbonneForceY = 0.25f;
+    [Tooltip("날아가는 속도")] public float FlyForce { get; } = 10f;
+
+    [Tooltip("올라가는 시간")] public float WaitTime { get; } = 0.5f;
+
+    [Tooltip("이동 속도")] public float MoveSpeed { get; } = 5f;
+
+    public float GravityScale { get; set; } = 1f;
+
     void Awake()
     {
         Manager = this;

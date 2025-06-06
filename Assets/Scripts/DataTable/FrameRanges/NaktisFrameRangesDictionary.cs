@@ -6,12 +6,12 @@ namespace DataTable.FrameRanges
     {
         public NaktisFrameRangesDictionary() : base()
         {
-            AddRange("Hasegi", new int[] { 6, 14, 21, 28 });
+            AddRange("Hasegi", new int[] { 9, 15, 21, 22 });
             AddRange("Scratch", new int[] { 8, 14, 19, 25 });
-            AddRange("UpperWing", new int[] { 5, 10, 20, 21 });
-            AddRange("Fly_Drop", new int[] { 10, 20, 30, 31 });
-            AddRange("Fly_Standing", new int[] { 15, 30, 45, 61, 62 });
-            AddRange("Fly_Up", new int[] { 5, 15, 25, 26 });
+            AddRange("UpperWing", new int[] { 4, 7, 16, 17 });
+            AddRange("Fly_Drop", new int[] { 11, 21, 77, 78 });
+            AddRange("Fly_Standing", new int[] { 16, 31, 46, 62, 63 });
+            AddRange("Fly_Up", new int[] { 6, 16, 26, 27 });
             AddRange("Fly_WalkLeft", new int[] { 0, 0, 0, 0 });
             AddRange("Fly_WalkRight", new int[] { 0, 0, 0, 0 });
         }

@@ -4,27 +4,42 @@ using UnityEngine;
 
 namespace Characters.Skill
 {
-    public class Punch : MonoBehaviour, ICharacterSkill
+    public class Punch : ICharacterSkill
     {
-        public bool HasHit { get; set; }
+        public void SetDamage(int damage)
+        {
+            Damage = damage;
+        }
 
         void Start()
         {
-            InputActionManager.Manager.Inputs.Atk.Atk.started += (ctx => { VarManager.Manager.PlayerGameObject.GetComponent<SendKey>().SetSkillName("Atk_Punch"); });
+            InputActionManager.Manager.Inputs.Inputs.BasicAtk.started += (ctx =>
+            {
+                if (VarManager.Manager.Player.IsJumping)
+                {
+                    VarManager.Manager.PlayerGameObject.GetComponent<SendKey>().SetSkillName("Jumping_Attack");
+                }
+                else
+                {
+                    VarManager.Manager.PlayerGameObject.GetComponent<SendKey>().SetSkillName("Atk_Punch");
+                }
+            });
         }
 
-        
-        public void Run()
+        public override void Run()
         {
-            HasHit = false;
             CharacterAnimatorHandler animator = GetComponentInParent<CharacterAnimatorHandler>();
-            animator.StartPunchAnimation();
-        }
 
-        public void Hit()
-        {
-            HasHit = true;
-            VarManager.Manager.Opponent.Hit(10);
+            if (VarManager.Manager.Player.IsJumping)
+            {
+                animator.StartJumpPunchAnimation();
+            }
+            else
+            {
+                animator.StartPunchAnimation();
+            }
+
+            HasHit = false;
         }
     }
 }

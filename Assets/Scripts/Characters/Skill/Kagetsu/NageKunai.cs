@@ -1,12 +1,22 @@
-﻿using UnityEngine;
+﻿using Characters.AnimationHandler;
+using Manager;
+using UnityEngine;
 
 namespace Characters.Skill.Kagetsu
 {
-    public class NageKunai : MonoBehaviour
+    public class NageKunai : ICharacterSkill
     {
-        public void SetCoff()
-        {
+        protected override int Damage { get; set; } = 14;
+        
+        private KagetsuAnimationHandler kagetsuAnimationHandler;
 
+        public override void Run()
+        {
+            Debug.Log("NageKunai");
+
+            HasHit = false;
+            kagetsuAnimationHandler = transform.parent.GetComponent<KagetsuAnimationHandler>();
+            kagetsuAnimationHandler.StartNageKunaiAnimation();
         }
     }
 }

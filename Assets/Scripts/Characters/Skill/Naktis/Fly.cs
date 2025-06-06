@@ -6,20 +6,12 @@ using UnityEngine;
 
 namespace Characters.Skill.Naktis
 {
-    public class Fly : MonoBehaviour, ICharacterSkill
+    public class Fly : ICharacterSkill
     {
-        public bool HasHit { get; set; }
-
-        
         private NaktisAnimationHandler naktisAnimationHandler;
         private Coroutine flyCoroutine;
-
-        public void SetCoff()
-        {
-
-        }
-
-        public void Run()
+        
+        public override void Run()
         {
             naktisAnimationHandler = transform.parent.GetComponent<NaktisAnimationHandler>();
 
@@ -40,22 +32,18 @@ namespace Characters.Skill.Naktis
 
             Debug.Log("NaktisS1");
         }
-
-        public void Hit()
-        {
-            
-        }
+        
 
         private IEnumerator NaktisFly()
         {
-            //ConstController.Manager.GravityScale = GetComponentInChildren<Rigidbody2D>().gravityScale;
-            naktisAnimationHandler.StartFlyAnimation();
             Rigidbody2D body = GetComponentInParent<Rigidbody2D>();
+            ConstController.Manager.GravityScale = body.gravityScale;
+            naktisAnimationHandler.StartFlyAnimation();
             body.gravityScale = 0;
             body.linearVelocityY = 0;
-            body.AddForce(Vector2.up * ConstController.Manager.JumpForce, ForceMode2D.Impulse);
+            body.AddForce(Vector2.up * ConstController.Manager.FlyForce, ForceMode2D.Impulse);
             yield return new WaitForSeconds(ConstController.Manager.WaitTime);
-            body.AddForce(Vector2.down * ConstController.Manager.JumpForce, ForceMode2D.Impulse);
+            body.AddForce(Vector2.down * ConstController.Manager.FlyForce, ForceMode2D.Impulse);
 
             float elapsedTime = 0;
             while (elapsedTime < ConstController.Manager.DurationTime)
@@ -64,7 +52,7 @@ namespace Characters.Skill.Naktis
                 yield return null;
             }
 
-            GetComponentInParent<Rigidbody2D>().gravityScale = ConstController.Manager.GravityScale;
+            body.gravityScale = ConstController.Manager.GravityScale;
             naktisAnimationHandler.EndFlyAnimation();
             flyCoroutine = null;
         }

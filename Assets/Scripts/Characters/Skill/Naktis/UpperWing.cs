@@ -4,28 +4,17 @@ using Manager;
 
 namespace Characters.Skill.Naktis
 {
-    public class UpperWing : MonoBehaviour, ICharacterSkill
+    public class UpperWing : ICharacterSkill
     {
-        public bool HasHit { get; set; }
-
         private NaktisAnimationHandler naktisAnimationHandler;
 
-        public void SetCoff()
-        {
-        }
+        protected override int Damage { get; set; } = 12;
 
-        public void Run()
+        public override void Run()
         {
-            Debug.Log("UpperWing Run");
             HasHit = false;
             naktisAnimationHandler = transform.parent.GetComponent<NaktisAnimationHandler>();
             naktisAnimationHandler.StartUpperWingAnimation();
-        }
-
-        public void Hit()
-        {
-            HasHit = true;
-            VarManager.Manager.Opponent.Hit(10);
         }
     }
 }

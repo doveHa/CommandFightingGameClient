@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 
-namespace Movement
+public class Ground : MonoBehaviour
 {
-    public class Ground : MonoBehaviour
+    public void OnCollisionEnter2D(Collision2D collision)
     {
-        public void OnCollisionEnter2D(Collision2D collision)
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Opponent"))
         {
-            if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Opponent"))
+            Player player = collision.gameObject.GetComponentInParent<Player>();
+            if (player.IsJumping)
             {
-                collision.gameObject.GetComponentInParent<Player>().IsJumping = false;
+                player.Animator.EndJumpAnimation();
             }
+
+            player.IsJumping = false;
         }
     }
 }

@@ -5,31 +5,24 @@ using UnityEngine;
 
 namespace Characters.Skill.Naktis
 {
-    public class Hasegi : MonoBehaviour, ICharacterSkill
+    public class Hasegi : ICharacterSkill
     {
         public bool HasHit { get; set; }
 
         private float speed = 10f;
         private NaktisAnimationHandler naktisAnimationHandler;
+        
+        protected override int Damage { get; set; } = 14;
 
-        public void SetCoff()
-        {
-        }
-
-        public void Run()
+        
+        public override void Run()
         {
             HasHit = false;
             naktisAnimationHandler = transform.parent.GetComponent<NaktisAnimationHandler>();
             naktisAnimationHandler.StartHasegiAnimation();
             StartCoroutine(WaitHasegiMotion());
         }
-
-        public void Hit()
-        {
-            HasHit = true;
-            VarManager.Manager.Opponent.Hit(10);
-        }
-
+        
         private IEnumerator WaitHasegiMotion()
         {
             yield return new WaitUntil(() => naktisAnimationHandler.ShootHasegi);

@@ -4,6 +4,7 @@ using System.Data;
 using DataTable.FrameRanges;
 using DataTable.DataSet;
 using Manager;
+using UnityEditor.Searcher;
 using DataSet = DataTable.DataSet.DataSet;
 
 namespace Handler
@@ -22,6 +23,9 @@ namespace Handler
 
         protected int CurrentLayerIndex;
         protected FrameRangesDictionary dictionary;
+
+        protected abstract void FlagInitialize();
+
         public string State { get; set; }
         public int FrameIndex { get; set; }
 
@@ -52,16 +56,33 @@ namespace Handler
 
         public void StartPunchAnimation()
         {
-            if (punchFlag)
+            if (motionFlag)
             {
-                additionalPunch = true;
             }
             else
             {
-                ChangeLayer(punchLayerIndex);
-                Animator.SetBool("PunchExit", false);
-                Animator.Play("Atk_Punch", CurrentLayerIndex, 0);
-                punchFlag = true;
+                if (punchFlag && !additionalPunch)
+                {
+                    additionalPunch = true;
+                }
+
+                if (!punchFlag)
+                {
+                    LockMovement();
+                    ChangeLayer(punchLayerIndex);
+                    Animator.SetBool("PunchExit", false);
+                    Animator.Play("Atk_Punch", CurrentLayerIndex, 0);
+                    punchFlag = true;
+                }
+            }
+        }
+
+        public void StartJumpPunchAnimation()
+        {
+            if (!motionFlag)
+            {
+                Animator.Play("Jumping_Attack", CurrentLayerIndex, 0);
+                motionFlag = true;
             }
         }
 
@@ -70,20 +91,40 @@ namespace Handler
             if (additionalPunch)
             {
                 Animator.SetTrigger("AdditionalPunch");
-                additionalPunch = false;
+                LockMovement();
+            }
+            else
+            {
+                punchFlag = false;
             }
         }
 
         public void EndPunchAnimation()
         {
-            Debug.Log("EndPunchAnimation Method");
-            Debug.Log(additionalPunch);
-            if (!additionalPunch)
+            if (!additionalPunch && !motionFlag)
             {
-                Debug.Log("EndPunch");
                 PunchFlagInitialize();
                 ChangeLayer(baseLayerIndex);
                 Animator.SetBool("PunchExit", true);
+                UnLockMovement();
+            }
+        }
+
+
+        public void EndJumpPunchAnimation()
+        {
+            Debug.Log("EndJumpPunchAnimation");
+            motionFlag = false;
+        }
+
+        public void EndKickAnimation()
+        {
+            if (!motionFlag)
+            {
+                PunchFlagInitialize();
+                ChangeLayer(baseLayerIndex);
+                Animator.SetBool("PunchExit", true);
+                UnLockMovement();
             }
         }
 
@@ -95,44 +136,31 @@ namespace Handler
 
         public void StartHitAnimation()
         {
+            LockMovement();
+            // 입력 잠금
+            ChangeLayer(baseLayerIndex);
             Animator.SetBool("Hit", true);
-        }
-
-        public void FlagPunchFalse()
-        {
-            animationFlag["Punch"] = false;
-            animationFlag["Punch2"] = false;
-            motionFlag = false;
+            motionFlag = true;
+            FlagInitialize();
         }
 
         public void StartGuardAnimation()
         {
-            Animator.SetLayerWeight(baseLayerIndex, 0);
-            Animator.SetLayerWeight(baseLayerIndex, 1);
+            LockMovement();
+            Animator.SetBool("IsGuard", true);
         }
 
         public void EndGuardAnimation()
         {
-            Animator.SetLayerWeight(baseLayerIndex, 0);
-            Animator.SetLayerWeight(baseLayerIndex, 1);
-        }
-
-        public void StartAirborneAnimation()
-        {
-            Animator.SetBool("Airborne", true);
-        }
-
-        public void ReAirborneHitAnimation()
-        {
-            Animator.Play("Airborne");
-        }
-
-        public void EndAirborneHitAnimation()
-        {
+            Animator.SetBool("IsGuard", false);
+            UnLockMovement();
         }
 
         public void EndHitAnimation()
         {
+            UnLockMovement();
+            //입력 잠금 해제
+            motionFlag = false;
             Animator.SetBool("Hit", false);
         }
 
@@ -146,13 +174,23 @@ namespace Handler
             Animator.SetBool("IsMove", false);
         }
 
+        public void StartJumpAnimation()
+        {
+            Animator.SetTrigger("IsJump");
+        }
+
+        public void EndJumpAnimation()
+        {
+            Animator.Play("Jumping_Down", baseLayerIndex, 0);
+            motionFlag = false;
+        }
+
         protected void ChangeLayer(int targetLayerIndex)
         {
-            Animator.SetLayerWeight(CurrentLayerIndex, 0.01f);
+            Animator.SetLayerWeight(CurrentLayerIndex, 0);
             Animator.SetLayerWeight(targetLayerIndex, 1);
             CurrentLayerIndex = targetLayerIndex;
         }
-
 
         private void CalFrameNumber()
         {
@@ -163,14 +201,13 @@ namespace Handler
 
                 AnimatorClipInfo[] clipInfo = Animator.GetCurrentAnimatorClipInfo(CurrentLayerIndex);
                 AnimationClip clip = clipInfo[0].clip;
-                Debug.Log(CurrentLayerIndex);
                 int totalFrames = Mathf.RoundToInt(clip.length * clip.frameRate);
                 int currentFrame = Mathf.FloorToInt(normalizedTime * totalFrames);
 
                 State = clip.name;
                 List<FrameRange> frameRanges =
                     dictionary.FrameRanges[State];
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < frameRanges.Count; i++)
                 {
                     if (currentFrame >= frameRanges[i].start && currentFrame <= frameRanges[i].end)
                     {
@@ -193,7 +230,7 @@ namespace Handler
 
         private void OnDrawGizmos()
         {
-            foreach (CharacterAllStatement statement in VarManager.Manager.Opponent.DataSet.RawData)
+            foreach (CharacterAllStatement statement in GetComponentInParent<Player>().DataSet.RawData)
             {
                 if (statement.Statement.Equals(State))
                 {
@@ -221,6 +258,17 @@ namespace Handler
                     }
                 }
             }
+        }
+
+        protected void LockMovement()
+        {
+            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX;
+        }
+
+        protected void UnLockMovement()
+        {
+            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         }
     }
 }

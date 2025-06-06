@@ -11,7 +11,6 @@ public class SendKey : MonoBehaviour
     private bool jumpKeyInput;
 
     private string skillName = string.Empty;
-    //private bool[] skillsInput = new bool[4];
 
     void Awake()
     {
@@ -19,9 +18,12 @@ public class SendKey : MonoBehaviour
 
     void Start()
     {
-        InputActionManager.Manager.Inputs.Movement.Move.started += PerformKeyInput;
-        InputActionManager.Manager.Inputs.Movement.Move.canceled += CancelKeyInput;
-        InputActionManager.Manager.Inputs.Movement.Jump.performed += JumpKeyInput;
+        InputActionManager.Manager.Inputs.Inputs.Move.started += PerformKeyInput;
+        InputActionManager.Manager.Inputs.Inputs.Move.canceled += CancelKeyInput;
+        InputActionManager.Manager.Inputs.Inputs.Jump.performed += JumpKeyInput;
+        InputActionManager.Manager.Inputs.Inputs.Guard.performed += GuardKeyInput;
+        InputActionManager.Manager.Inputs.Inputs.Guard.canceled += GuardKeyInputCancel;
+
 
         animator = GetComponentInChildren<Animator>();
     }
@@ -34,54 +36,28 @@ public class SendKey : MonoBehaviour
     private void PerformKeyInput(InputAction.CallbackContext ctx)
     {
         animator.SetBool("IsMove", true);
-
         moveDirection = ctx.ReadValue<Vector2>();
-        if ((moveDirection.x > 0 && !GameManager.Manager.IsPlayerLeft)
-            || (moveDirection.x < 0 && GameManager.Manager.IsPlayerLeft))
-        {
-            VarManager.Manager.Player.SetGuard(true);
-        }
-        else
-        {
-            VarManager.Manager.Player.SetGuard(false);
-        }
-        //isMove = true;
     }
 
     private void CancelKeyInput(InputAction.CallbackContext ctx)
     {
         moveDirection = Vector2.zero;
-        VarManager.Manager.Player.SetGuard(false);
         animator.SetBool("IsMove", false);
-
-        //isMove = false;
     }
 
-    /*
-    private void JumpKeyInput(InputAction.CallbackContext ctx)
-    {
-        RollbackManager.Manager.AdvanceFrame(true);
-        //Movement.CharacterMovementController.JumpCharacter(gameObject);
-
-        SteamNetworkManager.Manager.SendMsg(
-            SteamNetworkManager.Manager.RemoteSteamId,
-            Constant.SteamNetworkingType.KEYINPUT,
-            SendKeyInputFormatting(Constant.SteamNetworkingType.KeyInput.JUMP,
-                string.Empty)
-        );
-    }
-*/
     private void JumpKeyInput(InputAction.CallbackContext ctx)
     {
         jumpKeyInput = true;
+    }
 
-        Debug.Log("JUMP &" + PlayerMovement());
-        /*
-        SteamNetworkManager.Manager.SendMsg(
-            SteamNetworkManager.Manager.RemoteSteamId,
-            Constant.SteamNetworkingType.KEYINPUT,
-            SendMovementInputFormatting(Constant.SteamNetworkingType.KeyInput.MOVEMENT)
-        );*/
+    private void GuardKeyInput(InputAction.CallbackContext ctx)
+    {
+        VarManager.Manager.Player.IsGuard = true;
+    }
+
+    private void GuardKeyInputCancel(InputAction.CallbackContext ctx)
+    {
+        VarManager.Manager.Player.IsGuard = false;
     }
 
     void FixedUpdate()
@@ -100,7 +76,6 @@ public class SendKey : MonoBehaviour
             Constant.SteamNetworkingType.KEYINPUT,
             SendMovementInputFormatting()
         );
-
 
         jumpKeyInput = false;
         skillName = string.Empty;
@@ -144,6 +119,8 @@ public class SendKey : MonoBehaviour
         {
             case "Atk_Punch":
                 return Constant.SkillName.PUNCH;
+            case "Jumping_Attack":
+                return Constant.SkillName.JUMP_PUNCH;
             case "어퍼윙":
                 return Constant.SkillName.Naktis.UPPERWING;
             case "바람강타":
@@ -152,6 +129,14 @@ public class SendKey : MonoBehaviour
                 return Constant.SkillName.Naktis.FLY;
             case "할퀴기":
                 return Constant.SkillName.Naktis.SCRATCH;
+            case "잡기":
+                return Constant.SkillName.Kagetsu.Nageru;
+            case "3단 베기":
+                return Constant.SkillName.Kagetsu.Sangiri;
+            case "베기":
+                return Constant.SkillName.Kagetsu.IttoRyotan;
+            case "쿠나이":
+                return Constant.SkillName.Kagetsu.NageKunai;
             default:
                 return -1;
         }

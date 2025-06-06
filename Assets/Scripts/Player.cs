@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     public DataSet DataSet { get; set; }
 
     private bool isLeft;
-    public bool isGuard;
+    public bool IsGuard { get; set; }
     public bool IsJumping { get; set; }
 
     private int health = 100;
@@ -42,25 +42,21 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void SetGuard(bool isGuard)
+    public void Hit(int atk, int commandLength)
     {
-        this.isGuard = isGuard;
-    }
-
-    public void Hit(int atk)
-    {
-        if (isGuard)
+        if (IsGuard)
         {
             Debug.Log("guard");
             Animator.StartGuardAnimation();
         }
         else
         {
-            health -= atk;
+            health -= atk * commandLength;
+            Animator.StartHitAnimation();
             Debug.Log(health);
         }
     }
-    
+
     public void SetDataSet(string charaterName)
     {
         switch (charaterName)
