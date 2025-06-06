@@ -15,7 +15,7 @@ namespace Characters.AnimationHandler
         protected override void Awake()
         {
             base.Awake();
-            dictionary = new NaktisFrameRangesDictionary();
+            dictionary = new KagetsuFrameRangesDictionary();
             LayerIndexInitialize();
             ShootKunai = false;
         }

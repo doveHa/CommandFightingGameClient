@@ -2,19 +2,19 @@ using UnityEngine;
 
 public class FirstClickManager : MonoBehaviour
 {
-    public GameObject openObject; // È°¼ºÈ­ÇÒ ¿ÀºêÁ§Æ®
+    public GameObject openObject; // í™œì„±í™”í•  ì˜¤ë¸Œì íŠ¸
     public GameObject closeObject;
-    private bool isActivated = false; // ÀÌ¹Ì È°¼ºÈ­µÇ¾ú´ÂÁö ¿©ºÎ
+    private bool isActivated = false; // ì´ë¯¸ í™œì„±í™”ë˜ì—ˆëŠ”ì§€ ì—¬ë¶€
 
     void Update()
     {
-        if (!isActivated && Input.GetMouseButtonDown(0)) // ¾ÆÁ÷ È°¼ºÈ­ ¾È µÆ°í, ¸¶¿ì½º Å¬¸¯ÇßÀ» ¶§
+        if (!isActivated && Input.GetMouseButtonDown(0)) // ì•„ì§ í™œì„±í™” ì•ˆ ëê³ , ë§ˆìš°ìŠ¤ í´ë¦­í–ˆì„ ë•Œ
         {
             if (openObject != null)
             {
                 openObject.SetActive(true);
                 closeObject.SetActive(false);
-                isActivated = true; // ´õ ÀÌ»ó ½ÇÇàµÇÁö ¾Êµµ·Ï ¼³Á¤
+                isActivated = true; // ë” ì´ìƒ ì‹¤í–‰ë˜ì§€ ì•Šë„ë¡ ì„¤ì •
             }
         }
     }

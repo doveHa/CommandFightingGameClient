@@ -65,7 +65,7 @@ public class Player : MonoBehaviour
                 DataSet = new NaktisFrameDataSet();
                 DataSet.SetLeftSide();
                 break;
-            case "Kaegetsu":
+            case "Kagetsu":
                 DataSet = new KagetsuFrameDataSet();
                 DataSet.SetLeftSide();
                 break;
