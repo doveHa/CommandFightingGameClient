@@ -22,23 +22,23 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 6441341240601877231, guid: fbc2e3db2ecac1146acf2d054601a83c, type: 3}
-    - time: 0.11666667
+    - time: 0.083333336
       value: {fileID: -5075794368666209580, guid: fbc2e3db2ecac1146acf2d054601a83c, type: 3}
-    - time: 0.25
+    - time: 0.15
       value: {fileID: -3017105014112984064, guid: fbc2e3db2ecac1146acf2d054601a83c, type: 3}
-    - time: 0.36666667
+    - time: 0.25
       value: {fileID: -3412628297218350064, guid: fbc2e3db2ecac1146acf2d054601a83c, type: 3}
-    - time: 0.5
+    - time: 0.35
       value: {fileID: -6626885688420724100, guid: fbc2e3db2ecac1146acf2d054601a83c, type: 3}
-    - time: 0.6
+    - time: 0.45
       value: {fileID: -633848160405381843, guid: fbc2e3db2ecac1146acf2d054601a83c, type: 3}
-    - time: 0.73333335
+    - time: 0.53333336
       value: {fileID: -8715774356821793710, guid: fbc2e3db2ecac1146acf2d054601a83c, type: 3}
-    - time: 0.85
+    - time: 0.6166667
       value: {fileID: 3232068086263960626, guid: fbc2e3db2ecac1146acf2d054601a83c, type: 3}
-    - time: 0.98333335
+    - time: 0.6666667
       value: {fileID: -7749404924140384655, guid: fbc2e3db2ecac1146acf2d054601a83c, type: 3}
-    - time: 1.1
+    - time: 0.73333335
       value: {fileID: -8175538599436576517, guid: fbc2e3db2ecac1146acf2d054601a83c, type: 3}
     attribute: m_Sprite
     path: 
@@ -77,7 +77,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.1166667
+    m_StopTime: 0.8
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -97,7 +97,7 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 1.1
+  - time: 0.8
     functionName: EndIttoRyotanAnimation
     data: 
     objectReferenceParameter: {fileID: 0}
