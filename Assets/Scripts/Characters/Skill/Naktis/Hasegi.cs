@@ -25,7 +25,7 @@ namespace Characters.Skill.Naktis
             yield return new WaitUntil(() => naktisAnimationHandler.ShootHasegi);
 
             Vector2 startDirection;
-            if (VarManager.Manager.Player.IsLeft)
+            if (GetComponentInParent<Player>().IsLeft)
             {
                 startDirection = leftSideStartPosition.transform.position;
             }

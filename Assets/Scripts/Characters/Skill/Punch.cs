@@ -14,6 +14,7 @@ namespace Characters.Skill
         void Start()
         {
             Damage = 5;
+            SetCommandCoff(1);
             InputActionManager.Manager.Inputs.Inputs.BasicAtk.started += (ctx =>
             {
                 if (VarManager.Manager.Player.IsJumping)

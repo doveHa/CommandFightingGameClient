@@ -51,9 +51,8 @@ public class Player : MonoBehaviour
         }
         else
         {
-            health -= atk * commandLength;
+            HealthSystem.Manager.TakeDamage(false, atk * commandLength);
             Animator.StartHitAnimation();
-            Debug.Log(health);
         }
     }
 

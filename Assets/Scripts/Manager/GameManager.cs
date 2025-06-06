@@ -5,8 +5,8 @@ namespace Manager
 {
     public class GameManager : MonoBehaviour
     {
-        public Vector2 PlayerCenter { get; set; }
-        public Vector2 OpponentCenter { get; set; }
+        public Vector2 PlayerCenter { get; private set; }
+        public Vector2 OpponentCenter { get; private set; }
 
         private bool wasPlayerLeft;
         public bool IsPlayerLeft { get; private set; }
@@ -39,6 +39,16 @@ namespace Manager
             }
         }
 
+        public void SetPlayerCenter(Vector3 playerCenter)
+        {
+            PlayerCenter = playerCenter + VarManager.Manager.PlayerGameObject.transform.GetChild(0).position;
+        }
+
+        public void SetOpponentCenter(Vector3 opponentCenter)
+        {
+            OpponentCenter = opponentCenter + VarManager.Manager.OpponentGameObject.transform.GetChild(0).position;
+
+        }
         public Vector3 ProjectileEndDirection()
         {
             return (OpponentCenter - PlayerCenter).normalized;

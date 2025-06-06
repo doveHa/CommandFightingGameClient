@@ -27,7 +27,7 @@ namespace Characters.Skill.Kagetsu
             yield return new WaitUntil(() => kagetsuAnimationHandler.ShootKunai);
 
             Vector2 startDirection;
-            if (VarManager.Manager.Player.IsLeft)
+            if (GetComponentInParent<Player>().IsLeft)
             {
                 startDirection = leftSideStartPosition.transform.position;
             }

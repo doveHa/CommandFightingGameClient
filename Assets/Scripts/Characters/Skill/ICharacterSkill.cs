@@ -26,6 +26,7 @@ public abstract class ICharacterSkill : MonoBehaviour
         GameObject projectile =
             Instantiate(Resources.Load<GameObject>(projectilePath), startDirection, Quaternion.identity);
         Vector3 endDirection = GameManager.Manager.ProjectileEndDirection();
+        Debug.Log(endDirection);
         projectile.GetComponent<Rigidbody2D>().linearVelocity = endDirection * ConstController.Manager.ShootSpeed;
     }
 }
