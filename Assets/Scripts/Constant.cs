@@ -77,8 +77,14 @@ public static class Constant
         }
     }
 
+    public static class State
+    {
+        public const string IDEL = "Idel";
+    }
+
     public static class SkillName
     {
+        public const int NONE = -1;
         public const int PUNCH = 0;
         public const int JUMP_PUNCH = 1;
 
@@ -97,9 +103,13 @@ public static class Constant
             public const int Nageru = 8;
             public const int Sangiri = 9;
         }
-    }
 
-    /*
-        Punch = Atk_Punch
-     */
+        public static class Vargon
+        {
+            public const int Grab = 10;
+            public const int Curl = 11;
+            public const int Rush = 12;
+            public const int Slam = 13;
+        }
+    }
 }

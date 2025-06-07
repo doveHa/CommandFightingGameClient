@@ -17,7 +17,6 @@ namespace Characters.Skill.Naktis
 
             if (!flyCoroutine.IsUnityNull())
             {
-                Debug.Log("Stop fly");
                 naktisAnimationHandler.EndFlyAnimation();
                 GetComponentInParent<Rigidbody2D>().gravityScale = ConstController.Manager.GravityScale;
                 StopCoroutine(flyCoroutine);
@@ -29,8 +28,6 @@ namespace Characters.Skill.Naktis
                 flyCoroutine = StartCoroutine(NaktisFly());
                 GetComponentInParent<Player>().IsJumping = true;
             }
-
-            Debug.Log("NaktisS1");
         }
         
 

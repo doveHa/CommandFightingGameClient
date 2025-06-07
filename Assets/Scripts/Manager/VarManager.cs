@@ -44,9 +44,9 @@ namespace Manager
 
         private void SetComponents()
         {
-            Player = PlayerGameObject.GetComponent<Player>();
+            Player = PlayerGameObject.GetComponentInParent<Player>();
             Player.Initialize();
-            Opponent = OpponentGameObject.GetComponent<Player>();
+            Opponent = OpponentGameObject.GetComponentInParent<Player>();
             Opponent.Initialize();
         }
 
@@ -67,8 +67,8 @@ namespace Manager
 
         private void SetHitBoxHandler()
         {
-            PlayerHitBoxHandler = PlayerGameObject.GetComponent<HitBoxHandler>();
-            OpponentHitBoxHandler = OpponentGameObject.GetComponent<HitBoxHandler>();
+            PlayerHitBoxHandler = PlayerGameObject.GetComponentInParent<HitBoxHandler>();
+            OpponentHitBoxHandler = OpponentGameObject.GetComponentInParent<HitBoxHandler>();
         }
 
         private void SetSkill(string characterName, Player player, Dictionary<int, ICharacterSkill> skills)
@@ -106,10 +106,36 @@ namespace Manager
             }
         }
 
-        public static int SkillMapping(string str)
+        public static int SkillMapping1(string skillName)
         {
-            Debug.Log(str);
-            return str switch
+            return skillName switch
+            {
+                "공격" => Constant.SkillName.PUNCH,
+                "추가타" => Constant.SkillName.PUNCH,
+                "점프공격" => Constant.SkillName.JUMP_PUNCH,
+
+                "바람강타" => Constant.SkillName.Naktis.HASEGI,
+                "할퀴기" => Constant.SkillName.Naktis.SCRATCH,
+                "어퍼윙" => Constant.SkillName.Naktis.UPPERWING,
+                "비행" => Constant.SkillName.Naktis.FLY,
+
+                "잡기" => Constant.SkillName.Kagetsu.Nageru,
+                "3단 베기" => Constant.SkillName.Kagetsu.Sangiri,
+                "쿠나이" => Constant.SkillName.Kagetsu.NageKunai,
+                "베기" => Constant.SkillName.Kagetsu.IttoRyotan,
+
+                "내려찍기" => Constant.SkillName.Vargon.Slam,
+                "돌진" => Constant.SkillName.Vargon.Rush,
+                "웅크리기" => Constant.SkillName.Vargon.Curl,
+                "당기기" => Constant.SkillName.Vargon.Grab
+            };
+
+            return 0;
+        }
+
+        public static int StateToSkill(string state)
+        {
+            return state switch
             {
                 "Atk_Punch" => Constant.SkillName.PUNCH,
                 "Hasegi" => Constant.SkillName.Naktis.HASEGI,
@@ -117,13 +143,8 @@ namespace Manager
                 "UpperWing" => Constant.SkillName.Naktis.UPPERWING,
                 "Atk_Kick" => Constant.SkillName.PUNCH,
                 "Jumping_Attack" => Constant.SkillName.JUMP_PUNCH,
+                _ => Constant.SkillName.NONE
             };
         }
     }
 }
-
-
-//private Player player;
-//private Animator playerAnimator;
-//private Player opponent;
-//private Animator opponentAnimator;

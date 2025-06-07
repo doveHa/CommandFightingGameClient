@@ -41,14 +41,14 @@ namespace Manager
 
         public void SetPlayerCenter(Vector3 playerCenter)
         {
-            PlayerCenter = playerCenter + VarManager.Manager.PlayerGameObject.transform.GetChild(0).position;
-            VarManager.Manager.PlayerGameObject.transform.GetChild(0).GetChild(0).position = PlayerCenter;
+            PlayerCenter = playerCenter + VarManager.Manager.PlayerGameObject.transform.position;
+            VarManager.Manager.PlayerGameObject.transform.GetChild(0).position = PlayerCenter;
         }
 
         public void SetOpponentCenter(Vector3 opponentCenter)
         {
-            OpponentCenter = opponentCenter + VarManager.Manager.OpponentGameObject.transform.GetChild(0).position;
-            VarManager.Manager.OpponentGameObject.transform.GetChild(0).GetChild(0).position = OpponentCenter;
+            OpponentCenter = opponentCenter + VarManager.Manager.OpponentGameObject.transform.position;
+            VarManager.Manager.OpponentGameObject.transform.GetChild(0).position = OpponentCenter;
         }
 
         public Vector3 ProjectileEndDirection()
@@ -70,20 +70,17 @@ namespace Manager
 
         void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            VarManager.Manager.PlayerGameObject = GameObject.Find("Player");
-            VarManager.Manager.OpponentGameObject = GameObject.Find("Opponent");
-
-            Instantiate(
+            VarManager.Manager.PlayerGameObject = Instantiate(
                 Resources.Load<GameObject>("Prefabs/Character/" + VarManager.Manager.PlayerCharacterName + "/" +
                                            VarManager.Manager.PlayerCharacterName),
-                VarManager.Manager.PlayerGameObject.transform).tag = "Player";
-            Instantiate(
+                GameObject.Find("Player").transform);
+            
+            VarManager.Manager.OpponentGameObject = Instantiate(
                 Resources.Load<GameObject>("Prefabs/Character/" + VarManager.Manager.OpponentCharacterName + "/" +
                                            VarManager.Manager.OpponentCharacterName),
-                VarManager.Manager.OpponentGameObject.transform).tag = "Opponent";
+                GameObject.Find("Opponent").transform);
 
             VarManager.Manager.PlayerOpponentInitialize();
-            ;
         }
 
         void OnDisable()

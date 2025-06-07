@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Characters;
 using Manager;
+using Movement;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -41,9 +42,9 @@ namespace Handler
             foreach (KeyValuePair<string, SkillInfo> skill in character.SkillGroup.Skills)
             {
                 AddCombo(skill.Value);
-                
+
                 Debug.Log(skill.Key);
-                
+
                 for (int i = 0; i < skill.Value.Command.Count; i++)
                 {
                     Debug.Log(skill.Value.Command[i]);
@@ -96,7 +97,7 @@ namespace Handler
                     if (nextNode.IsEndOfCombo)
                     {
                         InputActionManager.Manager.Inputs.Inputs.BasicAtk.Disable();
-                        VarManager.Manager.PlayerGameObject.GetComponent<SendKey>().SetSkillName(nextNode.SkillInfo.Name);
+                        SetActive.SkillIndex = nextNode.SkillInfo.SkillIndex;
                         comboExecuted = true;
                         InputActionManager.Manager.Inputs.Inputs.BasicAtk.Enable();
 

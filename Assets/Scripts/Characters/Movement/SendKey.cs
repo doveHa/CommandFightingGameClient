@@ -1,118 +1,46 @@
 ﻿using System;
+using System.Text;
 using Handler;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Manager;
+using Movement;
+using RollbackNetcode;
 
 public class SendKey : MonoBehaviour
 {
-    private Vector2 moveDirection;
-    private CharacterAnimatorHandler handler;
-    private bool jumpKeyInput;
-
-    private string skillName = string.Empty;
-
-    void Awake()
-    {
-    }
+    private SetMove setMove;
+    private SetJump setJump;
+    private SetActive setActive;
 
     void Start()
     {
-        InputActionManager.Manager.Inputs.Inputs.Move.started += PerformKeyInput;
-        InputActionManager.Manager.Inputs.Inputs.Move.canceled += CancelKeyInput;
-        InputActionManager.Manager.Inputs.Inputs.Jump.performed += JumpKeyInput;
-        InputActionManager.Manager.Inputs.Inputs.Guard.performed += GuardKeyInput;
-        InputActionManager.Manager.Inputs.Inputs.Guard.canceled += GuardKeyInputCancel;
-
-        handler = GetComponentInChildren<CharacterAnimatorHandler>();
-    }
-
-    public void SetSkillName(string skillName)
-    {
-        this.skillName = skillName;
-    }
-
-    private void PerformKeyInput(InputAction.CallbackContext ctx)
-    {
-        handler.StartWalkAnimation();
-        moveDirection = ctx.ReadValue<Vector2>();
-    }
-
-    private void CancelKeyInput(InputAction.CallbackContext ctx)
-    {
-        moveDirection = Vector2.zero;
-        handler.EndWalkAnimation();
-    }
-
-    private void JumpKeyInput(InputAction.CallbackContext ctx)
-    {
-        if (!GetComponent<Player>().IsJumping && handler.StartJumpAnimation())
-        {
-            jumpKeyInput = true;
-        }
-    }
-
-    private void GuardKeyInput(InputAction.CallbackContext ctx)
-    {
-        VarManager.Manager.Player.IsGuard = true;
-    }
-
-    private void GuardKeyInputCancel(InputAction.CallbackContext ctx)
-    {
-        VarManager.Manager.Player.IsGuard = false;
+        setMove = new SetMove();
+        setJump = new SetJump();
+        setActive = new SetActive();
     }
 
     void FixedUpdate()
     {
-        int playerMovement = PlayerMovement();
-
-        RollbackManager.Manager.AdvanceFrame(playerMovement, jumpKeyInput, SkillMapping(skillName));
-
-        if (jumpKeyInput == false && playerMovement == 0 && skillName == string.Empty)
-        {
-            return;
-        }
-
-        SteamNetworkManager.Manager.SendMsg(
-            SteamNetworkManager.Manager.RemoteSteamId,
-            Constant.SteamNetworkingType.KEYINPUT,
-            SendMovementInputFormatting()
-        );
-
-        jumpKeyInput = false;
-        skillName = string.Empty;
+        string sendMsg = SendMsg(setMove.MoveSet(), setJump.JumpSet(), setActive.ActiveSet());
+        setJump.Initialize();
+        setActive.Initialize();
+        SteamNetworkManager.Manager.SendMsg(SteamNetworkManager.Manager.RemoteSteamId,
+            Constant.SteamNetworkingType.KEYINPUT, sendMsg);
     }
 
-    private int PlayerMovement()
+    private string SendMsg(int move, bool jump, int active)
     {
-        if (moveDirection.x > 0)
-        {
-            return 1;
-        }
-
-        if (moveDirection.x < 0)
-        {
-            return -1;
-        }
-
-        return 0;
-    }
-
-    private string SendMovementInputFormatting()
-    {
-        return Constant.SteamNetworkingType.KeyInput.MOVEMENT.ToString()
-               + Constant.SteamNetworkingType.DELIMITER
-               + RollbackManager.Manager.CurrentFrame
-               + Constant.SteamNetworkingType.DELIMITER
-               + jumpKeyInput
-               + Constant.SteamNetworkingType.DELIMITER
-               + (-1 * PlayerMovement())
-               + Constant.SteamNetworkingType.DELIMITER
-               + VarManager.Manager.PlayerGameObject.transform.GetChild(0).localPosition.x
-               + Constant.SteamNetworkingType.DELIMITER
-               + VarManager.Manager.PlayerGameObject.transform.GetChild(0).localPosition.y
-               + Constant.SteamNetworkingType.DELIMITER
-               + SkillMapping(skillName);
+        StringBuilder builder = new StringBuilder();
+        builder
+            .Append(RollbackManager.Manager.CurrentFrame)
+            .Append(Constant.SteamNetworkingType.DELIMITER)
+            .Append(move)
+            .Append(Constant.SteamNetworkingType.DELIMITER)
+            .Append(jump)
+            .Append(Constant.SteamNetworkingType.DELIMITER)
+            .Append(active);
+        return builder.ToString();
     }
 
     private int SkillMapping(string skillName)

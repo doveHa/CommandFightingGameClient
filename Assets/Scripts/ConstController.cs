@@ -12,7 +12,7 @@ public class ConstController : MonoBehaviour
 
     [Tooltip("올라가는 시간")] public float WaitTime { get; } = 0.5f;
 
-    [Tooltip("이동 속도")] public float MoveSpeed { get; } = 5f;
+    [Tooltip("이동 속도")] public float MoveSpeed = 5f;
 
     [Tooltip("투사체 속도")] public float ShootSpeed = 5f;
     public float GravityScale { get; set; } = 1f;

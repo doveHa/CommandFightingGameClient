@@ -105,7 +105,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: IttoRyotan
+  m_Name: "\uBCA0\uAE30"
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -287,7 +287,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Nageru
+  m_Name: "\uC7A1\uAE30"
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -314,7 +314,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Atk_Punch
+  m_Name: "\uACF5\uACA9"
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -417,7 +417,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Sangiri
+  m_Name: "3\uB2E8 \uBCA0\uAE30 "
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -780,7 +780,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Jumping_Attack
+  m_Name: "\uC810\uD504\uACF5\uACA9"
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1027,7 +1027,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: NageKunai
+  m_Name: "\uCFE0\uB098\uC774"
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1214,7 +1214,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Atk_Kick
+  m_Name: "\uCD94\uAC00\uD0C0"
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

@@ -353,7 +353,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Atk_Kick
+  m_Name: "\uCD94\uAC00\uD0C0"
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -454,7 +454,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Atk_Punch
+  m_Name: "\uACF5\uACA9"
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -507,7 +507,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Fly_Up
+  m_Name: "\uBE44\uD589"
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -560,7 +560,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hasegi
+  m_Name: "\uBC14\uB78C\uAC15\uD0C0"
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -835,7 +835,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Jumping_Attack
+  m_Name: "\uC810\uD504\uACF5\uACA9"
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -948,7 +948,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Scratch
+  m_Name: "\uD560\uD034\uAE30"
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1186,7 +1186,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UpperWing
+  m_Name: "\uC5B4\uD37C\uC719"
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

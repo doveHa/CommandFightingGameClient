@@ -34,7 +34,7 @@ namespace Characters.AnimationHandler
                 motionFlag = true;
                 ChangeLayer(scratchLayerIndex);
                 Animator.SetBool("ScratchExit", false);
-                Animator.Play("Scratch", scratchLayerIndex, 0);
+                Animator.Play("할퀴기", scratchLayerIndex, 0);
             }
         }
 
@@ -56,7 +56,7 @@ namespace Characters.AnimationHandler
                 motionFlag = true;
                 ChangeLayer(upperWingLayerIndex);
                 Animator.SetBool("UpperWingExit", false);
-                Animator.Play("UpperWing", upperWingLayerIndex, 0);
+                Animator.Play("어퍼윙", upperWingLayerIndex, 0);
             }
         }
 
@@ -67,7 +67,7 @@ namespace Characters.AnimationHandler
                 motionFlag = true;
                 ChangeLayer(flyLayerIndex);
                 Animator.SetBool("FlyExit", false);
-                Animator.Play("Fly_Up", flyLayerIndex, 0);
+                Animator.Play("비행", flyLayerIndex, 0);
             }
         }
 
@@ -79,7 +79,7 @@ namespace Characters.AnimationHandler
                 motionFlag = true;
                 ChangeLayer(hasegiLayerIndex);
                 Animator.SetBool("HasegiExit", false);
-                Animator.Play("Hasegi", hasegiLayerIndex, 0);
+                Animator.Play("바람강타", hasegiLayerIndex, 0);
             }
         }
 

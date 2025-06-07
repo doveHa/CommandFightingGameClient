@@ -71,7 +71,7 @@ namespace Handler
                     LockMovement();
                     ChangeLayer(punchLayerIndex);
                     Animator.SetBool("PunchExit", false);
-                    Animator.Play("Atk_Punch", CurrentLayerIndex, 0);
+                    Animator.Play("공격", CurrentLayerIndex, 0);
                     punchFlag = true;
                 }
             }
@@ -81,7 +81,7 @@ namespace Handler
         {
             if (!motionFlag)
             {
-                Animator.Play("Jumping_Attack", CurrentLayerIndex, 0);
+                Animator.Play("점프공격", CurrentLayerIndex, 0);
                 motionFlag = true;
             }
         }
@@ -229,14 +229,14 @@ namespace Handler
                     }
                 }
 
-                if (gameObject.CompareTag("Player"))
+                if (gameObject.transform.parent.CompareTag("Player"))
                 {
                     VarManager.Manager.PlayerHitBoxHandler.SetCurrentState(State, FrameIndex);
                     VarManager.Manager.OpponentHitBoxHandler.SetOpponentState(State, FrameIndex);
                     //HitBoxManager.Manager.SetPlayerState(State, FrameIndex);
                 }
 
-                if (gameObject.CompareTag("Opponent"))
+                if (gameObject.transform.parent.CompareTag("Opponent"))
                 {
                     VarManager.Manager.OpponentHitBoxHandler.SetCurrentState(State, FrameIndex);
                     VarManager.Manager.PlayerHitBoxHandler.SetOpponentState(State, FrameIndex);

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Characters.Skill
 {
-    public class Punch : ICharacterSkill
+    public class JumpPunch : ICharacterSkill
     {
         public override int Damage { get; protected set; } = 5;
 
@@ -16,7 +16,7 @@ namespace Characters.Skill
         public override void Run()
         {
             HasHit = true;
-            GetComponentInParent<CharacterAnimatorHandler>().StartPunchAnimation();
+            GetComponentInParent<CharacterAnimatorHandler>().StartJumpPunchAnimation();
             HasHit = false;
         }
     }

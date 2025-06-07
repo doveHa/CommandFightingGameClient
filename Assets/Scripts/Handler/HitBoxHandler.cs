@@ -11,6 +11,7 @@ namespace Manager
         [SerializeField] private Player currentPlayer;
         [SerializeField] private Player opponentPlayer;
         private string currentState;
+        private string opponentState;
 
         private FrameNumberDictionary currentFrameData;
         private FrameNumberDictionary opponentCurrentFrameData;
@@ -33,6 +34,7 @@ namespace Manager
 
         public void SetOpponentState(string state, int frameIndex)
         {
+            opponentState = state;
             opponentCurrentFrameData = opponentPlayer.DataSet.Statements[state];
             opponentFrameIndex = frameIndex;
         }
@@ -41,7 +43,9 @@ namespace Manager
         {
             if (currentFrameData != null && opponentCurrentFrameData != null)
             {
+                Debug.Log(currentState);
                 var playerFrame = currentFrameData.Dictionary[currentFrameIndex + 1];
+                Debug.Log(opponentState);
                 var opponentFrame = opponentCurrentFrameData.Dictionary[opponentFrameIndex + 1];
 
                 if (isPlayer)
@@ -55,6 +59,13 @@ namespace Manager
 
                 foreach (var playerBox in playerFrame.HurtBoxes)
                 {
+                    int stateToSkill = VarManager.StateToSkill(currentState);
+
+                    if (stateToSkill == -1)
+                    {
+                        return;
+                    }
+
                     if (playerBox.PartName.Equals("HitBox"))
                     {
                         Vector2 playerCenter =
@@ -71,7 +82,7 @@ namespace Manager
                                 DataSet.FloatArrayToVector2(opponentBox.OffSet);
                             Vector2 opponentSize = DataSet.FloatArrayToVector2(opponentBox.Size);
                             Rect opponentHurtRect = new Rect(opponentCenter - opponentSize / 2f, opponentSize);
-                            ICharacterSkill skill = GetHitSkill();
+                            ICharacterSkill skill = GetHitSkill(stateToSkill);
                             if (!skill.HasHit && playerHitRect.Overlaps(opponentHurtRect))
                             {
                                 Debug.Log("Hit Detected!");
@@ -85,14 +96,14 @@ namespace Manager
             }
         }
 
-        private ICharacterSkill GetHitSkill()
+        private ICharacterSkill GetHitSkill(int skillIndex)
         {
             if (isPlayer)
             {
-                return VarManager.Manager.PlayerSkills[VarManager.SkillMapping(currentState)];
+                return VarManager.Manager.PlayerSkills[skillIndex];
             }
 
-            return VarManager.Manager.OpponentSkills[VarManager.SkillMapping(currentState)];
+            return VarManager.Manager.OpponentSkills[skillIndex];
         }
     }
 }

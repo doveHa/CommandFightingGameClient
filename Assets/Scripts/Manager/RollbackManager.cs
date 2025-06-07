@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿/*
+using System.Collections.Generic;
 using Movement;
 using UnityEngine;
 
@@ -12,9 +13,7 @@ namespace Manager
         private Dictionary<int, PlayerState> stateHistory;
 
         public int CurrentFrame { get; private set; }
-
-        private bool isRollingBack = false;
-
+        
         void Awake()
         {
             if (Manager == null)
@@ -50,7 +49,7 @@ namespace Manager
             // 롤백 트리거
             if (frame < CurrentFrame)
             {
-                isRollingBack = true;
+                Debug.Log("Start Rollback");
                 RestoreState(frame - 1);
 
                 for (int f = frame; f < CurrentFrame; f++)
@@ -58,7 +57,6 @@ namespace Manager
                     Simulate(f);
                 }
 
-                isRollingBack = false;
             }
         }
 
@@ -176,4 +174,4 @@ namespace Manager
             }
         }
     }
-}
+}*/

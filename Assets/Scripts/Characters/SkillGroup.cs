@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using DTO;
+using Manager;
+using UnityEngine;
 
 namespace Characters
 {
@@ -13,8 +15,8 @@ namespace Characters
 
             foreach (SkillDTO skill in skills)
             {
-                actionGroup.TryGetValue(skill.Name, out var action);
-                Skills.Add(skill.Name, new SkillInfo(action, skill));
+                //actionGroup.TryGetValue(skill.Name, out var action);
+                Skills.Add(skill.Name, new SkillInfo(skill));
             }
         }
 
@@ -40,26 +42,19 @@ namespace Characters
 
     public class SkillInfo
     {
-        public SkillInfo(Action<SkillInfo> action, SkillDTO skillDto)
+        public SkillInfo(SkillDTO skillDto)
         {
-            AtkCoeff = skillDto.AtkCoeff;
-            HpCoeff = skillDto.HpCoeff;
-            MoveSpeedCoeff = skillDto.MoveSpeedCoeff;
+            Debug.Log(Name);
             Name = skillDto.Name;
             Description = skillDto.Description;
-            CoolTime = skillDto.CoolTime;
             Command = skillDto.Command;
-            Action = action;
+            SkillIndex = VarManager.SkillMapping1(Name);
         }
 
-        public int AtkCoeff { get; set; }
-        public int HpCoeff { get; set; }
-        public int MoveSpeedCoeff { get; set; }
+        public int SkillIndex { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public int CoolTime { get; set; }
         public List<string> Command { get; set; }
-
-        public Action<SkillInfo> Action { get; set; }
+        
     }
 }

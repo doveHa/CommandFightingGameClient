@@ -36,7 +36,7 @@ namespace Characters.AnimationHandler
                 motionFlag = true;
                 ChangeLayer(nageruLayerIndex);
                 Animator.SetBool("NageruExit", false);
-                Animator.Play("Nageru", nageruLayerIndex, 0);
+                Animator.Play("잡기", nageruLayerIndex, 0);
             }
         }
 
@@ -48,7 +48,7 @@ namespace Characters.AnimationHandler
                 motionFlag = true;
                 ChangeLayer(sangiriLayerIndex);
                 Animator.SetBool("SangiriExit", false);
-                Animator.Play("Sangiri", sangiriLayerIndex, 0);
+                Animator.Play("3단 베기", sangiriLayerIndex, 0);
             }
         }
 
@@ -60,7 +60,7 @@ namespace Characters.AnimationHandler
                 motionFlag = true;
                 ChangeLayer(nageKunaiLayerIndex);
                 Animator.SetBool("NageKunaiExit", false);
-                Animator.Play("NageKunai", nageKunaiLayerIndex, 0);
+                Animator.Play("쿠나이", nageKunaiLayerIndex, 0);
             }
         }
 
@@ -72,7 +72,7 @@ namespace Characters.AnimationHandler
                 motionFlag = true;
                 ChangeLayer(ittoRyotanLayerIndex);
                 Animator.SetBool("IttoRyotanExit", false);
-                Animator.Play("IttoRyotan", ittoRyotanLayerIndex, 0);
+                Animator.Play("베기", ittoRyotanLayerIndex, 0);
             }
         }
 
