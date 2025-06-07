@@ -45,10 +45,6 @@ namespace Manager
                     }
 
                     break;
-
-                case Constant.SteamNetworkingType.KeyInput.SKILL:
-                    //input.SkillInput = splitMessage[2];
-                    break;
             }
 
             // 롤백 트리거
@@ -80,12 +76,8 @@ namespace Manager
 
         private void RestoreState(int frame)
         {
-            Debug.Log("RestorState Start]" + frame + ">" + stateHistory[frame].Player2Position.x);
-            //Debug.Log("TryGetValue]"+stateHistory.TryGetValue(frame, out PlayerState state1));
-
             PlayerState state = stateHistory[frame];
-            //positioon 변경
-            Debug.Log("Change Position]" + state.Player2Position);
+         
             VarManager.Manager.PlayerGameObject.transform.GetChild(0).position = state.Player1Position;
             VarManager.Manager.OpponentGameObject.transform.GetChild(0).position = state.Player2Position;
         }
@@ -122,20 +114,13 @@ namespace Manager
             if (remote.SkillInput != -1)
                 VarManager.Manager.OpponentSkills[remote.SkillInput].Run();
 
-            // 위치 보정: Rollback 중일 때만 상대 위치를 강제 덮어쓰기
-            if (isRollingBack)
-            {
-                Debug.Log(frame + " " + remote.RemotePosition);
-                //opponentObj.transform.position = remote.RemotePosition;
-            }
-
             // 상태 저장
             stateHistory[frame] = new PlayerState(
                 playerObj.transform.position,
                 opponentObj.transform.position
             );
         }
-        
+
         public class FrameInput
         {
             public int MoveInput = 0;
