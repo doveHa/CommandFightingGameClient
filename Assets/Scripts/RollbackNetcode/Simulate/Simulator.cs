@@ -26,6 +26,7 @@ namespace RollbackNetcode
             ActiveStates[frame].Run(IsLocal);
             JumpStates[frame].Run(IsLocal);
             MoveStates[frame].Run(IsLocal);
+            Debug.Log($"[{frame}] Simulation End");
         }
     }
 

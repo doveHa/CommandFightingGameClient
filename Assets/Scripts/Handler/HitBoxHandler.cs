@@ -43,9 +43,7 @@ namespace Manager
         {
             if (currentFrameData != null && opponentCurrentFrameData != null)
             {
-                Debug.Log(currentState);
                 var playerFrame = currentFrameData.Dictionary[currentFrameIndex + 1];
-                Debug.Log(opponentState);
                 var opponentFrame = opponentCurrentFrameData.Dictionary[opponentFrameIndex + 1];
 
                 if (isPlayer)

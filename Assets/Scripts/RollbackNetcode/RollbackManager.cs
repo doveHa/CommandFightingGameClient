@@ -91,6 +91,7 @@ namespace RollbackNetcode
             int frame = int.Parse(split[FRAME]);
 
             RemoteSimulator.ActiveStates[frame] = new ActiveState(int.Parse(split[ACTIVE]));
+            Debug.Log($"[{frame}] ProcessingMessage's MoveDirection {split[MOVE]}");
             RemoteSimulator.MoveStates[frame] = new MoveState(int.Parse(split[MOVE]));
             RemoteSimulator.JumpStates[frame] = new JumpState(bool.Parse(split[JUMP]));
 
@@ -102,11 +103,10 @@ namespace RollbackNetcode
 
         private void RestoreState(int frame)
         {
-            Debug.Log(remotePositions[frame - 1]);
             //VarManager.Manager.OpponentGameObject.transform.position = remotePositions[frame - 1];
-
             for (int i = frame; i < CurrentFrame; i++)
             {
+                Debug.Log($"[{i}] Restore Start");
                 RemoteSimulator.Simulate(i);
             }
         }

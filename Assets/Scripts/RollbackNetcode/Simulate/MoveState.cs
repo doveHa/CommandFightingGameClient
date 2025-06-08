@@ -23,6 +23,7 @@ namespace RollbackNetcode
         {
             GameObject target = isLocal ? VarManager.Manager.PlayerGameObject : VarManager.Manager.OpponentGameObject;
 
+            Debug.Log($"Move State's MoveDirection {MoveDirection}");
             CharacterMovementController.MoveCharacter(target, MoveDirection);
         }
 
