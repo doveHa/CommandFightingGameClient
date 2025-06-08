@@ -40,6 +40,13 @@ namespace RollbackNetcode
                 Move.OpponentStates.Add(CurrentFrame, new MoveState());
             }
 
+            
+            Active.Simulate(CurrentFrame);
+            Jump.Simulate(CurrentFrame);
+            Move.Simulate(CurrentFrame);
+            CurrentFrame++;
+            /*
+             지연방식
             if (CurrentFrame < 5)
             {
                 CurrentFrame++;
@@ -50,7 +57,7 @@ namespace RollbackNetcode
                 Jump.Simulate(CurrentFrame - 5);
                 Move.Simulate(CurrentFrame - 5);
                 CurrentFrame++;
-            }
+            }*/
         }
 
         private const int FRAME = 0, MOVE = 1, JUMP = 2, ACTIVE = 3;
@@ -85,6 +92,21 @@ namespace RollbackNetcode
             else
             {
                 Active.OpponentStates.Add(frame, new ActiveState(int.Parse(split[ACTIVE])));
+            }
+
+            if (frame < CurrentFrame)
+            {
+                RollBack(frame);
+            }
+        }
+
+        private void RollBack(int frame)
+        {
+            for (int i = frame; i < CurrentFrame; i++)
+            {
+                Active.Simulate(i);
+                Jump.Simulate(i);
+                Move.Simulate(i);
             }
         }
     }
