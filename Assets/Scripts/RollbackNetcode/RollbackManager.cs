@@ -44,23 +44,7 @@ namespace RollbackNetcode
 
         void FixedUpdate()
         {
-            if (!RemoteSimulator.ActiveStates.ContainsKey(CurrentFrame))
-            {
-                //행동 예측은 None
-                RemoteSimulator.ActiveStates.Add(CurrentFrame, new ActiveState());
-            }
-
-            if (!RemoteSimulator.MoveStates.ContainsKey(CurrentFrame))
-            {
-                //이동 예측은 전 프레임과 동일
-                RemoteSimulator.MoveStates.Add(CurrentFrame, RemoteSimulator.MoveStates[CurrentFrame - 1].Clone());
-            }
-
-            if (!RemoteSimulator.JumpStates.ContainsKey(CurrentFrame))
-            {
-                //점프 예측은 false
-                RemoteSimulator.JumpStates.Add(CurrentFrame, new JumpState());
-            }
+            PredictionFrame(CurrentFrame);
 
             LocalSimulator.Simulate(CurrentFrame);
             RemoteSimulator.Simulate(CurrentFrame);
@@ -84,7 +68,6 @@ namespace RollbackNetcode
         }
 
         private const int FRAME = 0, MOVE = 1, JUMP = 2, ACTIVE = 3;
-        private int SimulateDoneFrame = 0;
 
         public void ProcessingMessage(string msg)
         {
@@ -105,14 +88,35 @@ namespace RollbackNetcode
             }
         }
 
+        private void PredictionFrame(int frame)
+        {
+            if (!RemoteSimulator.ActiveStates.ContainsKey(frame))
+            {
+                //행동 예측은 None
+                RemoteSimulator.ActiveStates.Add(frame, new ActiveState());
+            }
+
+            if (!RemoteSimulator.MoveStates.ContainsKey(frame))
+            {
+                //이동 예측은 전 프레임과 동일
+                RemoteSimulator.MoveStates.Add(frame, RemoteSimulator.MoveStates[frame - 1].Clone());
+            }
+
+            if (!RemoteSimulator.JumpStates.ContainsKey(frame))
+            {
+                //점프 예측은 false
+                RemoteSimulator.JumpStates.Add(frame, new JumpState());
+            }
+        }
+
         private void RestoreState(int frame)
         {
             //VarManager.Manager.OpponentGameObject.transform.position = remotePositions[frame - 1];
-            for (int i = SimulateDoneFrame; i < frame; i++)
+            for (int i = frame; i < CurrentFrame; i++)
             {
                 Debug.Log($"[{i}] Restore Start");
+                PredictionFrame(i);
                 RemoteSimulator.Simulate(i);
-                SimulateDoneFrame = frame;
             }
         }
     }
