@@ -26,12 +26,16 @@ namespace RollbackNetcode
             ActiveStates[frame].Run(IsLocal);
             JumpStates[frame].Run(IsLocal);
             MoveStates[frame].Run(IsLocal);
-            Debug.Log($"[{frame}] Simulation End");
+            //Debug.Log($"[{frame}] Simulation End");
         }
     }
 
     public abstract class State
-    { 
+    {
+        public virtual void Print()
+        {
+            
+        }
         public abstract void Run(bool isLocal);
         public abstract State Clone();
     }

@@ -84,19 +84,23 @@ namespace RollbackNetcode
         }
 
         private const int FRAME = 0, MOVE = 1, JUMP = 2, ACTIVE = 3;
+        private int SimulateDoneFrame = 0;
 
         public void ProcessingMessage(string msg)
         {
             string[] split = msg.Split(Constant.SteamNetworkingType.DELIMITER);
             int frame = int.Parse(split[FRAME]);
 
+            //Debug.Log(msg);
             RemoteSimulator.ActiveStates[frame] = new ActiveState(int.Parse(split[ACTIVE]));
-            Debug.Log($"[{frame}] ProcessingMessage's MoveDirection {split[MOVE]}");
+            //Debug.Log($"[{frame}] ProcessingMessage's MoveDirection {split[MOVE]}");
             RemoteSimulator.MoveStates[frame] = new MoveState(int.Parse(split[MOVE]));
+            //RemoteSimulator.MoveStates[frame].Print();
             RemoteSimulator.JumpStates[frame] = new JumpState(bool.Parse(split[JUMP]));
 
             if (frame < CurrentFrame)
             {
+                Debug.Log($"Receive frame {frame}, CurrentFrame{CurrentFrame}");
                 RestoreState(frame);
             }
         }
@@ -104,10 +108,11 @@ namespace RollbackNetcode
         private void RestoreState(int frame)
         {
             //VarManager.Manager.OpponentGameObject.transform.position = remotePositions[frame - 1];
-            for (int i = frame; i < CurrentFrame; i++)
+            for (int i = SimulateDoneFrame; i < frame; i++)
             {
                 Debug.Log($"[{i}] Restore Start");
                 RemoteSimulator.Simulate(i);
+                SimulateDoneFrame = frame;
             }
         }
     }
