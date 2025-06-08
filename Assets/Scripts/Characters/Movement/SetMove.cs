@@ -1,4 +1,5 @@
-﻿using Handler;
+﻿using System;
+using Handler;
 using Manager;
 using RollbackNetcode;
 using UnityEngine;
@@ -6,9 +7,10 @@ using UnityEngine.InputSystem;
 
 namespace Movement
 {
-    public class SetMove
+    public class SetMove : SetState
     {
         private Vector2 moveDirection;
+        private int prevMove;
 
         public SetMove()
         {
@@ -16,13 +18,30 @@ namespace Movement
             InputActionManager.Manager.Inputs.Inputs.Move.canceled += CancelKeyInput;
         }
 
-        public int MoveSet()
+        public override void ApplyState()
+        {
+            if (PlayerMovement() != prevMove)
+            {
+                SteamNetworkManager.Manager.SendMsg(SteamNetworkManager.Manager.RemoteSteamId,
+                    Constant.SteamNetworkingType.KEYINPUT,
+                    MessageFormatting(Constant.SteamNetworkingType.KeyInput.MOVESTATE, StateSet()));
+                Initialize();
+            }
+        }
+
+        protected override string StateSet()
         {
             int playerMovement = PlayerMovement();
 
-            RollbackManager.Manager.LocalSimulator.MoveStates[RollbackManager.Manager.CurrentFrame] =
-                new MoveState(playerMovement);
-            return playerMovement;
+            RollbackManager.Manager.MoveStateSimulator.AddState(StateSimulator.CurrentFrame,
+                new MoveState(playerMovement));
+
+            return (-1 * playerMovement).ToString();
+        }
+
+        protected override void Initialize()
+        {
+            prevMove = PlayerMovement();
         }
 
         private void PerformKeyInput(InputAction.CallbackContext ctx)

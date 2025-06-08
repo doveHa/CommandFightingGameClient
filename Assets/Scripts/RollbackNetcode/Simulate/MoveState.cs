@@ -19,7 +19,7 @@ namespace RollbackNetcode
             MoveDirection = moveDirection;
         }
 
-        public override void Run(bool isLocal)
+        public override void Simulate(bool isLocal)
         {
             GameObject target = isLocal ? VarManager.Manager.PlayerGameObject : VarManager.Manager.OpponentGameObject;
 

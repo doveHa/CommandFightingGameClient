@@ -18,7 +18,7 @@ namespace RollbackNetcode
             Jumped = jumped;
         }
 
-        public override void Run(bool isLocal)
+        public override void Simulate(bool isLocal)
         {
             if (Jumped)
             {

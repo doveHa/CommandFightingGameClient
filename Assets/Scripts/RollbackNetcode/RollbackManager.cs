@@ -8,6 +8,46 @@ namespace RollbackNetcode
     public class RollbackManager : MonoBehaviour
     {
         public static RollbackManager Manager { get; private set; }
+        public StateSimulator ActiveSimulator, JumpStateSimulator, MoveStateSimulator;
+
+        void Awake()
+        {
+            if (Manager == null)
+            {
+                Manager = this;
+            }
+        }
+
+        void FixedUpdate()
+        {
+            StateSimulator.CurrentFrame++;
+        }
+
+        public void ProcessingMessage(string msg)
+        {
+            string[] split = msg.Split(Constant.SteamNetworkingType.DELIMITER);
+            switch (int.Parse(split[0]))
+            {
+                case Constant.SteamNetworkingType.KeyInput.MOVESTATE:
+                    MoveStateSimulator.ProcessingMessage(msg.Substring("2>".Length));
+                    break;
+                case Constant.SteamNetworkingType.KeyInput.JUMPSTATE:
+                    JumpStateSimulator.ProcessingMessage(msg.Substring("2>".Length));
+                    break;
+                case Constant.SteamNetworkingType.KeyInput.ACTIVESTATE:
+                    ActiveSimulator.ProcessingMessage(msg.Substring("2>".Length));
+                    break;
+            }
+        }
+    }
+}
+/*
+
+namespace RollbackNetcode
+{
+    public class RollbackManager : MonoBehaviour
+    {
+        public static RollbackManager Manager { get; private set; }
         public int CurrentFrame { get; private set; } = 1;
 
         public Simulator LocalSimulator { get; private set; }
@@ -66,7 +106,7 @@ namespace RollbackNetcode
                 Jump.Simulate(CurrentFrame - 5);
                 Move.Simulate(CurrentFrame - 5);
                 CurrentFrame++;
-            }*/
+            }
         }
 
         private const int FRAME = 0, MOVE = 1, JUMP = 2, ACTIVE = 3;
@@ -108,4 +148,4 @@ namespace RollbackNetcode
             }
         }
     }
-}
+}*/

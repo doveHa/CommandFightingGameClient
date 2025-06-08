@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using Handler;
 using Manager;
 using RollbackNetcode;
@@ -7,23 +8,33 @@ using UnityEngine.InputSystem;
 
 namespace Movement
 {
-    public class SetJump
+    public class SetJump : SetState
     {
         private bool jumpKeyInput = false;
-
         public SetJump()
         {
             InputActionManager.Manager.Inputs.Inputs.Jump.performed += JumpKeyInput;
         }
 
-        public bool JumpSet()
+        public override void ApplyState()
         {
-            RollbackManager.Manager.LocalSimulator.JumpStates[RollbackManager.Manager.CurrentFrame] =
-                new JumpState(jumpKeyInput);
-            return jumpKeyInput;
+            if (jumpKeyInput)
+            {
+                SteamNetworkManager.Manager.SendMsg(SteamNetworkManager.Manager.RemoteSteamId,
+                    Constant.SteamNetworkingType.KEYINPUT,
+                    MessageFormatting(Constant.SteamNetworkingType.KeyInput.JUMPSTATE, StateSet()));
+                Initialize();
+            }
         }
 
-        public void Initialize()
+        protected override string StateSet()
+        {
+            RollbackManager.Manager.JumpStateSimulator.AddState(StateSimulator.CurrentFrame,
+                new JumpState(jumpKeyInput));
+            return jumpKeyInput.ToString();
+        }
+
+        protected override void Initialize()
         {
             jumpKeyInput = false;
         }

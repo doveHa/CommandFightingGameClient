@@ -18,9 +18,9 @@ namespace RollbackNetcode
             SkillIndex = skillIndex;
         }
 
-        public override void Run(bool isLocal)
+        public override void Simulate(bool isLocal)
         {
-            if (SkillIndex == -1)
+            if (SkillIndex == Constant.SkillName.NONE)
             {
                 return;
             }

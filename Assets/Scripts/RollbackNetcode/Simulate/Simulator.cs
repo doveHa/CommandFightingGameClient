@@ -23,9 +23,9 @@ namespace RollbackNetcode
 
         public void Simulate(int frame)
         {
-            ActiveStates[frame].Run(IsLocal);
-            JumpStates[frame].Run(IsLocal);
-            MoveStates[frame].Run(IsLocal);
+            ActiveStates[frame].Simulate(IsLocal);
+            JumpStates[frame].Simulate(IsLocal);
+            MoveStates[frame].Simulate(IsLocal);
             //Debug.Log($"[{frame}] Simulation End");
         }
     }
@@ -36,7 +36,7 @@ namespace RollbackNetcode
         {
             
         }
-        public abstract void Run(bool isLocal);
+        public abstract void Simulate(bool isLocal);
         public abstract State Clone();
     }
 }

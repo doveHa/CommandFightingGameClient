@@ -70,10 +70,9 @@ public static class Constant
 
         public static class KeyInput
         {
-            public const int MOVEMENT = 0;
-
-            //public const int JUMP = 1;
-            public const int SKILL = 2;
+            public const int MOVESTATE = 0;
+            public const int JUMPSTATE = 1;
+            public const int ACTIVESTATE = 2;
         }
     }
 

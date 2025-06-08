@@ -1,4 +1,5 @@
-﻿using System;
+﻿/*
+using System;
 using System.Text;
 using Handler;
 using UnityEngine;
@@ -71,4 +72,4 @@ public class SendKey : MonoBehaviour
                 return -1;
         }
     }
-}
+}*/
