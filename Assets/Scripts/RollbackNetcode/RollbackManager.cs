@@ -32,9 +32,11 @@ namespace RollbackNetcode
         void Start()
         {
             LocalSimulator.MoveStates.Add(0, new MoveState());
+            LocalSimulator.MoveStates.Add(-1, new MoveState());
             LocalSimulator.JumpStates.Add(0, new JumpState());
             LocalSimulator.ActiveStates.Add(0, new ActiveState());
             RemoteSimulator.MoveStates.Add(0, new MoveState());
+            RemoteSimulator.MoveStates.Add(-1, new MoveState());
             RemoteSimulator.JumpStates.Add(0, new JumpState());
             RemoteSimulator.ActiveStates.Add(0, new ActiveState());
 

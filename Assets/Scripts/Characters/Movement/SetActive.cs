@@ -18,8 +18,8 @@ namespace Movement
 
         public int ActiveSet()
         {
-            RollbackManager.Manager.LocalSimulator.ActiveStates.Add(RollbackManager.Manager.CurrentFrame,
-                new ActiveState(SkillIndex));
+            RollbackManager.Manager.LocalSimulator.ActiveStates[RollbackManager.Manager.CurrentFrame] =
+                new ActiveState(SkillIndex);
 
             return SkillIndex;
         }

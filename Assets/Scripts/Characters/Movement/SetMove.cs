@@ -20,8 +20,8 @@ namespace Movement
         {
             int playerMovement = PlayerMovement();
 
-            RollbackManager.Manager.LocalSimulator.MoveStates.Add(RollbackManager.Manager.CurrentFrame,
-                new MoveState(playerMovement));
+            RollbackManager.Manager.LocalSimulator.MoveStates[RollbackManager.Manager.CurrentFrame] =
+                new MoveState(playerMovement);
             return playerMovement;
         }
 
