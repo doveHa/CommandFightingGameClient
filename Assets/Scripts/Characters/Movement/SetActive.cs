@@ -18,7 +18,7 @@ namespace Movement
 
         public int ActiveSet()
         {
-            RollbackManager.Manager.Active.PlayerStates.Add(RollbackManager.Manager.CurrentFrame,
+            RollbackManager.Manager.LocalSimulator.ActiveStates.Add(RollbackManager.Manager.CurrentFrame,
                 new ActiveState(SkillIndex));
 
             return SkillIndex;
@@ -40,7 +40,7 @@ namespace Movement
                 SkillIndex = Constant.SkillName.PUNCH;
             }
         }
-        
+
         private void GuardKeyInput(InputAction.CallbackContext ctx)
         {
             VarManager.Manager.Player.IsGuard = true;

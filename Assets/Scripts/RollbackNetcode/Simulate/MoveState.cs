@@ -18,12 +18,17 @@ namespace RollbackNetcode
         {
             MoveDirection = moveDirection;
         }
-        
-        public override void Run(bool isPlayer)
+
+        public override void Run(bool isLocal)
         {
-            GameObject target = isPlayer ? VarManager.Manager.PlayerGameObject : VarManager.Manager.OpponentGameObject;
+            GameObject target = isLocal ? VarManager.Manager.PlayerGameObject : VarManager.Manager.OpponentGameObject;
 
             CharacterMovementController.MoveCharacter(target, MoveDirection);
+        }
+
+        public override State Clone()
+        {
+            return new MoveState(MoveDirection);
         }
     }
 }

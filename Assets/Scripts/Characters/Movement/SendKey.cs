@@ -35,7 +35,7 @@ public class SendKey : MonoBehaviour
         builder
             .Append(RollbackManager.Manager.CurrentFrame)
             .Append(Constant.SteamNetworkingType.DELIMITER)
-            .Append(move)
+            .Append(-1 * move)
             .Append(Constant.SteamNetworkingType.DELIMITER)
             .Append(jump)
             .Append(Constant.SteamNetworkingType.DELIMITER)

@@ -18,14 +18,14 @@ namespace RollbackNetcode
             SkillIndex = skillIndex;
         }
 
-        public override void Run(bool isPlayer)
+        public override void Run(bool isLocal)
         {
             if (SkillIndex == -1)
             {
                 return;
             }
 
-            if (isPlayer)
+            if (isLocal)
             {
                 VarManager.Manager.PlayerSkills[SkillIndex].Run();
             }
@@ -33,6 +33,11 @@ namespace RollbackNetcode
             {
                 VarManager.Manager.OpponentSkills[SkillIndex].Run();
             }
+        }
+
+        public override State Clone()
+        {
+            return new ActiveState(SkillIndex);
         }
     }
 }

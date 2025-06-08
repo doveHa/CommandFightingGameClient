@@ -1,15 +1,19 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using Manager;
+using Unity.VisualScripting;
+using UnityEngine;
 
 namespace RollbackNetcode
 {
     public class RollbackManager : MonoBehaviour
     {
         public static RollbackManager Manager { get; private set; }
-        public int CurrentFrame { get; private set; }
+        public int CurrentFrame { get; private set; } = 1;
 
-        public Simulator Active { get; private set; }
-        public Simulator Jump { get; private set; }
-        public Simulator Move { get; private set; }
+        public Simulator LocalSimulator { get; private set; }
+        public Simulator RemoteSimulator { get; private set; }
+
+        private Dictionary<int, Vector2> localPositions, remotePositions;
 
         void Awake()
         {
@@ -18,32 +22,51 @@ namespace RollbackNetcode
                 Manager = this;
             }
 
-            Active = new Simulator();
-            Jump = new Simulator();
-            Move = new Simulator();
+            LocalSimulator = new Simulator(true);
+            RemoteSimulator = new Simulator(false);
+
+            localPositions = new Dictionary<int, Vector2>();
+            remotePositions = new Dictionary<int, Vector2>();
+        }
+
+        void Start()
+        {
+            LocalSimulator.MoveStates.Add(0, new MoveState());
+            LocalSimulator.JumpStates.Add(0, new JumpState());
+            LocalSimulator.ActiveStates.Add(0, new ActiveState());
+            RemoteSimulator.MoveStates.Add(0, new MoveState());
+            RemoteSimulator.JumpStates.Add(0, new JumpState());
+            RemoteSimulator.ActiveStates.Add(0, new ActiveState());
+
+            localPositions.Add(0, VarManager.Manager.PlayerGameObject.transform.position);
+            remotePositions.Add(0, VarManager.Manager.OpponentGameObject.transform.position);
         }
 
         void FixedUpdate()
         {
-            if (!Active.OpponentStates.ContainsKey(CurrentFrame))
+            if (!RemoteSimulator.ActiveStates.ContainsKey(CurrentFrame))
             {
-                Active.OpponentStates.Add(CurrentFrame, new ActiveState());
+                //행동 예측은 None
+                RemoteSimulator.ActiveStates.Add(CurrentFrame, new ActiveState());
             }
 
-            if (!Jump.OpponentStates.ContainsKey(CurrentFrame))
+            if (!RemoteSimulator.MoveStates.ContainsKey(CurrentFrame))
             {
-                Jump.OpponentStates.Add(CurrentFrame, new JumpState());
+                //이동 예측은 전 프레임과 동일
+                RemoteSimulator.MoveStates.Add(CurrentFrame, RemoteSimulator.MoveStates[CurrentFrame - 1].Clone());
             }
 
-            if (!Move.OpponentStates.ContainsKey(CurrentFrame))
+            if (!RemoteSimulator.JumpStates.ContainsKey(CurrentFrame))
             {
-                Move.OpponentStates.Add(CurrentFrame, new MoveState());
+                //점프 예측은 false
+                RemoteSimulator.JumpStates.Add(CurrentFrame, new JumpState());
             }
 
-            
-            Active.Simulate(CurrentFrame);
-            Jump.Simulate(CurrentFrame);
-            Move.Simulate(CurrentFrame);
+            LocalSimulator.Simulate(CurrentFrame);
+            RemoteSimulator.Simulate(CurrentFrame);
+
+            localPositions.Add(CurrentFrame, GameObject.Find("Player").transform.GetChild(0).transform.position);
+            remotePositions.Add(CurrentFrame, GameObject.Find("Opponent").transform.GetChild(0).transform.position);
             CurrentFrame++;
             /*
              지연방식
@@ -67,46 +90,24 @@ namespace RollbackNetcode
             string[] split = msg.Split(Constant.SteamNetworkingType.DELIMITER);
             int frame = int.Parse(split[FRAME]);
 
-            if (Move.OpponentStates.ContainsKey(frame))
-            {
-                Move.OpponentStates[frame] = new MoveState(int.Parse(split[MOVE]));
-            }
-            else
-            {
-                Move.OpponentStates.Add(frame, new MoveState(int.Parse(split[MOVE])));
-            }
-
-            if (Jump.OpponentStates.ContainsKey(frame))
-            {
-                Jump.OpponentStates[frame] = new JumpState(bool.Parse(split[JUMP]));
-            }
-            else
-            {
-                Jump.OpponentStates.Add(frame, new JumpState(bool.Parse(split[JUMP])));
-            }
-
-            if (Active.OpponentStates.ContainsKey(frame))
-            {
-                Active.OpponentStates[frame] = new ActiveState(int.Parse(split[ACTIVE]));
-            }
-            else
-            {
-                Active.OpponentStates.Add(frame, new ActiveState(int.Parse(split[ACTIVE])));
-            }
+            RemoteSimulator.ActiveStates[frame] = new ActiveState(int.Parse(split[ACTIVE]));
+            RemoteSimulator.MoveStates[frame] = new MoveState(int.Parse(split[MOVE]));
+            RemoteSimulator.JumpStates[frame] = new JumpState(bool.Parse(split[JUMP]));
 
             if (frame < CurrentFrame)
             {
-                RollBack(frame);
+                RestoreState(frame);
             }
         }
 
-        private void RollBack(int frame)
+        private void RestoreState(int frame)
         {
+            Debug.Log(remotePositions[frame - 1]);
+            //VarManager.Manager.OpponentGameObject.transform.position = remotePositions[frame - 1];
+
             for (int i = frame; i < CurrentFrame; i++)
             {
-                Active.Simulate(i);
-                Jump.Simulate(i);
-                Move.Simulate(i);
+                RemoteSimulator.Simulate(i);
             }
         }
     }

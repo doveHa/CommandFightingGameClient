@@ -6,23 +6,32 @@ namespace RollbackNetcode
 {
     public class Simulator
     {
-        public Dictionary<int, State> PlayerStates, OpponentStates;
+        private bool IsLocal { get; set; }
 
-        public Simulator()
+        public Dictionary<int, State> ActiveStates;
+        public Dictionary<int, State> JumpStates;
+        public Dictionary<int, State> MoveStates;
+
+        public Simulator(bool isLocal)
         {
-            PlayerStates = new Dictionary<int, State>();
-            OpponentStates = new Dictionary<int, State>();
+            IsLocal = isLocal;
+
+            ActiveStates = new Dictionary<int, State>();
+            JumpStates = new Dictionary<int, State>();
+            MoveStates = new Dictionary<int, State>();
         }
 
         public void Simulate(int frame)
         {
-            PlayerStates[frame].Run(true);
-            OpponentStates[frame].Run(false);
+            ActiveStates[frame].Run(IsLocal);
+            JumpStates[frame].Run(IsLocal);
+            MoveStates[frame].Run(IsLocal);
         }
     }
 
     public abstract class State
-    {
-        public abstract void Run(bool isPlayer);
+    { 
+        public abstract void Run(bool isLocal);
+        public abstract State Clone();
     }
 }

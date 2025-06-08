@@ -18,7 +18,7 @@ namespace Movement
 
         public bool JumpSet()
         {
-            RollbackManager.Manager.Jump.PlayerStates.Add(RollbackManager.Manager.CurrentFrame,
+            RollbackManager.Manager.LocalSimulator.JumpStates.Add(RollbackManager.Manager.CurrentFrame,
                 new JumpState(jumpKeyInput));
             return jumpKeyInput;
         }

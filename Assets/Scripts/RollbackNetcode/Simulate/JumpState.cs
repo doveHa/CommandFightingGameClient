@@ -18,14 +18,19 @@ namespace RollbackNetcode
             Jumped = jumped;
         }
 
-        public override void Run(bool isPlayer)
+        public override void Run(bool isLocal)
         {
             if (Jumped)
             {
                 GameObject target =
-                    isPlayer ? VarManager.Manager.PlayerGameObject : VarManager.Manager.OpponentGameObject;
+                    isLocal ? VarManager.Manager.PlayerGameObject : VarManager.Manager.OpponentGameObject;
                 CharacterMovementController.JumpCharacter(target);
             }
+        }
+
+        public override State Clone()
+        {
+            return new JumpState(Jumped);
         }
     }
 }
