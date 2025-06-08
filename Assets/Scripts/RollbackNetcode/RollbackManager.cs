@@ -44,7 +44,7 @@ namespace RollbackNetcode
 
         void FixedUpdate()
         {
-            PredictionFrame(CurrentFrame);
+            PredictionFrame(CurrentFrame - 1);
 
             LocalSimulator.Simulate(CurrentFrame);
             RemoteSimulator.Simulate(CurrentFrame);
@@ -90,23 +90,9 @@ namespace RollbackNetcode
 
         private void PredictionFrame(int frame)
         {
-            if (!RemoteSimulator.ActiveStates.ContainsKey(frame))
-            {
-                //행동 예측은 None
-                RemoteSimulator.ActiveStates.Add(frame, new ActiveState());
-            }
-
-            if (!RemoteSimulator.MoveStates.ContainsKey(frame))
-            {
-                //이동 예측은 전 프레임과 동일
-                RemoteSimulator.MoveStates.Add(frame, RemoteSimulator.MoveStates[frame - 1].Clone());
-            }
-
-            if (!RemoteSimulator.JumpStates.ContainsKey(frame))
-            {
-                //점프 예측은 false
-                RemoteSimulator.JumpStates.Add(frame, new JumpState());
-            }
+            RemoteSimulator.ActiveStates[frame + 1] = new ActiveState();
+            RemoteSimulator.MoveStates[frame + 1] = RemoteSimulator.MoveStates[frame - 1].Clone();
+            RemoteSimulator.JumpStates[frame + 1] = new JumpState();
         }
 
         private void RestoreState(int frame)
