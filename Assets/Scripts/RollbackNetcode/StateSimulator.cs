@@ -16,12 +16,12 @@ namespace RollbackNetcode
         protected Dictionary<int, State> LocalStates, RemoteStates;
 
         private const int FrameIntervalMs = 16;
+        protected int LeastSimulatedFrame;
 
         public virtual void Start()
         {
             LocalStates = new Dictionary<int, State>();
             RemoteStates = new Dictionary<int, State>();
-
         }
 
         void FixedUpdate()
@@ -32,6 +32,7 @@ namespace RollbackNetcode
             PredictionFrame(frame);
             LocalStates[frame].Simulate(true);
             RemoteStates[frame].Simulate(false);
+            LeastSimulatedFrame = frame;
         }
 
         public void AddState(int frame, State state)
@@ -48,6 +49,7 @@ namespace RollbackNetcode
             {
                 PredictionFrame(i);
                 RemoteStates[i].Simulate(false);
+                LeastSimulatedFrame = frame;
             }
         }
 
