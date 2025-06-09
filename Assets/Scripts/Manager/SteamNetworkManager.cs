@@ -79,6 +79,21 @@ namespace Manager
                         case Constant.SteamNetworkingType.KEYINPUT:
                             RollbackManager.Manager.ProcessingMessage(receiveData.Substring("2>".Length));
                             break;
+                        case Constant.SteamNetworkingType.SYNC_TIME:
+                        {
+                            long remoteTime = long.Parse(splitData[1]);
+                            long myNow = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                            SendMsg(packet.Value.SteamId.Value, Constant.SteamNetworkingType.SYNC_RESPONSE,
+                                myNow.ToString());
+                            break;
+                        }
+
+                        case Constant.SteamNetworkingType.SYNC_RESPONSE:
+                        {
+                            long remoteTime = long.Parse(splitData[1]);
+                            RollbackManager.Manager.OnReceiveTimeSyncResponse(remoteTime);
+                            break;
+                        }
                     }
                 }
             }

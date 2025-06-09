@@ -11,6 +11,8 @@ namespace RollbackNetcode
         public static RollbackManager Manager { get; private set; }
         public StateSimulator ActiveSimulator, JumpStateSimulator, MoveStateSimulator;
 
+        private long localSyncRequestTime;
+
         void Awake()
         {
             if (Manager == null)
@@ -19,14 +21,21 @@ namespace RollbackNetcode
             }
         }
 
-        void FixedUpdate()
+        void Start()
         {
-            StateSimulator.CurrentFrame++;
-            if (StateSimulator.CurrentFrame == 1000)
-            {
-                Debug.Log(DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
-            }
+            localSyncRequestTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            SendTimeSyncPacket(localSyncRequestTime);
         }
+
+        public void OnReceiveTimeSyncResponse(long remoteTime)
+        {
+            long now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            long sharedStartTime = (now + remoteTime) / 2;
+
+            StateSimulator.TimeOffsetFromSharedStart = sharedStartTime - now;
+            StateSimulator.SharedStartTimeMs = sharedStartTime;
+        }
+
 
         public void ProcessingMessage(string msg)
         {
@@ -43,6 +52,19 @@ namespace RollbackNetcode
                     ActiveSimulator.ProcessingMessage(msg.Substring("2>".Length));
                     break;
             }
+        }
+
+        private void SendTimeSyncPacket(long localTime)
+        {
+            SteamNetworkManager.Manager.SendMsg(SteamNetworkManager.Manager.RemoteSteamId,
+                Constant.SteamNetworkingType.SYNC_TIME, localTime.ToString());
+        }
+
+        public void OnReceiveTimeSyncRequest(long remoteTime)
+        {
+            long myNow = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            // 상대가 요청 보냈을 때 내 시각을 보냄
+            // 예: SteamNetworking.SendToPeer("SYNC_RESPONSE>" + myNow);
         }
     }
 }

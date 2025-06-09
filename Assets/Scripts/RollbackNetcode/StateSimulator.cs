@@ -8,9 +8,14 @@ namespace RollbackNetcode
     public abstract class StateSimulator : MonoBehaviour
     {
         protected SetState SetState { get; set; }
-        public static int CurrentFrame { get; set; } = 0;
+        public static int CurrentFrame => CalculateCurrentFrame();
+        public static long SharedStartTimeMs;
+        public static long TimeOffsetFromSharedStart;
+
         protected const int FRAME = 0, VALUE = 1;
         protected Dictionary<int, State> LocalStates, RemoteStates;
+
+        private const int FrameIntervalMs = 16;
 
         public virtual void Start()
         {
@@ -20,10 +25,12 @@ namespace RollbackNetcode
 
         void FixedUpdate()
         {
+            int frame = CurrentFrame;
+            
             SetState.ApplyState();
-            PredictionFrame(CurrentFrame);
-            LocalStates[CurrentFrame].Simulate(true);
-            RemoteStates[CurrentFrame].Simulate(false);
+            PredictionFrame(frame);
+            LocalStates[frame].Simulate(true);
+            RemoteStates[frame].Simulate(false);
         }
 
         public void AddState(int frame, State state)
@@ -41,6 +48,13 @@ namespace RollbackNetcode
                 PredictionFrame(i);
                 RemoteStates[i].Simulate(false);
             }
+        }
+
+        private static int CalculateCurrentFrame()
+        {
+            long now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            long correctedNow = now + TimeOffsetFromSharedStart;
+            return (int)((correctedNow - SharedStartTimeMs) / FrameIntervalMs);
         }
     }
 }
