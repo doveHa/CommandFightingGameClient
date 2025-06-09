@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Manager;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -20,7 +21,11 @@ namespace RollbackNetcode
 
         void FixedUpdate()
         {
-            //StateSimulator.CurrentFrame++;
+            StateSimulator.CurrentFrame++;
+            if (StateSimulator.CurrentFrame == 1000)
+            {
+                Debug.Log(DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
+            }
         }
 
         public void ProcessingMessage(string msg)
