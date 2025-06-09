@@ -37,14 +37,40 @@ namespace RollbackNetcode
         {
             if (!LocalStates.ContainsKey(frame))
             {
-                Debug.Log("Add " + frame);
-                LocalStates.Add(frame, new MoveState());
+                int prev = frame - 1;
+                while (prev >= 0 && !LocalStates.ContainsKey(prev))
+                {
+                    prev--;
+                }
+
+                if (prev >= 0)
+                {
+                    LocalStates[frame] = LocalStates[prev].Clone();
+                }
+                else
+                {
+                    LocalStates[frame] = new MoveState();
+                }
             }
+
             if (!RemoteStates.ContainsKey(frame))
             {
-                RemoteStates.Add(frame, new MoveState());
+                int prev = frame - 1;
+                while (prev >= 0 && !RemoteStates.ContainsKey(prev))
+                {
+                    prev--;
+                }
+
+                if (prev >= 0)
+                {
+                    RemoteStates[frame] = RemoteStates[prev].Clone();
+                }
+                else
+                {
+                    RemoteStates[frame] = new MoveState();
+                }
             }
-            
+
             LocalStates[frame + 1] = LocalStates[frame].Clone();
             RemoteStates[frame + 1] = RemoteStates[frame].Clone();
         }
