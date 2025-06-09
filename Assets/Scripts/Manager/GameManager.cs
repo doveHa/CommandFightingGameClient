@@ -51,9 +51,30 @@ namespace Manager
             VarManager.Manager.OpponentGameObject.transform.GetChild(0).position = OpponentCenter;
         }
 
-        public Vector3 ProjectileEndDirection()
+        public Vector3 ProjectileEndDirection(bool isPlayer)
         {
-            return (OpponentCenter - PlayerCenter).normalized;
+            if (isPlayer)
+            {
+                return (OpponentCenter - PlayerCenter).normalized;
+            }
+            else
+            {
+                return Vector3.zero;
+            }
+        }
+
+        public void EndGame(bool isPlayerWin)
+        {
+            if (isPlayerWin)
+            {
+                VarManager.Manager.Player.Animator.StartWinAnimation();
+                VarManager.Manager.Opponent.Animator.StartLoseAnimation();
+            }
+            else
+            {
+                VarManager.Manager.Opponent.Animator.StartWinAnimation();
+                VarManager.Manager.Player.Animator.StartLoseAnimation();
+            }
         }
 
         private bool CalculatePlayerIsLeft()
@@ -74,7 +95,7 @@ namespace Manager
                 Resources.Load<GameObject>("Prefabs/Character/" + VarManager.Manager.PlayerCharacterName + "/" +
                                            VarManager.Manager.PlayerCharacterName),
                 GameObject.Find("Player").transform);
-            
+
             VarManager.Manager.OpponentGameObject = Instantiate(
                 Resources.Load<GameObject>("Prefabs/Character/" + VarManager.Manager.OpponentCharacterName + "/" +
                                            VarManager.Manager.OpponentCharacterName),

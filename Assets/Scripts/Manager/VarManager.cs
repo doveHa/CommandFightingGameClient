@@ -74,7 +74,7 @@ namespace Manager
         private void SetSkill(string characterName, Player player, Dictionary<int, ICharacterSkill> skills)
         {
             skills.Add(Constant.SkillName.PUNCH, player.GetComponentInChildren<Punch>());
-            skills.Add(Constant.SkillName.JUMP_PUNCH, player.GetComponentInChildren<Punch>());
+            skills.Add(Constant.SkillName.JUMP_PUNCH, player.GetComponentInChildren<JumpPunch>());
 
             SkillGroup skillGroup = CharacterManager.Manager.CharacterGroup.Characters[characterName].SkillGroup;
             switch (characterName)

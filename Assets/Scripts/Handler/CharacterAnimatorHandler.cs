@@ -11,7 +11,7 @@ namespace Handler
 {
     public abstract class CharacterAnimatorHandler : MonoBehaviour
     {
-        protected int baseLayerIndex, punchLayerIndex;
+        protected int baseLayerIndex, punchLayerIndex, endLayerIndex;
 
         protected Animator Animator;
         protected Transform PlayerTransform;
@@ -47,6 +47,7 @@ namespace Handler
 
             baseLayerIndex = Animator.GetLayerIndex("BaseLayer");
             punchLayerIndex = Animator.GetLayerIndex("Punch");
+            endLayerIndex = Animator.GetLayerIndex("EndLayer");
         }
 
         protected virtual void FixedUpdate()
@@ -148,6 +149,20 @@ namespace Handler
         {
             LockMovement();
             Animator.SetBool("IsGuard", true);
+        }
+
+        public void StartWinAnimation()
+        {
+            LockMovement();
+            ChangeLayer(endLayerIndex);
+            Animator.Play("Win", CurrentLayerIndex, 0);
+        }
+
+        public void StartLoseAnimation()
+        {
+            LockMovement();
+            ChangeLayer(endLayerIndex);
+            Animator.Play("Lose", CurrentLayerIndex, 0);
         }
 
         public void EndGuardAnimation()

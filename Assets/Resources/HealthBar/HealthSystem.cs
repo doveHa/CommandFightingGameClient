@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Manager;
+using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -10,8 +11,8 @@ public class HealthSystem : MonoBehaviour
 
     [SerializeField] private Image OpponentHealthBar;
 
-    //public Image currentHealthGlobe;
-    //public Text healthText;
+    private bool isEnd;
+
     private float maxHitPoint = 100f;
 
     private float PlayerhitPoint;
@@ -20,6 +21,7 @@ public class HealthSystem : MonoBehaviour
     void Awake()
     {
         Manager = this;
+        isEnd = false;
     }
 
     void Start()
@@ -29,12 +31,27 @@ public class HealthSystem : MonoBehaviour
         UpdateGraphics();
     }
 
+    void Update()
+    {
+        if (PlayerhitPoint <= 0 && !isEnd)
+        {
+            GameManager.Manager.EndGame(false);
+            isEnd = true;
+        }
+
+        if (OpponenthitPoint <= 0 && !isEnd)
+        {
+            GameManager.Manager.EndGame(true);
+            isEnd = true;
+        }
+    }
+
     private void UpdateHealthBar()
     {
         float ratio = PlayerhitPoint / maxHitPoint;
         PlayerHealthBar.rectTransform.localPosition = new Vector3(
             PlayerHealthBar.rectTransform.rect.width * ratio - PlayerHealthBar.rectTransform.rect.width, 0, 0);
-        
+
         ratio = OpponenthitPoint / maxHitPoint;
         OpponentHealthBar.rectTransform.localPosition = new Vector3(
             OpponentHealthBar.rectTransform.rect.width * ratio - OpponentHealthBar.rectTransform.rect.width, 0, 0);

@@ -121,7 +121,6 @@ namespace Characters.AnimationHandler
             EndAllAnimations();
             Animator.Play("Idle");
         }
-
         public void ShootingHasegi()
         {
             ShootHasegi = true;
@@ -130,12 +129,12 @@ namespace Characters.AnimationHandler
         protected override void EndAllAnimations()
         {
             base.EndAllAnimations();
-            Animator.SetBool("HasegiExit",true);
-            Animator.SetBool("FlyExit",true);
-            Animator.SetBool("UpperWingExit",true);
-            Animator.SetBool("ScratchExit",true);
+            Animator.SetBool("HasegiExit", true);
+            Animator.SetBool("FlyExit", true);
+            Animator.SetBool("UpperWingExit", true);
+            Animator.SetBool("ScratchExit", true);
         }
-        
+
         protected override void FlagInitialize()
         {
             PunchFlagInitialize();

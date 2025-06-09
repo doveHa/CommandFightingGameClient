@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 8017537319694975751}
   - component: {fileID: 7004800899817767664}
   - component: {fileID: 4230969015650861179}
+  - component: {fileID: 3172736399623169449}
   m_Layer: 0
   m_Name: Skills
   m_TagString: Untagged
@@ -129,6 +130,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38f1cf29c9bd41a3bef1e3490aa8b946, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3172736399623169449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7790257116742212350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60f72f61c1f040eab2f3afc687babd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7994757216560543635
@@ -224,7 +237,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.6, y: 1.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1363637132121152727}

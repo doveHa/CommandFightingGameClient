@@ -55,7 +55,7 @@ namespace ButtonMapping
                 registFailedPW.SetActive(false);
                 registSuccess.SetActive(true);
 
-                await Task.Delay(1000); // 1ÃÊ ´ë±â
+                await Task.Delay(1000); // 1ï¿½ï¿½ ï¿½ï¿½ï¿½
 
                 registSuccess.SetActive(false);
 

@@ -5645,10 +5645,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42eff8dbe77bd3649817b8a2789117f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetCamera: {fileID: 343504659}
+  targetCamera: {fileID: 0}
   speed: 30
   distanceFromCamera: 5
-  moveSound: {fileID: 8300000, guid: 7f5dafe6e56541b469676389f67ddecd, type: 3}
+  moveSound: {fileID: 0}
 --- !u!1 &1574996708
 GameObject:
   m_ObjectHideFlags: 0
@@ -5814,6 +5814,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dd6b0ca9a3246ee8c3d779df62214a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveSpeed: 5
   ShootSpeed: 5
 --- !u!4 &1576687135
 Transform:
@@ -6956,10 +6957,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e61c3dfaaaecd145b0ff05ddc4d176d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetCamera: {fileID: 343504659}
+  targetCamera: {fileID: 0}
   speed: 30
-  distanceFromCamera: 5.93
-  moveSound: {fileID: 8300000, guid: c3487869cec7ee947ae72c080ac2e948, type: 3}
+  distanceFromCamera: 5
+  moveSound: {fileID: 0}
 --- !u!212 &1830738045
 SpriteRenderer:
   m_ObjectHideFlags: 0
