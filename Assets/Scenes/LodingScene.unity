@@ -755,7 +755,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingText: {fileID: 1279740153}
-  switchInterval: 0.5
+  switchInterval: 0.1
 --- !u!4 &1839904096
 Transform:
   m_ObjectHideFlags: 0

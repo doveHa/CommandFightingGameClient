@@ -4,7 +4,7 @@ using UnityEngine;
 public class LoadingTextAnimator : MonoBehaviour
 {
     public TextMeshProUGUI loadingText; // 연결할 TMP UI 텍스트
-    public float switchInterval = 0.3f;  // 간격 (초)
+    public float switchInterval = 0.1f;  // 간격 (초)
 
     private string[] texts = { "Loding", "Loding.", "Loding..", "Loding..." };
     private int currentIndex = 0;

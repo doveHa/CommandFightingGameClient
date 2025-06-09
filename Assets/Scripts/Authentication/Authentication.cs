@@ -6,6 +6,7 @@ using UnityEngine;
 using Server;
 using Manager;
 using DTO;
+using UnityEngine.SceneManagement;
 
 namespace Authentication
 {
@@ -35,6 +36,8 @@ namespace Authentication
 
             if (response.IsSuccessful)
             {
+                Debug.Log("로그인 성공!");
+                SceneManager.LoadScene("LodingScene");
                 LoginManager.Manager.SetTokens(JsonSerializer.Deserialize<AuthTokensDTO>(response.Content));
                 string pName = await GetPlayerName();
                 await PlayerLogin(pName);
