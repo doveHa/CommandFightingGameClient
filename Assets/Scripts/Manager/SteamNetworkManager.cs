@@ -87,7 +87,6 @@ namespace Manager
                                 myNow.ToString());
                             break;
                         }
-
                         case Constant.SteamNetworkingType.SYNC_RESPONSE:
                         {
                             long remoteTime = long.Parse(splitData[1]);

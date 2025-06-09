@@ -7,7 +7,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Manager;
 using RestSharp;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Server
 {
@@ -17,8 +20,37 @@ namespace Server
         private CancellationTokenSource cts;
         private string websocket_token;
 
+        //public RawImage image;
+        private TextMeshProUGUI text;
+        private float time = 0f;
+        private bool isMatching = false;
+
+        void Start()
+        {
+            text = transform.GetComponentInChildren<TextMeshProUGUI>();
+        }
+
+        void Update()
+        {
+            if (isMatching)
+            {
+                time += Time.deltaTime;
+                int minutes = (int)(time / 60);
+                int seconds = (int)(time % 60);
+
+                text.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+            }
+        }
+
         public async void StartMatching()
         {
+            if (VarManager.Manager.PlayerCharacterName == null)
+            {
+                return;
+            }
+
+            isMatching = true;
+            //image.gameObject.SetActive(false);
             //솔로 테스트 용
 
             SteamNetworkManager.Manager.RemoteSteamId = SteamNetworkManager.Manager.PlayerSteamId;
@@ -27,6 +59,7 @@ namespace Server
                 Constant.SteamNetworkingType.CONNECTION,
                 VarManager.Manager.PlayerCharacterName);
 
+            SceneLoadManager.Manager.LoadLoadingScene();
             //await StartConnect();
         }
 
@@ -57,6 +90,8 @@ namespace Server
                 SteamNetworkManager.Manager.SendMsg(SteamNetworkManager.Manager.RemoteSteamId,
                     Constant.SteamNetworkingType.CONNECTION,
                     VarManager.Manager.PlayerCharacterName);
+
+                SceneLoadManager.Manager.LoadLoadingScene();
             }
             catch (Exception e)
             {

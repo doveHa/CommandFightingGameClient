@@ -36,5 +36,11 @@ namespace Manager
             VarManager.Manager.OpponentCharacterName = opponentName;
             SceneManager.LoadScene(Constant.Scene.GAME_SCENE);
         }
+
+        public void LoadLoadingScene()
+        {
+            SceneManager.LoadScene(Constant.Scene.LOADING_SCENE);
+
+        }
     }
 }

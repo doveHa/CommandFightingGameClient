@@ -32,7 +32,7 @@ namespace ButtonMapping
         public async void Login()
         {
             string message = await Authentication.Authentication.login(loginId.text, loginPw.text);
-            if(message.Equals("{\"message\":\"User not found.\"}"))
+            if(message.Equals("{\"message\":\"User not found.\"}")||message.Equals("{\"message\":\"Invalid login password\"}"))
             {
                 loginFailed.SetActive(true);
             }

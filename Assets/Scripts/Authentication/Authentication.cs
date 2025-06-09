@@ -36,8 +36,9 @@ namespace Authentication
 
             if (response.IsSuccessful)
             {
-                Debug.Log("·Î±×ÀÎ ¼º°ø!");
-                SceneManager.LoadScene("LodingScene");
+                Debug.Log("ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!");
+                SceneLoadManager.Manager.LoadLoadingScene();
+                //SceneManager.LoadScene("LodingScene");
                 LoginManager.Manager.SetTokens(JsonSerializer.Deserialize<AuthTokensDTO>(response.Content));
                 string pName = await GetPlayerName();
                 await PlayerLogin(pName);

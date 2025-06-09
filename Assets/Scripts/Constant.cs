@@ -58,6 +58,7 @@ public static class Constant
         public const string HOME_SCENE = "Scenes/HomeScene";
         public const string USER_MAIN_SCENE = "Scenes/UserMainScene";
         public const string ADMINISTRATOR_SCENE = "Scenes/Administer";
+        public const string LOADING_SCENE = "Scenes/LoadingScene";
     }
 
     public static class SteamNetworkingType

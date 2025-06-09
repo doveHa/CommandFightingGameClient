@@ -46,7 +46,6 @@ namespace Server
                     {
                         IsReadDone = true;
                     }
-
                     break;
             }
         }
