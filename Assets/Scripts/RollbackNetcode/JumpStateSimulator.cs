@@ -29,6 +29,15 @@ namespace RollbackNetcode
 
         protected override void PredictionFrame(int frame)
         {
+            if (!LocalStates.ContainsKey(frame))
+            {
+                LocalStates.Add(frame, new JumpState());
+            }
+            if (!RemoteStates.ContainsKey(frame))
+            {
+                RemoteStates.Add(frame, new JumpState());
+            }
+
             LocalStates[frame + 1] = new JumpState();
             RemoteStates[frame + 1] = new JumpState();
         }
