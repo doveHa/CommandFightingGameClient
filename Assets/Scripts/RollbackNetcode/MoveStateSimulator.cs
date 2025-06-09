@@ -37,6 +37,7 @@ namespace RollbackNetcode
         {
             if (!LocalStates.ContainsKey(frame))
             {
+                Debug.Log("Add " + frame);
                 LocalStates.Add(frame, new MoveState());
             }
             if (!RemoteStates.ContainsKey(frame))
