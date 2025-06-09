@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Movement;
 using UnityEngine;
 
@@ -19,6 +20,7 @@ namespace RollbackNetcode
 
         void FixedUpdate()
         {
+            CurrentFrame = (int)(DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() / 16);
             SetState.ApplyState();
             PredictionFrame(CurrentFrame);
             LocalStates[CurrentFrame].Simulate(true);

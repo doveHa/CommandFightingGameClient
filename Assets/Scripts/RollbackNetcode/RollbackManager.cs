@@ -20,7 +20,7 @@ namespace RollbackNetcode
 
         void FixedUpdate()
         {
-            StateSimulator.CurrentFrame++;
+            //StateSimulator.CurrentFrame++;
         }
 
         public void ProcessingMessage(string msg)
