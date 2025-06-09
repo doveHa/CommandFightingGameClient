@@ -11,17 +11,24 @@ namespace Authentication
 {
     public class Authentication : MonoBehaviour
     {
-        public static async void regist(string id, string pw)
+        public GameObject loginFailed;
+        public static async Task<string> regist(string id, string pw)
         {
             RestResponse response =
                 await RestAPIRequest.Post(Constant.RestAPI.Auth.REGIST, new { loginId = id, loginPassword = pw }, null);
 
             if (response.IsSuccessful)
             {
+
             }
+            else
+            {
+                return response.Content;
+            }
+            return null;
         }
 
-        public static async void login(string id, string pw)
+        public static async Task<string> login(string id, string pw)
         {
             RestResponse response =
                 await RestAPIRequest.Post(Constant.RestAPI.Auth.LOGIN, new { loginId = id, loginPassword = pw }, null);
@@ -33,6 +40,11 @@ namespace Authentication
                 await PlayerLogin(pName);
                 await LoginManager.Manager.Login();
             }
+            else
+            {
+                return response.Content;
+            }
+            return null;
         }
 
         private static async Task<string> GetPlayerName()

@@ -1,6 +1,8 @@
 using Manager;
+using System;
 using TMPro;
 using UnityEngine;
+using System.Threading.Tasks;
 
 namespace ButtonMapping
 {
@@ -8,11 +10,15 @@ namespace ButtonMapping
     {
         [SerializeField] private TMP_InputField loginId, loginPw, registerId, registerPw, registerPwCheck;
         [SerializeField] private GameObject homeGroup, loginGroup, registerGroup;
+        public GameObject loginFailed;
+        public GameObject registFailedPW;
+        public GameObject registSuccess;
 
         public void ToLogin()
         {
             homeGroup.SetActive(false);
             loginGroup.SetActive(true);
+            loginFailed.SetActive(false);
             Clear();
         }
 
@@ -23,29 +29,41 @@ namespace ButtonMapping
             Clear();
         }
 
-        public void Login()
+        public async void Login()
         {
-            Authentication.Authentication.login(loginId.text, loginPw.text);
+            string message = await Authentication.Authentication.login(loginId.text, loginPw.text);
+            if(message.Equals("{\"message\":\"User not found.\"}"))
+            {
+                loginFailed.SetActive(true);
+            }
         }
 
         public void LoginToRegister()
         {
             loginGroup.SetActive(false);
             registerGroup.SetActive(true);
+            loginFailed.SetActive(false);
             Clear();
         }
 
-        public void Register()
+        public async void Register()
         {
             if (CheckPasswordSame())
             {
                 Authentication.Authentication.regist(registerId.text, registerPw.text);
-                
+
+                registFailedPW.SetActive(false);
+                registSuccess.SetActive(true);
+
+                await Task.Delay(1000); // 1√  ¥Î±‚
+
+                registSuccess.SetActive(false);
+
                 RegisterToLogin();
             }
             else
             {
-                Debug.Log("Passwords do not match");
+                registFailedPW.SetActive(true);
             }
         }
 
