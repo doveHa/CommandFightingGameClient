@@ -11,6 +11,8 @@ namespace Manager
         private bool wasPlayerLeft;
         public bool IsPlayerLeft { get; private set; }
 
+        public GameObject GameEndUI;
+
         public static GameManager Manager { get; private set; }
 
         void Awake()
@@ -67,11 +69,13 @@ namespace Manager
         {
             if (isPlayerWin)
             {
+                Instantiate(Resources.Load<GameObject>("Prefabs/UIObj/WinObject"), GameEndUI.transform.position, Quaternion.identity);
                 VarManager.Manager.Player.Animator.StartWinAnimation();
                 VarManager.Manager.Opponent.Animator.StartLoseAnimation();
             }
             else
             {
+                Instantiate(Resources.Load<GameObject>("Prefabs/UIObj/LoseObject"), GameEndUI.transform.position, Quaternion.identity);
                 VarManager.Manager.Opponent.Animator.StartWinAnimation();
                 VarManager.Manager.Player.Animator.StartLoseAnimation();
             }
