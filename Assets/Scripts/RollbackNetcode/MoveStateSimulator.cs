@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Movement;
+using UnityEngine;
 using UnityEngine.tvOS;
 
 namespace RollbackNetcode
@@ -23,6 +24,7 @@ namespace RollbackNetcode
             string[] splits = msg.Split(Constant.SteamNetworkingType.DELIMITER);
             int frame = int.Parse(splits[FRAME]);
 
+            Debug.Log(frame + " > Remote, " + CurrentFrame + " > Local");
             RemoteStates[frame] = new MoveState(int.Parse(splits[VALUE]));
 
             if (frame <= CurrentFrame)
