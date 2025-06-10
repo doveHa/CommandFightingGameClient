@@ -1,5 +1,7 @@
 ﻿using Manager;
-using UnityEditor.Rendering.LookDev;
+#if UNITY_EDITOR
+using UnityEditor.Rendering;
+#endif
 using UnityEngine;
 
 namespace RollbackNetcode

@@ -4,7 +4,9 @@ using System.Data;
 using DataTable.FrameRanges;
 using DataTable.DataSet;
 using Manager;
+#if UNITY_EDITOR
 using UnityEditor.Searcher;
+#endif
 using DataSet = DataTable.DataSet.DataSet;
 
 namespace Handler

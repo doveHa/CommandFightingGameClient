@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using Movement;
 using UnityEngine;
+#if UNITY_TVOS
 using UnityEngine.tvOS;
+#endif
 
 namespace RollbackNetcode
 {
