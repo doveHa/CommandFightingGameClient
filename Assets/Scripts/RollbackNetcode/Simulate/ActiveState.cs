@@ -31,7 +31,7 @@ namespace RollbackNetcode
             }
             else
             {
-                VarManager.Manager.OpponentSkills[SkillIndex].Run(startTime);
+                VarManager.Manager.OpponentSkills[SkillIndex].Run(0);
             }
         }
 

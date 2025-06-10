@@ -3,61 +3,116 @@ using Characters;
 using Characters.Skill;
 using Characters.Skill.Kagetsu;
 using Characters.Skill.Naktis;
+using Manager;
 using UnityEngine;
+using UnityEngine.UI;
 
-namespace Manager
+public class VarManager : MonoBehaviour
 {
-    public class VarManager : MonoBehaviour
+    public static VarManager Manager;
+
+    public Player Player { get; set; }
+    public Player Opponent { get; set; }
+
+    public GameObject PlayerGameObject { get; set; }
+    public GameObject OpponentGameObject { get; set; }
+
+    public string PlayerCharacterName { get; set; }
+    public string OpponentCharacterName { get; set; }
+
+    // 여기 추가
+    public string PlayerCharacterImage { get; set; }
+    public string OpponentCharacterImage { get; set; }
+
+    public HitBoxHandler PlayerHitBoxHandler { get; set; }
+    public HitBoxHandler OpponentHitBoxHandler { get; set; }
+
+    public Dictionary<int, ICharacterSkill> PlayerSkills { get; set; }
+    public Dictionary<int, ICharacterSkill> OpponentSkills { get; set; }
+
+
+    private void Awake()
     {
-        public static VarManager Manager;
-
-        public Player Player { get; set; }
-        public Player Opponent { get; set; }
-
-        public GameObject PlayerGameObject { get; set; }
-        public GameObject OpponentGameObject { get; set; }
-
-        public string PlayerCharacterName { get; set; }
-        public string OpponentCharacterName { get; set; }
-
-        public HitBoxHandler PlayerHitBoxHandler { get; set; }
-        public HitBoxHandler OpponentHitBoxHandler { get; set; }
-
-        public Dictionary<int, ICharacterSkill> PlayerSkills { get; set; }
-        public Dictionary<int, ICharacterSkill> OpponentSkills { get; set; }
-
-        private void Awake()
+        if (Manager == null)
         {
-            if (Manager == null)
-            {
-                Manager = this;
-            }
+            Manager = this;
+        }
+    }
+    public void Update()
+    {
+        Debug.Log("작동중");
+    }
+
+    public void PlayerOpponentInitialize()
+    {
+        SetComponents();
+        SetDataSets();
+        SetSkills();
+        SetHitBoxHandler();
+        LoadCharacterImages();
+    }
+
+    private void SetComponents()
+    {
+        Player = PlayerGameObject.GetComponentInParent<Player>();
+        Player.Initialize();
+        Opponent = OpponentGameObject.GetComponentInParent<Player>();
+        Opponent.Initialize();
+    }
+
+    private void SetDataSets()
+    {
+        Player.SetDataSet(PlayerCharacterName);
+        Opponent.SetDataSet(OpponentCharacterName);
+
+        // 이미지 이름을 캐릭터 이름 기반으로 자동 설정 예시
+        PlayerCharacterImage = PlayerCharacterName + ".png";
+        OpponentCharacterImage = OpponentCharacterName + "(spin).png";
+    }
+
+    // (선택) 이미지 리소스를 불러오는 함수
+    private void LoadCharacterImages()
+    {
+        Texture2D playerImage = LoadImage(PlayerCharacterImage);
+        Texture2D opponentImage = LoadImage(OpponentCharacterImage);
+
+        if (playerImage != null && GameManager.Manager.playerImageUI != null)
+        {
+            GameManager.Manager.playerImageUI.texture = playerImage;
+            var rt = GameManager.Manager.playerImageUI.rectTransform;
+            rt.sizeDelta = new Vector2(200f, 200f);
+            rt.anchoredPosition = new Vector2(-896f, 386f);
         }
 
-        public void PlayerOpponentInitialize()
+        if (opponentImage != null && GameManager.Manager.opponentImageUI != null)
         {
-            SetComponents();
-            SetDataSets();
-            SetSkills();
-            SetHitBoxHandler();
+            GameManager.Manager.opponentImageUI.texture = opponentImage;
+            var rt = GameManager.Manager.opponentImageUI.rectTransform;
+            rt.sizeDelta = new Vector2(200f, 200f);
+            rt.anchoredPosition = new Vector2(896f, 386f);
         }
+    }
 
-        private void SetComponents()
+
+    private Texture2D LoadImage(string fileName)
+    {
+        string path = System.IO.Path.Combine(Application.streamingAssetsPath, fileName);
+        if (System.IO.File.Exists(path))
         {
-            Player = PlayerGameObject.GetComponentInParent<Player>();
-            Player.Initialize();
-            Opponent = OpponentGameObject.GetComponentInParent<Player>();
-            Opponent.Initialize();
+            byte[] bytes = System.IO.File.ReadAllBytes(path);
+            Texture2D texture = new Texture2D(2, 2);
+            texture.LoadImage(bytes);
+            return texture;
         }
-
-        private void SetDataSets()
+        else
         {
-            Player.SetDataSet(PlayerCharacterName);
-            Opponent.SetDataSet(OpponentCharacterName);
+            Debug.LogWarning("이미지 파일이 존재하지 않습니다: " + path);
+            return null;
         }
+    }
 
 
-        private void SetSkills()
+    private void SetSkills()
         {
             PlayerSkills = new Dictionary<int, ICharacterSkill>();
             OpponentSkills = new Dictionary<int, ICharacterSkill>();
@@ -147,4 +202,3 @@ namespace Manager
             };
         }
     }
-}

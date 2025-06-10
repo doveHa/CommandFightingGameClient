@@ -2,11 +2,15 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Manager
 {
     public class GameManager : MonoBehaviour
     {
+        public RawImage playerImageUI;
+        public RawImage opponentImageUI;
+
         public Vector2 PlayerCenter { get; private set; }
         public Vector2 OpponentCenter { get; private set; }
 
@@ -120,7 +124,7 @@ namespace Manager
 
             VarManager.Manager.PlayerOpponentInitialize();
         }
-
+        
         void OnDisable()
         {
             SceneManager.sceneLoaded -= OnSceneLoaded;
