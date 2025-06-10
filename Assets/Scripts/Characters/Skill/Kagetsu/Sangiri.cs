@@ -20,13 +20,13 @@ namespace Characters.Skill.Kagetsu
 
         private KagetsuAnimationHandler kagetsuAnimationHandler;
 
-        public override void Run()
+        public override void Run(float startTime)
         {
             Debug.Log("Sangiri");
 
             HasHit = false;
             kagetsuAnimationHandler = transform.parent.GetComponent<KagetsuAnimationHandler>();
-            kagetsuAnimationHandler.StartSangiriAnimation();
+            kagetsuAnimationHandler.StartSangiriAnimation(startTime);
         }
 
         public override void Hit()

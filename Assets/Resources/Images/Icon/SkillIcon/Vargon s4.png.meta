@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Vargon s4_0: 6061364283222960202
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

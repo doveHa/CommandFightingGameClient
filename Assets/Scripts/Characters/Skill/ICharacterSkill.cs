@@ -8,7 +8,7 @@ public abstract class ICharacterSkill : MonoBehaviour
     public int CommandLength { get; private set; }
     public bool HasHit { get; set; }
 
-    public abstract void Run();
+    public abstract void Run(float startTime);
 
     public void SetCommandCoff(int count)
     {

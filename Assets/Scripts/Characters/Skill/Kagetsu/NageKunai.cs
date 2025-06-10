@@ -12,13 +12,13 @@ namespace Characters.Skill.Kagetsu
         [SerializeField] private GameObject leftSideStartPosition, rightSideStartPosition;
         private KagetsuAnimationHandler kagetsuAnimationHandler;
 
-        public override void Run()
+        public override void Run(float startTime)
         {
             Debug.Log("NageKunai");
 
             HasHit = false;
             kagetsuAnimationHandler = transform.parent.GetComponent<KagetsuAnimationHandler>();
-            kagetsuAnimationHandler.StartNageKunaiAnimation();
+            kagetsuAnimationHandler.StartNageKunaiAnimation(startTime);
             StartCoroutine(WaitKunaiMotion());
         }
 

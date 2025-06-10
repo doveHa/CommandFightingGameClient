@@ -55,7 +55,7 @@ namespace Handler
             CalFrameNumber();
         }
 
-        public void StartPunchAnimation()
+        public void StartPunchAnimation(float startTime)
         {
             if (motionFlag)
             {
@@ -72,17 +72,17 @@ namespace Handler
                     LockMovement();
                     ChangeLayer(punchLayerIndex);
                     Animator.SetBool("PunchExit", false);
-                    Animator.Play("공격", CurrentLayerIndex, 0);
+                    Animator.Play("공격", CurrentLayerIndex, startTime);
                     punchFlag = true;
                 }
             }
         }
 
-        public void StartJumpPunchAnimation()
+        public void StartJumpPunchAnimation(float startTime)
         {
             if (!motionFlag)
             {
-                Animator.Play("점프공격", CurrentLayerIndex, 0);
+                Animator.Play("점프공격", CurrentLayerIndex, startTime);
                 motionFlag = true;
             }
         }

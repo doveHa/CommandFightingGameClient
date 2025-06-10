@@ -21,11 +21,11 @@ namespace Characters.Skill.Naktis
         {
             Damage = 10;
         }
-        public override void Run()
+        public override void Run(float startTime)
         {
             HasHit = false;
             naktisAnimationHandler = transform.parent.GetComponent<NaktisAnimationHandler>();
-            naktisAnimationHandler.StartScratchAnimation();
+            naktisAnimationHandler.StartScratchAnimation(startTime);
         }
     }
 }

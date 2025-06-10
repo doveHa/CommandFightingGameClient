@@ -28,7 +28,7 @@ namespace Characters.AnimationHandler
             ittoRyotanLayerIndex = Animator.GetLayerIndex("IttoRyotan");
         }
 
-        public void StartNageruAnimation()
+        public void StartNageruAnimation(float startTime)
         {
             if (!motionFlag)
             {
@@ -36,11 +36,11 @@ namespace Characters.AnimationHandler
                 motionFlag = true;
                 ChangeLayer(nageruLayerIndex);
                 Animator.SetBool("NageruExit", false);
-                Animator.Play("잡기", nageruLayerIndex, 0);
+                Animator.Play("잡기", nageruLayerIndex, startTime);
             }
         }
 
-        public void StartSangiriAnimation()
+        public void StartSangiriAnimation(float startTime)
         {
             if (!motionFlag)
             {
@@ -48,11 +48,11 @@ namespace Characters.AnimationHandler
                 motionFlag = true;
                 ChangeLayer(sangiriLayerIndex);
                 Animator.SetBool("SangiriExit", false);
-                Animator.Play("3단 베기", sangiriLayerIndex, 0);
+                Animator.Play("3단 베기", sangiriLayerIndex, startTime);
             }
         }
 
-        public void StartNageKunaiAnimation()
+        public void StartNageKunaiAnimation(float startTime)
         {
             if (!motionFlag)
             {
@@ -60,11 +60,11 @@ namespace Characters.AnimationHandler
                 motionFlag = true;
                 ChangeLayer(nageKunaiLayerIndex);
                 Animator.SetBool("NageKunaiExit", false);
-                Animator.Play("쿠나이", nageKunaiLayerIndex, 0);
+                Animator.Play("쿠나이", nageKunaiLayerIndex, startTime);
             }
         }
 
-        public void StartIttoRyotanAnimation()
+        public void StartIttoRyotanAnimation(float startTime)
         {
             if (!motionFlag)
             {
@@ -72,7 +72,7 @@ namespace Characters.AnimationHandler
                 motionFlag = true;
                 ChangeLayer(ittoRyotanLayerIndex);
                 Animator.SetBool("IttoRyotanExit", false);
-                Animator.Play("베기", ittoRyotanLayerIndex, 0);
+                Animator.Play("베기", ittoRyotanLayerIndex, startTime);
             }
         }
 

@@ -60,7 +60,7 @@ namespace Server
                 VarManager.Manager.PlayerCharacterName);
 
             SceneLoadManager.Manager.LoadLoadingScene();
-  */
+            */
             await StartConnect();
         }
 
@@ -93,14 +93,12 @@ namespace Server
                     VarManager.Manager.PlayerCharacterName);
 
                 SceneLoadManager.Manager.LoadLoadingScene();
-
             }
             catch (Exception e)
             {
                 Print(e.Message);
             }
         }
-
 
         private IEnumerator WaitPong()
         {

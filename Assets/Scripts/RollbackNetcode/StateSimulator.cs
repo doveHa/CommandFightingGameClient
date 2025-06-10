@@ -30,8 +30,8 @@ namespace RollbackNetcode
             Debug.Log(frame);
             SetState.ApplyState();
             PredictionFrame(frame);
-            LocalStates[frame].Simulate(true);
-            RemoteStates[frame].Simulate(false);
+            LocalStates[frame].Simulate(true, 0);
+            RemoteStates[frame].Simulate(false, 0);
             LeastSimulatedFrame = frame;
         }
 
@@ -48,7 +48,11 @@ namespace RollbackNetcode
             for (int i = frame; i <= CurrentFrame; i++)
             {
                 PredictionFrame(i);
-                RemoteStates[i].Simulate(false);
+
+                int frameDelay = CurrentFrame - i;
+                float startPlayTime = frameDelay * 1 / 60f; // FrameDeltaTime은 1/60f 등으로 정의돼 있어야 함
+
+                RemoteStates[i].Simulate(false, startPlayTime);
                 LeastSimulatedFrame = frame;
             }
         }

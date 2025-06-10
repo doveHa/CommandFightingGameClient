@@ -62,8 +62,8 @@ namespace Characters
             Hp = characterDto.Hp;
             Atk = characterDto.Atk;
             MoveSpeed = characterDto.MoveSpeed;
-            SkillMethodGroup.actions.TryGetValue(CharacterName, out var actionGroup);
-            SkillGroup = new SkillGroup(actionGroup, characterDto.Skill);
+            //SkillMethodGroup.actions.TryGetValue(CharacterName, out var actionGroup);
+            SkillGroup = new SkillGroup(null, characterDto.Skill);
         }
 
         public string CharacterName { get; set; }

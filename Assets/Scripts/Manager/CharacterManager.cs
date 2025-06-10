@@ -21,11 +21,11 @@ namespace Manager
 
         [SerializeField] private ComboInputHandler comboInputHandler;
         public CharacterGroup CharacterGroup;
-        
+
         public void CharacterOn()
         {
             comboInputHandler.AddCharacterCombo(VarManager.Manager.PlayerCharacterName);
-            
+
             GameObject characterSet = GameObject.Find("Character");
             for (int i = 0; i < characterSet.transform.childCount; i++)
             {
@@ -51,7 +51,7 @@ namespace Manager
             await GetCustomCommand();
             CharacterGroup.InitializeCurrentCommandList();
         }
-        
+
         public async Task GetCharacter()
         {
             try
@@ -76,6 +76,7 @@ namespace Manager
         {
             RestResponse response = await RestAPIRequest.Get<GetCommandDTO>(Constant.RestAPI.CustomCommand.ALL, null,
                 LoginManager.Manager.GetAuthHeader());
+            Debug.Log(response.Content);
             List<GetCommandDTO> allCustomCommand =
                 JsonSerializer.Deserialize<List<GetCommandDTO>>(response.Content);
             InitializeCommand(allCustomCommand);

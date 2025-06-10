@@ -9,12 +9,12 @@ namespace Characters.Skill.Kagetsu
         
         private KagetsuAnimationHandler kagetsuAnimationHandler;
 
-        public override void Run()
+        public override void Run(float startTime)
         {
             Debug.Log("IttoRyotan");
             HasHit = false;
             kagetsuAnimationHandler = transform.parent.GetComponent<KagetsuAnimationHandler>();
-            kagetsuAnimationHandler.StartIttoRyotanAnimation();
+            kagetsuAnimationHandler.StartIttoRyotanAnimation(startTime);
         }
     }
 }

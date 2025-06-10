@@ -18,7 +18,7 @@ namespace RollbackNetcode
             Jumped = jumped;
         }
 
-        public override void Simulate(bool isLocal)
+        public override void Simulate(bool isLocal, float startTime)
         {
             if (Jumped)
             {

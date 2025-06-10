@@ -26,7 +26,7 @@ namespace Characters.AnimationHandler
             flyLayerIndex = Animator.GetLayerIndex("Fly");
         }
 
-        public void StartScratchAnimation()
+        public void StartScratchAnimation(float startTime)
         {
             if (!motionFlag)
             {
@@ -34,7 +34,7 @@ namespace Characters.AnimationHandler
                 motionFlag = true;
                 ChangeLayer(scratchLayerIndex);
                 Animator.SetBool("ScratchExit", false);
-                Animator.Play("할퀴기", scratchLayerIndex, 0);
+                Animator.Play("할퀴기", scratchLayerIndex, startTime);
             }
         }
 
@@ -48,7 +48,7 @@ namespace Characters.AnimationHandler
             GetComponentInChildren<Scratch>().SetScratch2();
         }
 
-        public void StartUpperWingAnimation()
+        public void StartUpperWingAnimation(float startTime)
         {
             if (!motionFlag)
             {
@@ -56,7 +56,7 @@ namespace Characters.AnimationHandler
                 motionFlag = true;
                 ChangeLayer(upperWingLayerIndex);
                 Animator.SetBool("UpperWingExit", false);
-                Animator.Play("어퍼윙", upperWingLayerIndex, 0);
+                Animator.Play("어퍼윙", upperWingLayerIndex, startTime);
             }
         }
 
@@ -71,7 +71,7 @@ namespace Characters.AnimationHandler
             }
         }
 
-        public void StartHasegiAnimation()
+        public void StartHasegiAnimation(float startTime)
         {
             if (!motionFlag)
             {
@@ -79,7 +79,7 @@ namespace Characters.AnimationHandler
                 motionFlag = true;
                 ChangeLayer(hasegiLayerIndex);
                 Animator.SetBool("HasegiExit", false);
-                Animator.Play("바람강타", hasegiLayerIndex, 0);
+                Animator.Play("바람강타", hasegiLayerIndex, startTime);
             }
         }
 

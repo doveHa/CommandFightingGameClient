@@ -21,11 +21,11 @@ namespace RollbackNetcode
             MoveStates = new Dictionary<int, State>();
         }
 
-        public void Simulate(int frame)
+        public void Simulate(int frame, float startTime)
         {
-            ActiveStates[frame].Simulate(IsLocal);
-            JumpStates[frame].Simulate(IsLocal);
-            MoveStates[frame].Simulate(IsLocal);
+            ActiveStates[frame].Simulate(IsLocal, startTime);
+            JumpStates[frame].Simulate(IsLocal, startTime);
+            MoveStates[frame].Simulate(IsLocal, startTime);
             //Debug.Log($"[{frame}] Simulation End");
         }
     }
@@ -34,9 +34,9 @@ namespace RollbackNetcode
     {
         public virtual void Print()
         {
-            
         }
-        public abstract void Simulate(bool isLocal);
+
+        public abstract void Simulate(bool isLocal, float startTime);
         public abstract State Clone();
     }
 }

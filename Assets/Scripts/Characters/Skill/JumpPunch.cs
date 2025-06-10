@@ -13,10 +13,10 @@ namespace Characters.Skill
             SetCommandCoff(1);
         }
 
-        public override void Run()
+        public override void Run(float startTime)
         {
             HasHit = true;
-            GetComponentInParent<CharacterAnimatorHandler>().StartJumpPunchAnimation();
+            GetComponentInParent<CharacterAnimatorHandler>().StartJumpPunchAnimation(startTime);
             HasHit = false;
         }
     }

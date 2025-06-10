@@ -12,11 +12,11 @@ namespace Characters.Skill.Naktis
         [SerializeField] private GameObject leftSideStartPosition, rightSideStartPosition;
         private NaktisAnimationHandler naktisAnimationHandler;
 
-        public override void Run()
+        public override void Run(float startTime)
         {
             HasHit = false;
             naktisAnimationHandler = transform.parent.GetComponent<NaktisAnimationHandler>();
-            naktisAnimationHandler.StartHasegiAnimation();
+            naktisAnimationHandler.StartHasegiAnimation(startTime);
             StartCoroutine(WaitHasegiMotion());
         }
 

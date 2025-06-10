@@ -1,4 +1,5 @@
-﻿using System;
+﻿/*
+using System;
 using System.Collections.Generic;
 using Characters.Skill.Naktis;
 using UnityEngine;
@@ -116,4 +117,4 @@ namespace Characters
             
         }
     }
-}
+}*/

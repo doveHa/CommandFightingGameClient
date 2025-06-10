@@ -18,7 +18,7 @@ namespace RollbackNetcode
             SkillIndex = skillIndex;
         }
 
-        public override void Simulate(bool isLocal)
+        public override void Simulate(bool isLocal, float startTime)
         {
             if (SkillIndex == Constant.SkillName.NONE)
             {
@@ -27,11 +27,11 @@ namespace RollbackNetcode
 
             if (isLocal)
             {
-                VarManager.Manager.PlayerSkills[SkillIndex].Run();
+                VarManager.Manager.PlayerSkills[SkillIndex].Run(0);
             }
             else
             {
-                VarManager.Manager.OpponentSkills[SkillIndex].Run();
+                VarManager.Manager.OpponentSkills[SkillIndex].Run(startTime);
             }
         }
 

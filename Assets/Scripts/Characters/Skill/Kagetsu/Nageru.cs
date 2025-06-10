@@ -11,13 +11,13 @@ namespace Characters.Skill.Kagetsu
         
         private KagetsuAnimationHandler kagetsuAnimationHandler;
         
-        public override void Run()
+        public override void Run(float startTime)
         {
             Debug.Log("Nageru");
 
             HasHit = false;
             kagetsuAnimationHandler = transform.parent.GetComponent<KagetsuAnimationHandler>();
-            kagetsuAnimationHandler.StartNageruAnimation();
+            kagetsuAnimationHandler.StartNageruAnimation(startTime);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Characters.Skill.Naktis
         private NaktisAnimationHandler naktisAnimationHandler;
         private Coroutine flyCoroutine;
         
-        public override void Run()
+        public override void Run(float startTime)
         {
             naktisAnimationHandler = transform.parent.GetComponent<NaktisAnimationHandler>();
 
