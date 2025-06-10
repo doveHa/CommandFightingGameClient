@@ -1,3 +1,4 @@
+using System;
 using Manager;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ public class CameraMovingManager : MonoBehaviour
     private Camera cam;
     private float initialY;
 
-    private Vector3 velocity = Vector3.zero; // SmoothDamp¿ë ¼Óµµ Ä³½Ã
+    private Vector3 velocity = Vector3.zero; // SmoothDampï¿½ï¿½ ï¿½Óµï¿½ Ä³ï¿½ï¿½
 
     void Start()
     {
@@ -27,7 +28,7 @@ public class CameraMovingManager : MonoBehaviour
         player2 = VarManager.Manager.OpponentGameObject.transform.GetChild(0);
     }
 
-    void LateUpdate() // À§Ä¡ ¾÷µ¥ÀÌÆ®´Â LateUpdate¿¡¼­ ÇÏ¸é ´õ ¾ÈÁ¤Àû
+    void LateUpdate() // ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ LateUpdateï¿½ï¿½ï¿½ï¿½ ï¿½Ï¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
         float distance = Mathf.Abs(player1.position.x - player2.position.x) + additionalRender;
         currentDistance = distance;
@@ -35,18 +36,18 @@ public class CameraMovingManager : MonoBehaviour
         float currentWidth = Mathf.Clamp(distance / 2f, minDistance / 2f, maxDistance / 2f);
         float needHeight = Mathf.Max(verticalSize, currentWidth / cam.aspect);
 
-        // ÁÜ ºÎµå·´°Ô Àû¿ë
+        // ï¿½ï¿½ ï¿½Îµå·´ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, needHeight, Time.deltaTime * zoomSpeed);
 
-        // Ä«¸Þ¶ó À§Ä¡ º¸°£
+        // Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
         float upwardOffset = cam.orthographicSize - verticalSize;
+        double targetX = Math.Clamp((player1.position.x + player2.position.x) / 2f, -4.3, 4.3);
         Vector3 targetPosition = new Vector3(
-            (player1.position.x + player2.position.x) / 2f,
+            (float)targetX,
             initialY + upwardOffset,
             transform.position.z
         );
-
-        // ºÎµå·´°Ô À§Ä¡ ÀÌµ¿
+        // ï¿½Îµå·´ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½Ìµï¿½
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, 0.2f);
     }
 }
