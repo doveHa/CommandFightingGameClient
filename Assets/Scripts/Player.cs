@@ -44,12 +44,7 @@ public class Player : MonoBehaviour
 
     public void Hit(int atk, int commandLength)
     {
-        if (IsGuard)
-        {
-            Debug.Log("guard");
-            Animator.StartGuardAnimation();
-        }
-        else
+        if (!IsGuard)
         {
             bool isPlayer;
             if (CompareTag("Player"))
@@ -60,9 +55,16 @@ public class Player : MonoBehaviour
             {
                 isPlayer = false;
             }
+
             HealthSystem.Manager.TakeDamage(isPlayer, atk * commandLength);
             Animator.StartHitAnimation();
         }
+    }
+
+    public void Guard()
+    {
+        Debug.Log("Guard");
+        Animator.StartGuardAnimation();
     }
 
     public void SetDataSet(string charaterName)

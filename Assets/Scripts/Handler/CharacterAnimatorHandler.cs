@@ -33,7 +33,6 @@ namespace Handler
 
         protected virtual void Awake()
         {
-            CurrentLayerIndex = baseLayerIndex;
             Center = transform.Find("Center").gameObject;
 
             Animator = GetComponent<Animator>();
@@ -48,6 +47,8 @@ namespace Handler
             baseLayerIndex = Animator.GetLayerIndex("BaseLayer");
             punchLayerIndex = Animator.GetLayerIndex("Punch");
             endLayerIndex = Animator.GetLayerIndex("EndLayer");
+
+            CurrentLayerIndex = baseLayerIndex;
         }
 
         protected virtual void FixedUpdate()

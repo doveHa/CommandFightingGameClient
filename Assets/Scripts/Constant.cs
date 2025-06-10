@@ -76,6 +76,7 @@ public static class Constant
             public const int MOVESTATE = 0;
             public const int JUMPSTATE = 1;
             public const int ACTIVESTATE = 2;
+            public const int GUARDSTATE = 3;
         }
     }
 

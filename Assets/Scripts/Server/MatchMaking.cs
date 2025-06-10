@@ -53,7 +53,7 @@ namespace Server
             isMatching = true;
             //image.gameObject.SetActive(false);
             //솔로 테스트 용
-/*
+
             SteamNetworkManager.Manager.RemoteSteamId = SteamNetworkManager.Manager.PlayerSteamId;
 
             SteamNetworkManager.Manager.SendMsg(SteamNetworkManager.Manager.RemoteSteamId,
@@ -61,8 +61,8 @@ namespace Server
                 VarManager.Manager.PlayerCharacterName);
 
             SceneLoadManager.Manager.LoadLoadingScene();
-            */
-            await StartConnect();
+            
+            //await StartConnect();
         }
 
         private async Task StartConnect()

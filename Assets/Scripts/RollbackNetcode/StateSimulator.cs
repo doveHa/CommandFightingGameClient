@@ -27,7 +27,6 @@ namespace RollbackNetcode
         void FixedUpdate()
         {
             int frame = CurrentFrame;
-            Debug.Log(frame);
             SetState.ApplyState();
             PredictionFrame(frame);
             LocalStates[frame].Simulate(true, 0);

@@ -9,7 +9,7 @@ namespace RollbackNetcode
     public class RollbackManager : MonoBehaviour
     {
         public static RollbackManager Manager { get; private set; }
-        public StateSimulator ActiveSimulator, JumpStateSimulator, MoveStateSimulator;
+        public StateSimulator ActiveSimulator, JumpStateSimulator, MoveStateSimulator, GuardSimulator;
 
         private long localSyncRequestTime;
 
@@ -50,6 +50,9 @@ namespace RollbackNetcode
                     break;
                 case Constant.SteamNetworkingType.KeyInput.ACTIVESTATE:
                     ActiveSimulator.ProcessingMessage(msg.Substring("2>".Length));
+                    break;
+                case Constant.SteamNetworkingType.KeyInput.GUARDSTATE:
+                    GuardSimulator.ProcessingMessage(msg.Substring("2>".Length));
                     break;
             }
         }

@@ -46,9 +46,10 @@ namespace Characters.AnimationHandler
             {
                 LockMovement();
                 motionFlag = true;
+                Debug.Log("SangiriStart");
                 ChangeLayer(sangiriLayerIndex);
                 Animator.SetBool("SangiriExit", false);
-                Animator.Play("3단 베기", sangiriLayerIndex, startTime);
+                Animator.Play("sangiri", sangiriLayerIndex, startTime);
             }
         }
 
@@ -89,6 +90,7 @@ namespace Characters.AnimationHandler
         {
             UnLockMovement();
             FlagInitialize();
+            Debug.Log("EndSangiri");
             ChangeLayer(baseLayerIndex);
             Animator.SetBool("SangiriExit", true);
             Animator.Play("Idle");

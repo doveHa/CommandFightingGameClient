@@ -13,8 +13,6 @@ namespace Movement
 
         public SetActive()
         {
-            InputActionManager.Manager.Inputs.Inputs.Guard.performed += GuardKeyInput;
-            InputActionManager.Manager.Inputs.Inputs.Guard.canceled += GuardKeyInputCancel;
             InputActionManager.Manager.Inputs.Inputs.BasicAtk.started += PunchKeyInput;
         }
 
@@ -51,16 +49,6 @@ namespace Movement
             {
                 SkillIndex = Constant.SkillName.PUNCH;
             }
-        }
-
-        private void GuardKeyInput(InputAction.CallbackContext ctx)
-        {
-            VarManager.Manager.Player.IsGuard = true;
-        }
-
-        private void GuardKeyInputCancel(InputAction.CallbackContext ctx)
-        {
-            VarManager.Manager.Player.IsGuard = false;
         }
     }
 }
