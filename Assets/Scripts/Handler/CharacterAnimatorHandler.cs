@@ -262,7 +262,7 @@ namespace Handler
                 }
             }
         }
-
+/*
         private void OnDrawGizmos()
         {
             foreach (CharacterAllStatement statement in GetComponentInParent<Player>().DataSet.RawData)
@@ -294,7 +294,7 @@ namespace Handler
                 }
             }
         }
-
+*/
         protected void LockMovement()
         {
             GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX;
