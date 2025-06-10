@@ -35,13 +35,13 @@ public class HealthSystem : MonoBehaviour
     {
         if (PlayerhitPoint <= 0 && !isEnd)
         {
-            GameManager.Manager.EndGame(false);
+            StartCoroutine(GameManager.Manager.EndGame(false));
             isEnd = true;
         }
 
         if (OpponenthitPoint <= 0 && !isEnd)
         {
-            GameManager.Manager.EndGame(true);
+            StartCoroutine(GameManager.Manager.EndGame(true));
             isEnd = true;
         }
     }

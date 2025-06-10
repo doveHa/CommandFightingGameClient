@@ -1,6 +1,4 @@
-﻿using DataTable.DataSet;
-
-namespace DataTable.FrameRanges
+﻿namespace DataTable.FrameRanges
 {
     public class KagetsuFrameRangesDictionary : FrameRangesDictionary
     {

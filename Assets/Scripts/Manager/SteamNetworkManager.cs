@@ -37,7 +37,6 @@ namespace Manager
                     }
 
                     PlayerSteamId = SteamClient.SteamId;
-                    Print(PlayerSteamId.ToString());
 
                     LocalSteamIdString = PlayerSteamId.ToString();
 
@@ -108,18 +107,6 @@ namespace Manager
 
             byte[] data = Encoding.UTF8.GetBytes(type.ToString() + Constant.SteamNetworkingType.DELIMITER + msg);
             return SteamNetworking.SendP2PPacket(steamId, data);
-        }
-
-
-        private void OnDestroy()
-        {
-            SteamClient.Shutdown();
-            Print("Steam Closed");
-        }
-
-        private void Print(string message)
-        {
-            Debug.Log("[SteamNetworkManager] > " + message);
         }
     }
 }

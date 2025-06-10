@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8a6499966ab769a448f0f627f5d74290
+guid: 4c5e21d0766d22f4fa3e2fc44caefa5a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 666004481858975293
-    second: Vargon s1_0
+      213: 4264714366617519430
+    second: "\uB0B4\uB824\uCC0D\uAE30_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,24 +96,11 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Vargon s1_0
+      name: "\uB0B4\uB824\uCC0D\uAE30_0"
       rect:
         serializedVersion: 2
         x: 0
@@ -128,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d36b5003c8f1e3900800000000000000
-      internalID: 666004481858975293
+      spriteID: 6450ebafe1f4f2b30800000000000000
+      internalID: 4264714366617519430
       vertices: []
       indices: 
       edges: []
@@ -147,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Vargon s1_0: 666004481858975293
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using DataTable.DataSet;
-
-namespace DataTable.FrameRanges
+﻿namespace DataTable.FrameRanges
 {
     public class NaktisFrameRangesDictionary : FrameRangesDictionary
     {

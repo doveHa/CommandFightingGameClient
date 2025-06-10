@@ -60,43 +60,18 @@ namespace Server
 
             if (response.IsSuccessful)
             {
-                return response;
-            }
-            else
-            {
-                Debug.Log(response.StatusCode + " " + response.ErrorMessage);
-                return null;
-            }
-        }
-
-        public static async Task<RestResponse> Patch<T>(string path, T bodyJsonData, [CanBeNull] HeaderDTO headerDto)
-            where T : class
-        {
-            RestClient client = new RestClient(Constant.URL);
-            RestRequest request = new RestRequest(path, Method.Patch);
-
-            if (headerDto != null)
-            {
-                request.AddHeader(headerDto.name, headerDto.value);
-            }
-
-            request.AddJsonBody(bodyJsonData);
-            Debug.Log(JsonSerializer.Serialize(bodyJsonData));
-
-            RestResponse response = await client.ExecuteAsync(request);
-
-            if (response.IsSuccessful)
-            {
-                Debug.Log("return response");
                 Debug.Log(response.Content);
                 return response;
             }
             else
             {
                 Debug.Log(response.StatusCode + " " + response.ErrorMessage);
-                Debug.Log(response.Content);
                 return null;
             }
         }
     }
 }
+
+
+
+

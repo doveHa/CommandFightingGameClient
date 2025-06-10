@@ -13,6 +13,7 @@ namespace Authentication
     public class Authentication : MonoBehaviour
     {
         public GameObject loginFailed;
+
         public static async Task<string> regist(string id, string pw)
         {
             RestResponse response =
@@ -20,12 +21,12 @@ namespace Authentication
 
             if (response.IsSuccessful)
             {
-
             }
             else
             {
                 return response.Content;
             }
+
             return null;
         }
 
@@ -38,17 +39,13 @@ namespace Authentication
             {
                 Debug.Log("�α��� ����!");
                 SceneLoadManager.Manager.LoadLoadingScene();
-                //SceneManager.LoadScene("LodingScene");
                 LoginManager.Manager.SetTokens(JsonSerializer.Deserialize<AuthTokensDTO>(response.Content));
                 string pName = await GetPlayerName();
                 await PlayerLogin(pName);
                 await LoginManager.Manager.Login();
             }
-            else
-            {
-                return response.Content;
-            }
-            return null;
+
+            return response.Content;
         }
 
         private static async Task<string> GetPlayerName()

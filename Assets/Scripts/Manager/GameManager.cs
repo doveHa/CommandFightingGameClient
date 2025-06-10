@@ -1,3 +1,5 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -65,20 +67,31 @@ namespace Manager
             }
         }
 
-        public void EndGame(bool isPlayerWin)
+        public IEnumerator EndGame(bool isPlayerWin)
         {
             if (isPlayerWin)
             {
-                Instantiate(Resources.Load<GameObject>("Prefabs/UIObj/WinObject"), GameEndUI.transform.position, Quaternion.identity);
+                Instantiate(Resources.Load<GameObject>("Prefabs/UIObj/WinObject"), GameEndUI.transform.position,
+                    Quaternion.identity);
                 VarManager.Manager.Player.Animator.StartWinAnimation();
                 VarManager.Manager.Opponent.Animator.StartLoseAnimation();
             }
             else
             {
-                Instantiate(Resources.Load<GameObject>("Prefabs/UIObj/LoseObject"), GameEndUI.transform.position, Quaternion.identity);
+                Instantiate(Resources.Load<GameObject>("Prefabs/UIObj/LoseObject"), GameEndUI.transform.position,
+                    Quaternion.identity);
                 VarManager.Manager.Opponent.Animator.StartWinAnimation();
                 VarManager.Manager.Player.Animator.StartLoseAnimation();
             }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                SceneLoadManager.Manager.LoadUserMainScene();
+                yield break;
+            }
+
+            yield return new WaitForSeconds(10);
+            SceneLoadManager.Manager.LoadUserMainScene();
         }
 
         private bool CalculatePlayerIsLeft()
