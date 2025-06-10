@@ -38,11 +38,6 @@ public class VarManager : MonoBehaviour
             Manager = this;
         }
     }
-    public void Update()
-    {
-        Debug.Log("작동중");
-    }
-
     public void PlayerOpponentInitialize()
     {
         SetComponents();
