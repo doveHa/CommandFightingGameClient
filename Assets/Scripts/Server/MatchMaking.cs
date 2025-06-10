@@ -61,7 +61,7 @@ namespace Server
                 VarManager.Manager.PlayerCharacterName);
 
             SceneLoadManager.Manager.LoadLoadingScene();
-            
+
             //await StartConnect();
         }
 
