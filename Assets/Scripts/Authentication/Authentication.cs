@@ -14,14 +14,24 @@ namespace Authentication
     {
         public GameObject loginFailed;
 
-        public static async Task<string> regist(string id, string pw)
+        public static async Task<string> regist(string id, string pw, string name)
         {
             RestResponse response =
                 await RestAPIRequest.Post(Constant.RestAPI.Auth.REGIST, new { loginId = id, loginPassword = pw }, null);
 
             if (response.IsSuccessful)
             {
-                
+                response =
+                    await RestAPIRequest.Post(Constant.RestAPI.Auth.LOGIN, new { loginId = id, loginPassword = pw }, null);
+                if (response.IsSuccessful)
+                {
+                    LoginManager.Manager.SetTokens(JsonSerializer.Deserialize<AuthTokensDTO>(response.Content));
+
+                    response = await RestAPIRequest.Post(Constant.RestAPI.Player.CREATE, new { playerName = name },
+                        LoginManager.Manager.GetAuthHeader());
+                    
+                    logout(LoginManager.Manager.GetTokens().refreshToken);
+                }
             }
             else
             {

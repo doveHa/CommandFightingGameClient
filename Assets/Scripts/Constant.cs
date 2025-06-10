@@ -37,6 +37,7 @@ public static class Constant
 
         public static class Player
         {
+            public const string CREATE = "/api/player/create";
             public const string PLAYERLIST = "/api/player/list";
         }
 

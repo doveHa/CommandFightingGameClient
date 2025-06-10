@@ -9,6 +9,7 @@ namespace ButtonMapping
     public class HomeSceneButtonMapping : MonoBehaviour
     {
         [SerializeField] private TMP_InputField loginId, loginPw, registerId, registerPw, registerPwCheck;
+       public TMP_InputField userName;
         [SerializeField] private GameObject homeGroup, loginGroup, registerGroup;
         public GameObject loginFailed;
         public GameObject registFailedPW;
@@ -32,7 +33,8 @@ namespace ButtonMapping
         public async void Login()
         {
             string message = await Authentication.Authentication.login(loginId.text, loginPw.text);
-            if(message.Equals("{\"message\":\"User not found.\"}")||message.Equals("{\"message\":\"Invalid login password\"}"))
+            if (message.Equals("{\"message\":\"User not found.\"}") ||
+                message.Equals("{\"message\":\"Invalid login password\"}"))
             {
                 loginFailed.SetActive(true);
             }
@@ -50,7 +52,7 @@ namespace ButtonMapping
         {
             if (CheckPasswordSame())
             {
-                Authentication.Authentication.regist(registerId.text, registerPw.text);
+                Authentication.Authentication.regist(registerId.text, registerPw.text,userName.text);
 
                 registFailedPW.SetActive(false);
                 registSuccess.SetActive(true);
