@@ -35,7 +35,7 @@ namespace Server
             }
             else
             {
-                Debug.Log(response.Content);
+                    Debug.Log(response.Content);
                 Debug.Log(response.StatusCode + " " + response.ErrorMessage);
                 return response;
             }
@@ -49,7 +49,7 @@ namespace Server
             if (headerDto != null)
             {
                 request.AddHeader(headerDto.name, headerDto.value);
-            }
+            }   
 
             if (bodyJsonData != null)
             {
