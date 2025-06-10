@@ -62,7 +62,7 @@ namespace Server
             isMatching = false;
             SceneLoadManager.Manager.LoadLoadingScene();
 
-            //await StartConnect();
+//            await StartConnect();
         }
 
         private async Task StartConnect()

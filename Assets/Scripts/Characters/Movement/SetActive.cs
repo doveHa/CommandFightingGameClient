@@ -9,7 +9,7 @@ namespace Movement
 {
     public class SetActive : SetState
     {
-        public static int SkillIndex { private get; set; } = Constant.SkillName.NONE;
+        public static int SkillIndex { get; set; } = Constant.SkillName.NONE;
 
         public SetActive()
         {
