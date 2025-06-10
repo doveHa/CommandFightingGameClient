@@ -27,6 +27,7 @@ namespace Server
 
         void Start()
         {
+            DontDestroyOnLoad(gameObject);
             text = transform.GetComponentInChildren<TextMeshProUGUI>();
         }
 
@@ -82,17 +83,20 @@ namespace Server
                 Debug.Log(receiveData);
                 //서버에서 송신한 대기열 수신 및 핑테스트 진행
                 PingTest.StartTest(receiveData);
+                
+                SceneLoadManager.Manager.LoadLoadingScene();
+                
                 StartCoroutine(WaitPong());
-
+                
                 //서버에서 송신한 상대 SteamID 설정
                 SteamNetworkManager.Manager.RemoteSteamId = ulong.Parse(SplitMatchID(await ReceiveMessageAsync()));
-
+                
+                
                 //상대에게 자신의 캐릭터 정보 전송 후 게임 시작 
                 SteamNetworkManager.Manager.SendMsg(SteamNetworkManager.Manager.RemoteSteamId,
                     Constant.SteamNetworkingType.CONNECTION,
                     VarManager.Manager.PlayerCharacterName);
 
-                SceneLoadManager.Manager.LoadLoadingScene();
             }
             catch (Exception e)
             {
@@ -174,6 +178,7 @@ namespace Server
 
         private async Task StopMatching()
         {
+            Debug.Log("Break WebSocket");
             if (webSocket.State == WebSocketState.Open || webSocket.State == WebSocketState.Connecting)
             {
                 try
