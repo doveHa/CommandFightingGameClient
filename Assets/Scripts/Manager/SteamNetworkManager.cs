@@ -92,6 +92,11 @@ namespace Manager
                             RollbackManager.Manager.OnReceiveTimeSyncResponse(remoteTime);
                             break;
                         }
+                        case Constant.SteamNetworkingType.END_GAME:
+                        {
+                            StartCoroutine(GameManager.Manager.EndGame(bool.Parse(splitData[1])));
+                            break;
+                        }
                     }
                 }
             }

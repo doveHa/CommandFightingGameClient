@@ -35,12 +35,16 @@ public class HealthSystem : MonoBehaviour
     {
         if (PlayerhitPoint <= 0 && !isEnd)
         {
+            SteamNetworkManager.Manager.SendMsg(SteamNetworkManager.Manager.RemoteSteamId,
+                Constant.SteamNetworkingType.END_GAME, true.ToString());
             StartCoroutine(GameManager.Manager.EndGame(false));
             isEnd = true;
         }
 
         if (OpponenthitPoint <= 0 && !isEnd)
         {
+            SteamNetworkManager.Manager.SendMsg(SteamNetworkManager.Manager.RemoteSteamId,
+                Constant.SteamNetworkingType.END_GAME, false.ToString());
             StartCoroutine(GameManager.Manager.EndGame(true));
             isEnd = true;
         }

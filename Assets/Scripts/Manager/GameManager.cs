@@ -73,6 +73,8 @@ namespace Manager
 
         public IEnumerator EndGame(bool isPlayerWin)
         {
+            InputActionManager.Manager.Inputs.Disable();
+            
             if (isPlayerWin)
             {
                 Instantiate(Resources.Load<GameObject>("Prefabs/UIObj/WinObject"), GameEndUI.transform.position,
@@ -94,8 +96,10 @@ namespace Manager
                 yield break;
             }
 
-            yield return new WaitForSeconds(10);
+            yield return new WaitForSeconds(3);
             SceneLoadManager.Manager.LoadUserMainScene();
+            InputActionManager.Manager.Inputs.Enable();
+
         }
 
         private bool CalculatePlayerIsLeft()
@@ -124,7 +128,7 @@ namespace Manager
 
             VarManager.Manager.PlayerOpponentInitialize();
         }
-        
+
         void OnDisable()
         {
             SceneManager.sceneLoaded -= OnSceneLoaded;

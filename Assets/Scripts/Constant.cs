@@ -71,6 +71,7 @@ public static class Constant
         public const int KEYINPUT = 2;
         public const int SYNC_TIME = 3;
         public const int SYNC_RESPONSE = 4;
+        public const int END_GAME = 5;
 
         public static class KeyInput
         {
