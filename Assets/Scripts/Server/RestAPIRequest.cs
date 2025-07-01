@@ -35,7 +35,7 @@ namespace Server
             }
             else
             {
-                    Debug.Log(response.Content);
+                Debug.Log(response.Content);
                 Debug.Log(response.StatusCode + " " + response.ErrorMessage);
                 return response;
             }

@@ -2,15 +2,13 @@
 
 public static class Constant
 {
-    //public const string URL = "http://localhost:5110";
-    public const string URL = "http://dksysd-home-server.duckdns.org:8080/";
+    public const string URL = "http://localhost:5110";
+    //public const string URL = "http://dksysd-home-server.duckdns.org:8080/";
 
     public static string WEBSOCKET_URL(string websocketToken, string steamId)
     {
-        //URL 인코딩하기
-        return "ws://dksysd-home-server.duckdns.org:8080/api/matchmaking?websocket_token=" + websocketToken +
-               "&steam_id=" + steamId;
-        //return "ws://localhost:5110/api/matchmaking?websocket_token=" + websocketToken + "&steam_id=" + steamId;
+        //return "ws://dksysd-home-server.duckdns.org:8080/api/matchmaking?websocket_token=" + websocketToken + "&steam_id=" + steamId;
+        return "ws://localhost:5110/api/matchmaking?websocket_token=" + websocketToken + "&steam_id=" + steamId;
     }
 
     public const string SERVER_IP = "192.168.219.104";

@@ -59,7 +59,7 @@ namespace Handler
 
             foreach (string key in keySequence)
             {
-                if (currentNode.IsEndOfCombo) throw new UnReachableComboException();
+                //if (currentNode.IsEndOfCombo) throw new UnReachableComboException();
 
                 if (!currentNode.Children.TryGetValue(key, out ComboTireNode nextNode))
                 {
