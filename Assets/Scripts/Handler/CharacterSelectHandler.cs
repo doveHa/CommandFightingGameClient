@@ -159,6 +159,7 @@ namespace Handler
         //현재 선택중인 캐릭터
         private ICharacter CurrentCharacter()
         {
+            Debug.Log(CharacterManager.Manager.CharacterGroup.Characters.Count);
             CharacterManager.Manager.CharacterGroup.Characters.TryGetValue(CurrentShowCharacter,
                 out ICharacter character);
             return character;

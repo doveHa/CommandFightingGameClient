@@ -30,6 +30,15 @@ namespace Handler
         private readonly TimedComboNode[] _inputBuffer = new TimedComboNode[MaxQueueSize];
         private int _inputCount;
 
+        private void Awake()
+        {
+            if (!GameObject.Find("Manager").TryGetComponent<ComboInputHandler>(out ComboInputHandler inputHandler))
+            {
+                GameObject.Find("Manager").AddComponent<ComboInputHandler>();
+                Destroy(gameObject);
+            }
+        }
+
         private void Start()
         {
             InputActionManager.Manager.Inputs.Inputs.CommandInput.performed += OnInputPerformed;

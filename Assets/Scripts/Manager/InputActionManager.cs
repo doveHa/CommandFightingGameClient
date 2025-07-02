@@ -9,23 +9,16 @@ namespace Manager
 
         void Awake()
         {
-            if (Manager == null)
+            if (!GameObject.Find("Manager").TryGetComponent<InputActionManager>(out InputActionManager manager) &&
+                Manager == null)
             {
-                DontDestroyOnLoad(this);
-                Manager = this;
+                GameObject.Find("Manager").AddComponent<InputActionManager>();
+                Manager = GameObject.Find("Manager").GetComponent<InputActionManager>();
+                Destroy(gameObject);
             }
 
             Inputs = new ActionsInput();
-        }
-
-        void OnEnable()
-        {
             Inputs.Enable();
-        }
-
-        void OnDisable()
-        {
-            Inputs.Disable();
         }
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MusicManager : MonoBehaviour
+public class MusicHandler : MonoBehaviour
 {
     public AudioSource audioSource;
     public GameObject sound_Stop_Btn;
@@ -8,7 +8,6 @@ public class MusicManager : MonoBehaviour
 
     private void Start()
     {
-        // 자동 재생을 원하면 이 줄을 사용
         audioSource.Play();
     }
 

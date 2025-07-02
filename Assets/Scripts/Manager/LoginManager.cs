@@ -48,7 +48,7 @@ namespace Manager
             switch (tokensDto.role)
             {
                 case "User":
-                    await CharacterManager.Manager.Initialize();
+                    //await CharacterManager.Manager.Initialize();
                     SceneLoadManager.Manager.LoadUserMainScene();
                     break;
                 case "Administer":

@@ -14,13 +14,12 @@ namespace Manager
     public class CharacterManager : MonoBehaviour
     {
         //선택한 캐릭터의 이름만 vs 선택한 캐릭터의 객체 정보
-        //public string OpponentCharacterName { get; set; }
-        //public string PlayerCharacterName { get; set; }
 
         public static CharacterManager Manager { get; private set; }
 
-        [SerializeField] private ComboInputHandler comboInputHandler;
-        public CharacterGroup CharacterGroup;
+        private ComboInputHandler comboInputHandler;
+
+        public CharacterGroup CharacterGroup { get; private set; }
 
         public void CharacterOn()
         {
@@ -37,22 +36,31 @@ namespace Manager
 
         void Awake()
         {
-            DontDestroyOnLoad(gameObject);
-            if (Manager == null)
+            if (!GameObject.Find("Manager").TryGetComponent<CharacterManager>(out CharacterManager manager) &&
+                Manager == null)
             {
-                Manager = this;
+                GameObject.Find("Manager").AddComponent<CharacterManager>();
+                Manager = GameObject.Find("Manager").GetComponent<CharacterManager>();
+                Destroy(gameObject);
             }
+
+            CharacterGroup = new CharacterGroup();
         }
 
-        public async Task Initialize()
+        async void Start()
         {
-            CharacterGroup = new CharacterGroup();
+            comboInputHandler = GetComponent<ComboInputHandler>();
+            await Initialize();
+        }
+
+        private async Task Initialize()
+        {
             await GetCharacter();
             await GetCustomCommand();
             CharacterGroup.InitializeCurrentCommandList();
         }
 
-        public async Task GetCharacter()
+        private async Task GetCharacter()
         {
             try
             {
@@ -72,7 +80,7 @@ namespace Manager
             }
         }
 
-        public async Task GetCustomCommand()
+        private async Task GetCustomCommand()
         {
             RestResponse response = await RestAPIRequest.Get<GetCommandDTO>(Constant.RestAPI.CustomCommand.ALL, null,
                 LoginManager.Manager.GetAuthHeader());

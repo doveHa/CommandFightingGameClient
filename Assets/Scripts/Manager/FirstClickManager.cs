@@ -15,6 +15,7 @@ public class FirstClickManager : MonoBehaviour
                 openObject.SetActive(true);
                 closeObject.SetActive(false);
                 isActivated = true; // 더 이상 실행되지 않도록 설정
+                Destroy(this);
             }
         }
     }
