@@ -1,18 +1,15 @@
-﻿using System.Collections.Generic;
-using Movement;
-using UnityEngine;
-#if UNITY_TVOS
-using UnityEngine.tvOS;
-#endif
+﻿using UnityEngine;
+using RollbackNetcode.State;
+using RollbackNetcode.SetState;
 
-namespace RollbackNetcode
+namespace RollbackNetcode.StateSimulator
 {
-    public class MoveStateSimulator : StateSimulator
+    public class MoveStateSimulator : StateSimulatorBase
     {
         public override void Start()
         {
             base.Start();
-            SetState = new SetMove();
+            SetStateBase = new SetMove();
             LocalStates.Add(-1, new MoveState());
             LocalStates.Add(0, new MoveState());
             LocalStates.Add(1, new MoveState());

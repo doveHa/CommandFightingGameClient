@@ -2,9 +2,9 @@
 using Movement;
 using UnityEngine;
 
-namespace RollbackNetcode
+namespace RollbackNetcode.State
 {
-    public class JumpState : State
+    public class JumpState : StateBase
     {
         public bool Jumped { private get; set; }
 
@@ -28,7 +28,7 @@ namespace RollbackNetcode
             }
         }
 
-        public override State Clone()
+        public override StateBase Clone()
         {
             return new JumpState(Jumped);
         }

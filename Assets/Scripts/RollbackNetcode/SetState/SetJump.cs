@@ -1,14 +1,13 @@
-﻿using System;
-using System.Text;
-using Handler;
+﻿using Handler;
 using Manager;
-using RollbackNetcode;
-using UnityEngine;
 using UnityEngine.InputSystem;
+using RollbackNetcode;
+using RollbackNetcode.State;
+using RollbackNetcode.StateSimulator;
 
-namespace Movement
+namespace RollbackNetcode.SetState
 {
-    public class SetJump : SetState
+    public class SetJump : SetStateBase
     {
         private bool jumpKeyInput = false;
         public SetJump()
@@ -29,7 +28,7 @@ namespace Movement
 
         protected override string StateSet()
         {
-            RollbackManager.Manager.JumpStateSimulator.AddState(StateSimulator.CurrentFrame,
+            RollbackManager.Manager.JumpStateSimulatorBase.AddState(StateSimulatorBase.CurrentFrame,
                 new JumpState(jumpKeyInput));
             return jumpKeyInput.ToString();
         }

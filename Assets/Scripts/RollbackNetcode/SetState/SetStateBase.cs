@@ -1,10 +1,11 @@
 ﻿using System.Text;
 using RollbackNetcode;
-using UnityEngine;
+using RollbackNetcode.State;
+using RollbackNetcode.StateSimulator;
 
-namespace Movement
+namespace RollbackNetcode.SetState
 {
-    public abstract class SetState
+    public abstract class SetStateBase
     {
         public abstract void ApplyState();
         protected abstract string StateSet();
@@ -16,7 +17,7 @@ namespace Movement
             builder
                 .Append(type)
                 .Append(Constant.SteamNetworkingType.DELIMITER)
-                .Append(StateSimulator.CurrentFrame)
+                .Append(StateSimulatorBase.CurrentFrame)
                 .Append(Constant.SteamNetworkingType.DELIMITER)
                 .Append(msg);
             return builder.ToString();

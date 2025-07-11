@@ -1,13 +1,12 @@
-﻿using System.Text;
-using Manager;
+﻿using Manager;
 using RollbackNetcode;
-using UnityEngine;
+using RollbackNetcode.State;
+using RollbackNetcode.StateSimulator;
 using UnityEngine.InputSystem;
-using ActiveState = RollbackNetcode.ActiveState;
 
-namespace Movement
+namespace RollbackNetcode.SetState
 {
-    public class SetActive : SetState
+    public class SetActive : SetStateBase
     {
         public static int SkillIndex { get; set; } = Constant.SkillName.NONE;
 
@@ -29,7 +28,7 @@ namespace Movement
 
         protected override string StateSet()
         {
-            RollbackManager.Manager.ActiveSimulator.AddState(StateSimulator.CurrentFrame, new ActiveState(SkillIndex));
+            RollbackManager.Manager.ActiveSimulatorBase.AddState(StateSimulatorBase.CurrentFrame, new ActiveState(SkillIndex));
             return SkillIndex.ToString();
         }
 

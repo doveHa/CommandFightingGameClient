@@ -1,10 +1,6 @@
-﻿using Manager;
-using Movement;
-using UnityEngine;
-
-namespace RollbackNetcode
+﻿namespace RollbackNetcode.State
 {
-    public class GuardState : State
+    public class GuardState : StateBase
     {
         public bool Guarded { private get; set; }
 
@@ -32,7 +28,7 @@ namespace RollbackNetcode
             }
         }
 
-        public override State Clone()
+        public override StateBase Clone()
         {
             return new GuardState(Guarded);
         }

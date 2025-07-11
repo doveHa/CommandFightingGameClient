@@ -1,12 +1,13 @@
-﻿using Handler;
-using Manager;
-using RollbackNetcode;
+﻿using Manager;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using RollbackNetcode;
+using RollbackNetcode.State;
+using RollbackNetcode.StateSimulator;
 
-namespace Movement
+namespace RollbackNetcode.SetState
 {
-    public class SetGuard : SetState
+    public class SetGuard : SetStateBase
     {
         private bool guardKeyInput = false;
         private bool prevInput = false;
@@ -30,7 +31,7 @@ namespace Movement
 
         protected override string StateSet()
         {
-            RollbackManager.Manager.GuardSimulator.AddState(StateSimulator.CurrentFrame,
+            RollbackManager.Manager.GuardSimulatorBase.AddState(StateSimulatorBase.CurrentFrame,
                 new GuardState(guardKeyInput));
             return guardKeyInput.ToString();
         }
@@ -44,7 +45,7 @@ namespace Movement
         private void GuardKeyInput(InputAction.CallbackContext ctx)
         {
             guardKeyInput = true;
-            RollbackManager.Manager.GuardSimulator.AddState(StateSimulator.CurrentFrame, new GuardState(guardKeyInput));
+            RollbackManager.Manager.GuardSimulatorBase.AddState(StateSimulatorBase.CurrentFrame, new GuardState(guardKeyInput));
             Debug.Log("StartGuard");
             VarManager.Manager.Player.IsGuard = true;
         }
@@ -52,7 +53,7 @@ namespace Movement
         private void GuardKeyInputCancel(InputAction.CallbackContext ctx)
         {
             guardKeyInput = false;
-            RollbackManager.Manager.GuardSimulator.AddState(StateSimulator.CurrentFrame, new GuardState(guardKeyInput));
+            RollbackManager.Manager.GuardSimulatorBase.AddState(StateSimulatorBase.CurrentFrame, new GuardState(guardKeyInput));
             VarManager.Manager.Player.IsGuard = false;
         }
     }

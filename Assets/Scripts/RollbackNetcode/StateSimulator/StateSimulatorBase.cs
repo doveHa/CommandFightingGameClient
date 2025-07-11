@@ -1,42 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
-using Movement;
+using RollbackNetcode.SetState;
 using UnityEngine;
+using RollbackNetcode.State;
 
-namespace RollbackNetcode
+namespace RollbackNetcode.StateSimulator
 {
-    public abstract class StateSimulator : MonoBehaviour
+    public abstract class StateSimulatorBase : MonoBehaviour
     {
-        protected SetState SetState { get; set; }
+        protected SetStateBase SetStateBase { get; set; }
         public static int CurrentFrame => CalculateCurrentFrame();
         public static long SharedStartTimeMs;
         public static long TimeOffsetFromSharedStart;
 
         protected const int FRAME = 0, VALUE = 1;
-        protected Dictionary<int, State> LocalStates, RemoteStates;
+        protected Dictionary<int, StateBase> LocalStates, RemoteStates;
 
         private const int FrameIntervalMs = 16;
         protected int LeastSimulatedFrame;
 
         public virtual void Start()
         {
-            LocalStates = new Dictionary<int, State>();
-            RemoteStates = new Dictionary<int, State>();
+            LocalStates = new Dictionary<int, StateBase>();
+            RemoteStates = new Dictionary<int, StateBase>();
         }
 
         void FixedUpdate()
         {
             int frame = CurrentFrame;
-            SetState.ApplyState();
+            SetStateBase.ApplyState();
             PredictionFrame(frame);
             LocalStates[frame].Simulate(true, 0);
             RemoteStates[frame].Simulate(false, 0);
             LeastSimulatedFrame = frame;
         }
 
-        public void AddState(int frame, State state)
+        public void AddState(int frame, StateBase stateBase)
         {
-            LocalStates[frame] = state;
+            LocalStates[frame] = stateBase;
         }
 
         public abstract void ProcessingMessage(string msg);

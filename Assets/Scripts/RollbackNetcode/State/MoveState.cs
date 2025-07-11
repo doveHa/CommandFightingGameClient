@@ -1,11 +1,9 @@
-﻿using Handler;
-using Manager;
-using Movement;
+﻿using Movement;
 using UnityEngine;
 
-namespace RollbackNetcode
+namespace RollbackNetcode.State
 {
-    public class MoveState : State
+    public class MoveState : StateBase
     {
         public int MoveDirection { private get; set; }
 
@@ -27,12 +25,7 @@ namespace RollbackNetcode
             CharacterMovementController.MoveCharacter(target, MoveDirection);
         }
 
-        public override void Print()
-        {
-            Debug.Log(MoveDirection);
-        }
-
-        public override State Clone()
+        public override StateBase Clone()
         {
             return new MoveState(MoveDirection);
         }

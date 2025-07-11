@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
-using Movement;
-using UnityEngine.SocialPlatforms;
+﻿using RollbackNetcode.State;
+using RollbackNetcode.SetState;
 
-namespace RollbackNetcode
+namespace RollbackNetcode.StateSimulator
 {
-    public class JumpStateSimulator : StateSimulator
+    public class JumpStateSimulator : StateSimulatorBase
     {
         public override void Start()
         {
             base.Start();
-            SetState = new SetJump();
+            SetStateBase = new SetJump();
             LocalStates.Add(0, new JumpState());
             RemoteStates.Add(0, new JumpState());
         }

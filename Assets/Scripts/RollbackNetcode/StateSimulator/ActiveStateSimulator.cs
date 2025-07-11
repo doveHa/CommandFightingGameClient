@@ -1,14 +1,15 @@
-﻿using Movement;
-using UnityEngine;
+﻿using UnityEngine;
+using RollbackNetcode.State;
+using RollbackNetcode.SetState;
 
-namespace RollbackNetcode
+namespace RollbackNetcode.StateSimulator
 {
-    public class ActiveStateSimulator : StateSimulator
+    public class ActiveStateSimulator : StateSimulatorBase
     {
         public override void Start()
         {
             base.Start();
-            SetState = new SetActive();
+            SetStateBase = new SetActive();
             LocalStates.Add(0, new ActiveState());
             RemoteStates.Add(0, new ActiveState());
         }

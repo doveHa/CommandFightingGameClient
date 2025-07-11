@@ -1,15 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using Manager;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
+using RollbackNetcode.StateSimulator;
 
 namespace RollbackNetcode
 {
     public class RollbackManager : MonoBehaviour
     {
         public static RollbackManager Manager { get; private set; }
-        public StateSimulator ActiveSimulator, JumpStateSimulator, MoveStateSimulator, GuardSimulator;
+        public StateSimulatorBase ActiveSimulatorBase;
+        [FormerlySerializedAs("JumpStateSimulator")] public StateSimulatorBase JumpStateSimulatorBase;
+        [FormerlySerializedAs("MoveStateSimulator")] public StateSimulatorBase MoveStateSimulatorBase;
+        public StateSimulatorBase GuardSimulatorBase;
 
         private long localSyncRequestTime;
 
@@ -32,8 +35,8 @@ namespace RollbackNetcode
             long now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             long sharedStartTime = (now + remoteTime) / 2;
 
-            StateSimulator.TimeOffsetFromSharedStart = sharedStartTime - now;
-            StateSimulator.SharedStartTimeMs = sharedStartTime;
+            StateSimulatorBase.TimeOffsetFromSharedStart = sharedStartTime - now;
+            StateSimulatorBase.SharedStartTimeMs = sharedStartTime;
         }
 
 
@@ -43,16 +46,16 @@ namespace RollbackNetcode
             switch (int.Parse(split[0]))
             {
                 case Constant.SteamNetworkingType.KeyInput.MOVESTATE:
-                    MoveStateSimulator.ProcessingMessage(msg.Substring("2>".Length));
+                    MoveStateSimulatorBase.ProcessingMessage(msg.Substring("2>".Length));
                     break;
                 case Constant.SteamNetworkingType.KeyInput.JUMPSTATE:
-                    JumpStateSimulator.ProcessingMessage(msg.Substring("2>".Length));
+                    JumpStateSimulatorBase.ProcessingMessage(msg.Substring("2>".Length));
                     break;
                 case Constant.SteamNetworkingType.KeyInput.ACTIVESTATE:
-                    ActiveSimulator.ProcessingMessage(msg.Substring("2>".Length));
+                    ActiveSimulatorBase.ProcessingMessage(msg.Substring("2>".Length));
                     break;
                 case Constant.SteamNetworkingType.KeyInput.GUARDSTATE:
-                    GuardSimulator.ProcessingMessage(msg.Substring("2>".Length));
+                    GuardSimulatorBase.ProcessingMessage(msg.Substring("2>".Length));
                     break;
             }
         }

@@ -6348,93 +6348,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: 543ca169c683a7e48a51bf5f435336e3, type: 3}
   scaleMultiplier: 0.8
---- !u!1 &1396479282
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1396479284}
-  - component: {fileID: 1396479283}
-  m_Layer: 0
-  m_Name: "\uCE90\uB9AD\uD130 \uC120\uD0DD \uBC30\uACBD_0"
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!212 &1396479283
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1396479282}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: -1
-  m_Sprite: {fileID: 935869298942160272, guid: 5f40c3f734f6d5b46b5ab2ddd6b001a5, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 11.44, y: 7.68}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!4 &1396479284
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1396479282}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0213, y: -0.0119, z: 0}
-  m_LocalScale: {x: 1.5721784, y: 1.3278008, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1423264768
 GameObject:
   m_ObjectHideFlags: 0
@@ -6682,50 +6595,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1466221487}
   m_CullTransparentMesh: 1
---- !u!1 &1500468884
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1500468886}
-  - component: {fileID: 1500468885}
-  m_Layer: 0
-  m_Name: WebSocketManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1500468885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1500468884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b6fb4c9b9194e65932d3f8b8fad6ad4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1500468886
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1500468884}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.59726, y: -2.3017, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1504990298
 GameObject:
   m_ObjectHideFlags: 0
@@ -7106,6 +6975,7 @@ GameObject:
   - component: {fileID: 1630924483}
   - component: {fileID: 1630924482}
   - component: {fileID: 1630924486}
+  - component: {fileID: 1630924487}
   m_Layer: 5
   m_Name: MatchingBTN
   m_TagString: Untagged
@@ -7178,7 +7048,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1500468885}
+      - m_Target: {fileID: 1630924487}
         m_TargetAssemblyTypeName: Server.MatchMaking, Assembly-CSharp
         m_MethodName: StartMatching
         m_Mode: 1
@@ -7242,6 +7112,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: 543ca169c683a7e48a51bf5f435336e3, type: 3}
   scaleMultiplier: 0.8
+--- !u!114 &1630924487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630924479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b6fb4c9b9194e65932d3f8b8fad6ad4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1664438415
 GameObject:
   m_ObjectHideFlags: 0
@@ -8715,11 +8597,11 @@ Transform:
   m_GameObject: {fileID: 1855849079}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.26, y: -4.74, z: -0.037884645}
+  m_LocalPosition: {x: 0.43000007, y: -6.0199995, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1959562327}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1855849081
 BoxCollider2D:
@@ -9681,6 +9563,7 @@ Transform:
   - {fileID: 148953760}
   - {fileID: 784638616}
   - {fileID: 1333316918}
+  - {fileID: 1855849080}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1959562328
@@ -10034,9 +9917,7 @@ GameObject:
   - component: {fileID: 2061859913}
   - component: {fileID: 2061859912}
   m_Layer: 0
-  m_Name: "Firefly \uD654\uBA74\uC758 \uBC1D\uC740 \uBD80\uBD84\uB9CC \uBC18\uC9DD\uAC70\uB9AC\uAC8C
-    \uB9CC\uB4E4\uC5B4\uC918. \uD654\uBA74\uC740 \uC6C0\uC9C1\uC774\uC9C0 \uC54A\uC544\uC57C
-    \uD574. 583695"
+  m_Name: UserMainBackGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10356,14 +10237,11 @@ SceneRoots:
   - {fileID: 530696508}
   - {fileID: 745269836}
   - {fileID: 1959562327}
-  - {fileID: 1855849080}
   - {fileID: 1716799835}
   - {fileID: 861049855}
   - {fileID: 520178294}
-  - {fileID: 1396479284}
   - {fileID: 729899608}
   - {fileID: 1131878591}
   - {fileID: 2059321521}
   - {fileID: 1664438417}
   - {fileID: 2061859913}
-  - {fileID: 1500468886}

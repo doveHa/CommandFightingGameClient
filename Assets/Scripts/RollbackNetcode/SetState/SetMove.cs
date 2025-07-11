@@ -1,13 +1,14 @@
-﻿using System;
-using Handler;
+﻿using Handler;
 using Manager;
-using RollbackNetcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using RollbackNetcode;
+using RollbackNetcode.State;
+using RollbackNetcode.StateSimulator;
 
-namespace Movement
+namespace RollbackNetcode.SetState
 {
-    public class SetMove : SetState
+    public class SetMove : SetStateBase
     {
         private Vector2 moveDirection;
         private int prevMove;
@@ -33,7 +34,7 @@ namespace Movement
         {
             int playerMovement = PlayerMovement();
 
-            RollbackManager.Manager.MoveStateSimulator.AddState(StateSimulator.CurrentFrame,
+            RollbackManager.Manager.MoveStateSimulatorBase.AddState(StateSimulatorBase.CurrentFrame,
                 new MoveState(playerMovement));
 
             return (-1 * playerMovement).ToString();

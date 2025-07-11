@@ -1,12 +1,6 @@
-﻿using Manager;
-#if UNITY_EDITOR
-using UnityEditor.Rendering;
-#endif
-using UnityEngine;
-
-namespace RollbackNetcode
+﻿namespace RollbackNetcode.State
 {
-    public class ActiveState : State
+    public class ActiveState : StateBase
     {
         public int SkillIndex { private get; set; }
 
@@ -37,7 +31,7 @@ namespace RollbackNetcode
             }
         }
 
-        public override State Clone()
+        public override StateBase Clone()
         {
             return new ActiveState(SkillIndex);
         }
