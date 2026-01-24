@@ -9,8 +9,6 @@ using Manager;
 using RestSharp;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace Server
 {

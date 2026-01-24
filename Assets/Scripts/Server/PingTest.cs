@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections;
-using Steamworks;
 using System.Collections.Generic;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 using Manager;
-using UnityEngine;
+using DTO;
 
 namespace Server
 {
@@ -36,11 +32,9 @@ namespace Server
             {
                 case "ping":
                     SteamNetworkManager.Manager.SendMsg(steamId, Constant.SteamNetworkingType.PINGTEST, "pong");
-                    Print("Send Ping");
                     break;
                 case "pong":
                     ReceivedTime.Add(steamId, DateTime.Now.Millisecond);
-                    Print("Received Pong");
                     _receiveId++;
                     if (_receiveId == _sendId)
                     {
@@ -59,13 +53,10 @@ namespace Server
                 {
                     SteamNetworkManager.Manager.SendMsg(steamID, Constant.SteamNetworkingType.PINGTEST, "ping");
                     SentTime.Add(steamID, DateTime.Now.Millisecond);
-
-                    Print("Send Ping");
                 }
             }
         }
-
-
+        
         public static string PingTestResult()
         {
             Dictionary<string, float> result = new Dictionary<string, float>();
@@ -79,8 +70,7 @@ namespace Server
 
             return "PingResult:" + JsonSerializer.Serialize(result);
         }
-
-
+        
         private static string FindKey(string steamId)
         {
             foreach (PingTestDTO dto in _idList)
@@ -90,19 +80,7 @@ namespace Server
                     return dto.Key;
                 }
             }
-
             return null;
-        }
-
-        public static void Print(string message)
-        {
-            Debug.Log("[PingTest] > " + message);
-        }
-
-        private class PingTestDTO
-        {
-            public string Key { get; set; }
-            public string Value { get; set; }
         }
     }
 }

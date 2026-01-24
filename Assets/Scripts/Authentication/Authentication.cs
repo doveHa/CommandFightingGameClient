@@ -6,14 +6,11 @@ using UnityEngine;
 using Server;
 using Manager;
 using DTO;
-using UnityEngine.SceneManagement;
 
 namespace Authentication
 {
-    public class Authentication : MonoBehaviour
+    public static class Authentication
     {
-        public GameObject loginFailed;
-
         public static async Task<string> regist(string id, string pw, string name)
         {
             RestResponse response =
@@ -48,7 +45,6 @@ namespace Authentication
 
             if (response.IsSuccessful)
             {
-                Debug.Log("�α��� ����!");
                 SceneLoadManager.Manager.LoadLoadingScene();
                 LoginManager.Manager.SetTokens(JsonSerializer.Deserialize<AuthTokensDTO>(response.Content));
                 string pName = await GetPlayerName();
