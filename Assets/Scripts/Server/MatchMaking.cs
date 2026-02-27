@@ -96,6 +96,7 @@ namespace Server
                 SteamNetworkManager.Manager.SendMsg(SteamNetworkManager.Manager.RemoteSteamId,
                     Constant.SteamNetworkingType.CONNECTION,
                     VarManager.Manager.PlayerCharacterName);
+                StopMatching();
             }
             catch (Exception e)
             {
@@ -123,12 +124,13 @@ namespace Server
             try
             {
                 WebSocketReceiveResult result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), cts.Token);
+                /*
                 if (result.MessageType == WebSocketMessageType.Close)
                 {
                     Print("Server Closed Connection");
                     await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, cts.Token);
                     return null;
-                }
+                }*/
 
                 return Encoding.UTF8.GetString(buffer, 0, result.Count);
             }
@@ -167,12 +169,12 @@ namespace Server
 
         async void OnDestroy()
         {
-            await StopMatching();
+            //await StopMatching();
         }
 
         async void OnApplicationQuit()
         {
-            await StopMatching();
+            //await StopMatching();
         }
 
         private async Task StopMatching()

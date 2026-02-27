@@ -54,8 +54,8 @@ namespace Manager
             comboInputHandler = GameObject.Find("Manager").GetComponent<ComboInputHandler>();
             await Initialize();
             
-            CharacterOn("Naktis");
-            handler.ChangeCommandInfoLoad("Naktis");
+            CharacterOn("Kagetsu");
+            handler.ChangeCommandInfoLoad("Kagetsu");
         }
 
         private async Task Initialize()
