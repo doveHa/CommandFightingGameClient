@@ -22,6 +22,11 @@ public class UserMainSkill : MonoBehaviour
         }
     }
 
+    public void Punch()
+    {
+        GetComponentInChildren<Punch>().Run(0);
+    }
+
     private void RunIndexSkill(int index)
     {
         switch (index)

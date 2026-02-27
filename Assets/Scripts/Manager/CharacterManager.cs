@@ -21,9 +21,10 @@ namespace Manager
 
         public CharacterGroup CharacterGroup { get; private set; }
 
-        public void CharacterOn()
+        public CharacterSelectHandler handler;
+        public void CharacterOn(string characterName)
         {
-            comboInputHandler.AddCharacterCombo(VarManager.Manager.PlayerCharacterName);
+            comboInputHandler.AddCharacterCombo(characterName);
 
             GameObject characterSet = GameObject.Find("Character");
             for (int i = 0; i < characterSet.transform.childCount; i++)
@@ -31,17 +32,18 @@ namespace Manager
                 characterSet.transform.GetChild(i).gameObject.SetActive(false);
             }
 
-            characterSet.transform.Find(VarManager.Manager.PlayerCharacterName).gameObject.SetActive(true);
+            characterSet.transform.Find(characterName).gameObject.SetActive(true);
         }
 
         void Awake()
         {
-            if (!GameObject.Find("Manager").TryGetComponent<CharacterManager>(out CharacterManager manager) &&
-                Manager == null)
+            if (Manager != null)
             {
-                GameObject.Find("Manager").AddComponent<CharacterManager>();
-                Manager = GameObject.Find("Manager").GetComponent<CharacterManager>();
                 Destroy(gameObject);
+            }
+            else
+            {
+                Manager = this;
             }
 
             CharacterGroup = new CharacterGroup();
@@ -49,8 +51,11 @@ namespace Manager
 
         async void Start()
         {
-            comboInputHandler = GetComponent<ComboInputHandler>();
+            comboInputHandler = GameObject.Find("Manager").GetComponent<ComboInputHandler>();
             await Initialize();
+            
+            CharacterOn("Naktis");
+            handler.ChangeCommandInfoLoad("Naktis");
         }
 
         private async Task Initialize()

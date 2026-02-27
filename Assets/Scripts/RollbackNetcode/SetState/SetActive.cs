@@ -1,7 +1,10 @@
-﻿using Manager;
+﻿using System.IO.Enumeration;
+using Manager;
 using RollbackNetcode;
 using RollbackNetcode.State;
 using RollbackNetcode.StateSimulator;
+using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace RollbackNetcode.SetState
@@ -28,7 +31,8 @@ namespace RollbackNetcode.SetState
 
         protected override string StateSet()
         {
-            RollbackManager.Manager.ActiveSimulatorBase.AddState(StateSimulatorBase.CurrentFrame, new ActiveState(SkillIndex));
+            RollbackManager.Manager.ActiveSimulatorBase.AddState(StateSimulatorBase.CurrentFrame,
+                new ActiveState(SkillIndex));
             return SkillIndex.ToString();
         }
 
@@ -40,6 +44,12 @@ namespace RollbackNetcode.SetState
 
         private void PunchKeyInput(InputAction.CallbackContext context)
         {
+            if (VarManager.Manager.Player == null)
+            {
+                GameObject.Find("Character").GetComponent<UserMainSkill>().Punch();
+                return;
+            }
+
             if (VarManager.Manager.Player.IsJumping)
             {
                 SkillIndex = Constant.SkillName.JUMP_PUNCH;

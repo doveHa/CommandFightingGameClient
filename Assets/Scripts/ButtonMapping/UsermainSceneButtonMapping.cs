@@ -38,7 +38,7 @@ namespace ButtonMapping
 
             characterInfoToMain();
 
-            CharacterManager.Manager.CharacterOn();
+            CharacterManager.Manager.CharacterOn(VarManager.Manager.PlayerCharacterName);
         }
         public void Logout()
         {

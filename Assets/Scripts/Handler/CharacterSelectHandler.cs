@@ -22,9 +22,9 @@ namespace Handler
         public static string CurrentShowCharacter { get; private set; }
         public static string CurrentShowSkill { get; private set; }
         public static string[] skillNames { get; private set; }
-        
+
         private Color defaultColor, selectCharacterColor;
-        
+
         private Image[] skillIcons;
         private TextMeshProUGUI[] commands;
 
@@ -56,7 +56,7 @@ namespace Handler
             }
 
             SkillIconLoad();
-            ChangeCommandInfoLoad();
+            ChangeCommandInfoLoad(CurrentShowCharacter);
             description.transform.GetChild(index).gameObject.SetActive(true);
         }
 
@@ -94,11 +94,11 @@ namespace Handler
                     Resources.Load<Sprite>("Images/Icon/SkillIcon/" + skills[i].Name);
             }
         }
-        
+
         //메인의 스킬 아이콘, 커맨드를 로드
-        private void ChangeCommandInfoLoad()
+        public void ChangeCommandInfoLoad(string characterName)
         {
-            ICharacter character = CurrentCharacter();
+            ICharacter character = CharacterManager.Manager.CharacterGroup.Characters[characterName];
 
             for (int i = 0; i < skillIcons.Length; i++)
             {
@@ -112,10 +112,9 @@ namespace Handler
                 skillIcons[i].sprite = Resources.Load<Sprite>("Images/Icon/SkillIcon/" + skills[i].Name);
                 skillNames[i] = skills[i].Name;
                 commands[i].text = CommandListToString(skills[i].Command);
-                
             }
         }
-        
+
         //스킬 아이콘 클릭 시 스킬 이름 및 설명 로드
         public void OnClickSkillIcon(int index)
         {
@@ -125,7 +124,7 @@ namespace Handler
             skillName.text = skillInfo.Name;
             skillDescription.text = skillInfo.Description;
         }
-        
+
         //커맨드 키를 char로 변환
         public static char CommandToCharacter(string command)
         {
@@ -164,7 +163,7 @@ namespace Handler
                 out ICharacter character);
             return character;
         }
-        
+
         //커맨드 변경 후 다시 커맨드 로드
         public void ReLoadCommand()
         {
