@@ -34,8 +34,8 @@ namespace Manager
         public void LoadGameScene(string opponentName)
         {
             Debug.Log(opponentName);
-//            VarManager.Manager.OpponentCharacterName = opponentName;
-            VarManager.Manager.OpponentCharacterName = "Kagetsu";
+            VarManager.Manager.OpponentCharacterName = opponentName;
+            //VarManager.Manager.OpponentCharacterName = "Kagetsu";
             SceneManager.LoadScene(Constant.Scene.GAME_SCENE);
         }
 
