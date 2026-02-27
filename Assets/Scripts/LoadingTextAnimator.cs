@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class LoadingTextAnimator : MonoBehaviour
 {
-    public TextMeshProUGUI loadingText; // ¿¬°áÇÒ TMP UI ÅØ½ºÆ®
-    public float switchInterval = 0.1f;  // °£°Ý (ÃÊ)
+    public TextMeshProUGUI loadingText; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ TMP UI ï¿½Ø½ï¿½Æ®
+    public float switchInterval = 0.1f;  // ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½)
 
-    private string[] texts = { "Loding", "Loding.", "Loding..", "Loding..." };
+    private string[] texts = { "Loading", "Loading.", "Loading..", "Loading..." };
     private int currentIndex = 0;
     private float timer;
 
