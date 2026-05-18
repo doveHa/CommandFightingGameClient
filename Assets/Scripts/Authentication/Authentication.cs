@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
 using RestSharp;
-using UnityEngine;
 using Server;
 using Manager;
 using DTO;
@@ -19,14 +18,15 @@ namespace Authentication
             if (response.IsSuccessful)
             {
                 response =
-                    await RestAPIRequest.Post(Constant.RestAPI.Auth.LOGIN, new { loginId = id, loginPassword = pw }, null);
+                    await RestAPIRequest.Post(Constant.RestAPI.Auth.LOGIN, new { loginId = id, loginPassword = pw },
+                        null);
                 if (response.IsSuccessful)
                 {
                     LoginManager.Manager.SetTokens(JsonSerializer.Deserialize<AuthTokensDTO>(response.Content));
 
                     response = await RestAPIRequest.Post(Constant.RestAPI.Player.CREATE, new { playerName = name },
                         LoginManager.Manager.GetAuthHeader());
-                    
+
                     logout(LoginManager.Manager.GetTokens().refreshToken);
                 }
             }
@@ -38,7 +38,7 @@ namespace Authentication
             return null;
         }
 
-        public static async Task<string> login(string id, string pw)
+        public static async Task<bool> login(string id, string pw)
         {
             RestResponse response =
                 await RestAPIRequest.Post(Constant.RestAPI.Auth.LOGIN, new { loginId = id, loginPassword = pw }, null);
@@ -50,9 +50,11 @@ namespace Authentication
                 string pName = await GetPlayerName();
                 await PlayerLogin(pName);
                 await LoginManager.Manager.Login();
-            }
 
-            return response.Content;
+                return true;
+            }
+            
+            return false;
         }
 
         private static async Task<string> GetPlayerName()
