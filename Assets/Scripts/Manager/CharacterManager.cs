@@ -13,8 +13,6 @@ namespace Manager
 {
     public class CharacterManager : MonoBehaviour
     {
-        //선택한 캐릭터의 이름만 vs 선택한 캐릭터의 객체 정보
-
         public static CharacterManager Manager { get; private set; }
 
         private ComboInputHandler comboInputHandler;
