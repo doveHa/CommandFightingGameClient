@@ -7480,7 +7480,7 @@ MonoBehaviour:
   authElements:
     loginId: {fileID: 0}
     loginPw: {fileID: 0}
-    userName: {fileID: 0}
+    userName: {fileID: 819670162}
     loginGroup: {fileID: 963465015}
     registerId: {fileID: 1052585618}
     registerPw: {fileID: 1495088748}
